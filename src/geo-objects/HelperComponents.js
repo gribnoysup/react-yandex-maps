@@ -2,17 +2,17 @@ import React from 'react'
 import GeoObject from './GeoObject'
 import {GEO_OBJECT} from '../util/symbols'
 
-export function Point({geometry, ...props}) {
+export function Placemark({geometry, ...props}) {
   return <GeoObject geometry={{type: 'Point', ...geometry}} {...props} />
 }
 
-Point[GEO_OBJECT] = true
+Placemark[GEO_OBJECT] = true
 
-export function LineString({geometry, ...props}) {
+export function Polyline({geometry, ...props}) {
   return <GeoObject geometry={{type: 'LineString', ...geometry}} {...props} />
 }
 
-LineString[GEO_OBJECT] = true
+Polyline[GEO_OBJECT] = true
 
 export function Rectangle({geometry, ...props}) {
   return <GeoObject geometry={{type: 'Rectangle', ...geometry}} {...props} />

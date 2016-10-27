@@ -1,17 +1,49 @@
 {
   "name": "react-yandex-maps",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Yandex Maps API bindings for React",
-  "main": "dist/index.js",
+  "main": "dist/react-yandex-maps.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "build:dev": "NODE_ENV=development npm run build",
+    "build:prod": "NODE_ENV=production npm run build",
+    "release:patch": "npm run pull && npm version patch && npm run push",
+    "release:minor": "npm run pull && npm version minor && npm run push",
+    "release:major": "npm run pull && npm version major && npm run push",
+    "clear": "rm -rf ./dist",
+    "pull": "git checkout master && git pull origin master",
+    "push": "git push origin master --tags"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.qiwi.com/s-petushkov/react-yandex-maps.git"
+    "url": "https://github.com/gribnoysup/react-yandex-maps.git"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.0",
+    "babel-eslint": "6.1.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "eslint": "3.5.0",
+    "eslint-config-react-app": "0.2.1",
+    "eslint-plugin-flowtype": "2.18.1",
+    "eslint-plugin-import": "1.12.0",
+    "eslint-plugin-jsx-a11y": "2.2.2",
+    "eslint-plugin-react": "6.3.0",
+    "lodash.isequal": "^4.4.0",
+    "webpack": "^1.13.3"
   },
   "keywords": [
     "react",
