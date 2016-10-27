@@ -1,0 +1,25 @@
+{
+  "name": "react-yandex-maps",
+  "version": "0.1.0",
+  "description": "Yandex Maps API bindings for React",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.qiwi.com/s-petushkov/react-yandex-maps.git"
+  },
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "yandex",
+    "maps",
+    "yandex-maps"
+  ],
+  "author": "Sergey Petushkov <petushkov.sergey@gmail.com>",
+  "license": "MIT"
+}

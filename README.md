@@ -1,0 +1,1 @@
+Yandex Maps API bindings for React 
