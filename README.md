@@ -1,12 +1,12 @@
-### Yandex Maps API bindings for React 
+# Yandex Maps API bindings for React 
 
-#### Install
+## Install
 
 ```shell
 npm install -save https://github.com/gribnoysup/react-yandex-maps.git
 ```
 
-#### Avaliable components
+## Avaliable components
 
 ```js
 import YMaps from 'react-yandex-maps'
@@ -24,10 +24,11 @@ const {
 } = YMaps
 ```
 
-#### Examples
+## Examples
 
-##### Map basics
-##### https://tech.yandex.ru/maps/jsbox/2.1/mapbasics
+### Map basics
+
+https://tech.yandex.ru/maps/jsbox/2.1/mapbasics
 
 ```js
 import YMaps from 'react-yandex-maps'
@@ -49,8 +50,9 @@ export default function MapBasicsExample({showMap}) {
 }
 ```
 
-##### Placemark
-##### https://tech.yandex.ru/maps/jsbox/2.1/placemark
+### Placemark
+
+https://tech.yandex.ru/maps/jsbox/2.1/placemark
 
 ```js
 import YMaps from 'react-yandex-maps'
@@ -156,7 +158,7 @@ export default function PlacemarkExample() {
 }
 ```
 
-#### TODO:
+### TODO:
 
 - More propTypes
 - Add tests
