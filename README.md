@@ -11,16 +11,16 @@ npm install -save https://github.com/gribnoysup/react-yandex-maps.git
 ```js
 import YMaps from 'react-yandex-maps'
 
-const {  
+const {
   Map,
   Clusterer,
   GeoObject,
   ObjectManager,
   Placemark,
-  LineString,
+  Polyline,
   Rectangle,
   Polygon,
-  Circle
+  Circle,
 } = YMaps
 ```
 
