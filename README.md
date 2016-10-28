@@ -1,9 +1,9 @@
-# Yandex Maps API bindings for React 
+# Yandex Maps API bindings for React
 
 ## Install
 
 ```shell
-npm install -save https://github.com/gribnoysup/react-yandex-maps.git
+npm install --save https://github.com/gribnoysup/react-yandex-maps.git
 ```
 
 ## Avaliable components
@@ -37,7 +37,7 @@ export default function MapBasicsExample({showMap}) {
   if (!showMap) return null
 
   return (
-    <YMaps.Map 
+    <YMaps.Map
       state={{
         center: [55.76, 37.64],
         zoom: 10
