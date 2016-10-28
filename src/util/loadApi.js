@@ -42,7 +42,7 @@ export default function loadApi(options) {
     return loadApiPromise
   }
 
-  return new Promise((resolve, reject) => {
+  loadApiPromise = new Promise((resolve, reject) => {
     window[CONFIG.options.onload] = (ymaps) => {
       resolve(ymaps)
       window[CONFIG.options.onload] = null
@@ -55,4 +55,6 @@ export default function loadApi(options) {
 
     fetchScript(generateURL(options))
   })
+
+  return loadApiPromise
 }
