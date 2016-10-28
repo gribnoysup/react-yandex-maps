@@ -126,13 +126,13 @@ cd ./react-yandex-maps
 npm start
 ```
 
-### TODO:
+## TODO:
 
 - More propTypes
 - Add tests
 - More docs and examples
 
-### Thanks
+## Thanks
 
 Thanks to @effrenus and his [yandex-map-react](https://github.com/effrenus/yandex-map-react)
 for inspiration
