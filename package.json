@@ -5,6 +5,7 @@
   "main": "dist/react-yandex-maps.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm install && npm run build && cd ./examples && npm install && npm start",
     "build": "webpack",
     "build:dev": "NODE_ENV=development npm run build",
     "build:prod": "NODE_ENV=production npm run build",
@@ -19,9 +20,6 @@
     "type": "git",
     "url": "https://github.com/gribnoysup/react-yandex-maps.git"
   },
-  "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0"
-  },
   "babel": {
     "presets": [
       "es2015",
@@ -30,6 +28,8 @@
     ]
   },
   "devDependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
     "babel-core": "^6.18.0",
     "babel-eslint": "6.1.2",
     "babel-loader": "^6.2.7",
