@@ -8,7 +8,7 @@
     "start": "npm install && npm run build && cd ./examples && npm install && npm start",
     "build": "webpack",
     "build:dev": "NODE_ENV=development npm run build",
-    "build:prod": "NODE_ENV=production npm run build",
+    "build:prod": "npm run clear && NODE_ENV=production npm run build",
     "release:patch": "npm run pull && npm version patch && npm run push",
     "release:minor": "npm run pull && npm version minor && npm run push",
     "release:major": "npm run pull && npm version major && npm run push",
