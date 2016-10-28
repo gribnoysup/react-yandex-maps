@@ -1,0 +1,36 @@
+.app {
+  display: flex;
+  height: 100vh;
+  min-width: 1024px;
+  margin: 0 auto;
+  align-items: stretch;
+  background-color: #ffffff;
+}
+
+.navigation {
+  min-width: 220px;
+  max-width: 220px;
+  width: 220px;
+  border-right: 1px solid lightgray;
+}
+
+.navigation__header {
+  font-size: 1.2em;
+}
+
+.navigation__header > a {
+  color: #000000 !important;
+}
+
+.navigation > li > a {
+  border-radius: 0;
+}
+
+.code-preview {
+  flex: 1 1 auto;
+  border-right: 1px solid lightgray;
+}
+
+.demo-container {
+  padding: 5px;
+}
