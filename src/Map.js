@@ -51,7 +51,10 @@ export default class Map extends Component {
     const {api} = this.state
     const instance = new api.Map(this.mapNode, state, options)
     this.addEvents(instance, events)
-    this.setState({instance})
+    this.setState({instance}, () => {
+      const cb = this.props.onMapAvaliable
+      if (typeof cb === 'function') cb(instance)
+    })
   }
 
   unmountMap() {
