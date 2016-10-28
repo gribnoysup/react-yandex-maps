@@ -1,4 +1,7 @@
-# Yandex Maps API bindings for React
+# react-yandex-maps
+
+[Yandex Maps API](https://tech.yandex.ru/maps/doc/jsapi/2.1/quick-start/tasks/quick-start-docpage/)
+bindings for React
 
 ## Install
 
@@ -6,156 +9,121 @@
 npm install --save https://github.com/gribnoysup/react-yandex-maps.git
 ```
 
-## Avaliable components
+## Basic Usage
 
 ```js
+// with yandex maps api
+
+window.ymaps.ready(function () {
+  const myMap = new window.ymaps.Map('map', {
+    center: [55.751574, 37.573856],
+    zoom: 9
+  }, {
+    searchControlProvider: 'yandex#search'
+  })
+
+
+  const myPlacemark = new window.ymaps.Placemark([55.751574, 37.573856], {
+    hintContent: 'Собственный значок метки',
+    balloonContent: 'Это красивая метка'
+  }, {
+    iconLayout: 'default#image',
+    iconImageHref: 'images/myIcon.gif',
+    iconImageSize: [30, 42],
+    iconImageOffset: [-3, -42]
+  })
+
+  myMap.geoObjects.add(myPlacemark)
+})
+
+
+// with react-yandex-maps
+
 import YMaps from 'react-yandex-maps'
 
-const {
-  Map,
-  Clusterer,
-  GeoObject,
-  ObjectManager,
-  Placemark,
-  Polyline,
-  Rectangle,
-  Polygon,
-  Circle,
-} = YMaps
-```
-
-## Examples
-
-### Map basics
-
-https://tech.yandex.ru/maps/jsbox/2.1/mapbasics
-
-```js
-import YMaps from 'react-yandex-maps'
-
-export default function MapBasicsExample({showMap}) {
-  if (!showMap) return null
-
-  return (
-    <YMaps.Map
-      state={{
-        center: [55.76, 37.64],
-        zoom: 10
+const BasicMap = () => (
+  <YMaps.Map
+    state={{
+      center: [55.76, 37.64],
+      zoom: 10
+    }}
+    options={{
+      searchControlProvider: 'yandex#search'
+    }}
+  >
+    <YMaps.Placemark
+      geometry={{
+        coordinates: [55.826479, 37.487208]
+      }}
+      properties={{
+        hintContent: 'Собственный значок метки',
+        balloonContent: 'Это красивая метка'
       }}
       options={{
-        searchControlProvider: 'yandex#search'
+        iconLayout: 'default#image',
+        iconImageHref: 'images/myIcon.gif',
+        iconImageSize: [30, 42],
+        iconImageOffset: [-3, -42]
       }}
     />
-  )
-}
+  </YMaps.Map>
+)
 ```
 
-### Placemark
-
-https://tech.yandex.ru/maps/jsbox/2.1/placemark
+Supported Yandex.Maps Objects:
 
 ```js
+Map,
+Clusterer,
+GeoObject,
+ObjectManager,
+Placemark,
+Polyline,
+Rectangle,
+Polygon,
+Circle
+```
+
+All Objects events are avaliable, just use camelCase event names instead of
+default ones (for example `geometrychange -> onGeometryChange`):
+
+```js
+function handleEventSomehow() {/* more code */}
+
+// with yandex maps api:
+
+const circle = new window.ymaps.GeoObject({
+  geometry: {
+    type: "Circle",
+    coordinates: [55.76, 37.64],
+    radius: 10000
+  }
+})
+
+circle.events.add('geometrychange', handleEventSomehow)
+
+// with react-yandex-maps
 import YMaps from 'react-yandex-maps'
 
-const placemarks = [{
-  geometry: {
-    type: 'Point',
-    coordinates: [55.684758, 37.738521]
-  },
-  properties: {
-    balloonContent: 'цвет <strong>воды пляжа бонди</strong>'
-  },
-  options: {
-    preset: 'islands#icon',
-    iconColor: '#0095b6'
-  }
-}, {
-  geometry: {
-    type: 'Point',
-    coordinates: [55.833436, 37.715175]
-  },
-  properties: {
-    balloonContent: '<strong>серобуромалиновый</strong> цвет'
-  },
-  options: {
-    preset: 'islands#dotIcon',
-    iconColor: '#735184'
-  }
-}, {
-  geometry: {
-    type: 'Point',
-    coordinates: [55.782392, 37.614924]
-  },
-  properties: {
-    balloonContent: 'цвет <strong>детской неожиданности</strong>'
-  },
-  options: {
-    preset: 'islands#circleDotIcon',
-    iconColor: 'yellow'
-  }
-}, {
-  geometry: {
-    type: 'Point',
-    coordinates: [55.826479, 37.487208]
-  },
-  properties: {
-    balloonContent: 'цвет <strong>фэйсбука</strong>'
-  },
-  options: {
-    preset: 'islands#governmentCircleIcon',
-    iconColor: '#3b5998'
-  }
-}, {
-  geometry: {
-    type: 'Point',
-    coordinates: [55.790139, 37.814052]
-  },
-  properties: {
-    balloonContent: 'цвет <strong>голубой</strong>',
-    iconCaption: 'Очень длиннный, но невероятно интересный текст'
-  },
-  options: {
-    preset: 'islands#blueCircleDotIconWithCaption',
-    iconCaptionMaxWidth: '50'
-  }
-}]
+const Circle = () => (
+  <YMaps.Circle
+    geometry={{
+      coordinates: [55.76, 37.64],
+      radius: 10000
+    }}
+    onGeometryChange={handleEventSomehow}
+  />
+)
+```
 
-export default function PlacemarkExample() {
-  return (
-    <YMaps.Map
-      state={{
-        center: [55.76, 37.64],
-        zoom: 10
-      }}
-      options={{
-        searchControlProvider: 'yandex#search'
-      }}
-    >
-      <YMaps.GeoObject
-        geometry={{
-          type: "Point",
-          coordinates: [55.8, 37.8]
-        }}
-        properties={{
-          iconContent: 'Я тащусь',
-          hintContent: 'Ну давай уже тащи'
-        }}
-        options={{
-          preset: 'islands#blackStretchyIcon',
-          draggable: true
-        }}
-      />
-      {placemarks.map(({geometry, properties, options}, i) =>
-        <YMaps.Placemark
-          key={i}
-          geometry={geometry}
-          properties={properties}
-          options={options}
-        />
-      )}
-    </YMaps.Map>
-  )
-}
+## More examples
+
+To look at examples clone this repo, `cd` to repo folder and run `npm start`
+
+```shell
+git clone https://github.com/gribnoysup/react-yandex-maps.git
+cd ./react-yandex-maps
+npm start
 ```
 
 ### TODO:
@@ -163,3 +131,11 @@ export default function PlacemarkExample() {
 - More propTypes
 - Add tests
 - More docs and examples
+
+### Thanks
+
+Thanks to @effrenus and his [yandex-map-react](https://github.com/effrenus/yandex-map-react)
+for inspiration
+
+Thanks to [create-react-app](https://github.com/facebookincubator/create-react-app)
+team for making examples so easy to use
