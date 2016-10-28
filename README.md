@@ -138,4 +138,4 @@ Thanks to @effrenus and his [yandex-map-react](https://github.com/effrenus/yande
 for inspiration
 
 Thanks to [create-react-app](https://github.com/facebookincubator/create-react-app)
-team for making examples so easy to use
+team for making examples so easy to make
