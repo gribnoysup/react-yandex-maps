@@ -18,7 +18,7 @@ export default function SearchControl() {
         searchControlProvider: 'yandex#search'
       }}
       onMapAvaliable={(map) => {
-        map.controls.get('searchControl').search('Шоколадница')
+        map.controls.get('searchControl').search('Starbucks')
       }}
     />
   )
@@ -45,7 +45,7 @@ export default function SearchControl() {
         searchControlProvider: 'yandex#search'
       }}
       onMapAvaliable={(map) => {
-        map.controls.get('searchControl').search('Шоколадница')
+        map.controls.get('searchControl').search('Starbucks')
       }}
     />
   )
