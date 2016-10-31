@@ -6,42 +6,54 @@ import 'brace/mode/jsx'
 import 'brace/theme/xcode'
 
 import demos from './Demos'
+import LanguageSelect from './LanguageSelect'
 
 import './App.css'
+
+function i18n(language, translations = {}, fallbackLanguage = 'en') {
+  return translations[language] ? translations[language] : translations[fallbackLanguage]
+}
 
 class App extends Component {
   constructor(...args) {
     super(...args)
     this.state = {
       selectedDemo: demos.find((demo) => Boolean(demo.component)),
-      language: 'ru_RU'
+      language: navigator.language.split('-')[0]
     }
   }
 
   render() {
     const {selectedDemo, language} = this.state
     const Demo = selectedDemo.component || null
+    const t = (translations) => i18n(language, translations)
 
     return (
       <div className="app">
-        <Nav
-          stacked
-          bsStyle="pills"
-          className="navigation"
-          activeKey={selectedDemo}
-          onSelect={(selected) => this.setState({selectedDemo: selected})}
-        >
-          {demos.map((demo, i) => (
-            <NavItem
-              key={`nav_${i}`}
-              className={demo.isHeader ? 'navigation__header': undefined}
-              disabled={!Boolean(demo.component)}
-              eventKey={demo}
-            >
-              {demo.label[language]}
-            </NavItem>
-          ))}
-        </Nav>
+        <div className="menu">
+          <Nav
+            stacked
+            bsStyle="pills"
+            className="navigation"
+            activeKey={selectedDemo}
+            onSelect={(selected) => this.setState({selectedDemo: selected})}
+          >
+            {demos.map((demo, i) => (
+              <NavItem
+                key={`nav_${i}`}
+                className={demo.isHeader ? 'navigation__header': 'navigation__item'}
+                disabled={!Boolean(demo.component)}
+                eventKey={demo}
+              >
+                {t(demo.label)}
+              </NavItem>
+            ))}
+          </Nav>
+          <LanguageSelect
+            value={language}
+            onChange={(newVal) => this.setState({language: newVal})}
+          />
+        </div>
         <div className="code-preview">
           {Demo === null ? null :
             <AceEditor

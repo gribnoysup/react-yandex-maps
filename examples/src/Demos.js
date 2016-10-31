@@ -5,35 +5,34 @@ import SearchControl from './sandbox/popular/SearchControl'
 const getSrc = (component) => {
   const libSrc = '../../../../dist/react-yandex-maps'
   const libName = 'react-yandex-maps'
-  // return '```\n' + component.__src.replace(libSrc, libName).trim() + '\n```'
   return component.__src.replace(libSrc, libName).trim()
 }
 
 export default [{
   label: {
-    ru_RU: 'Популярные примеры',
-    en_EN: ''
+    ru: 'Популярные примеры',
+    en: 'Popular examples'
   },
   isHeader: true
-},{
+}, {
   component: IconCustomImage,
   src: getSrc(IconCustomImage),
   label: {
-    ru_RU: 'Собственное изображение для метки',
-    en_EN: ''
+    ru: 'Собственное изображение для метки',
+    en: 'Custom Placemark icon'
   }
 }, {
   component: ObjectManager,
   src: getSrc(ObjectManager),
   label: {
-    ru_RU: 'Оптимальное добавление множества меток',
-    en_EN: ''
+    ru: 'Оптимальное добавление множества меток',
+    en: 'Optimized handling of large number of placemarks'
   }
 }, {
   component: SearchControl,
   src: getSrc(SearchControl),
   label: {
-    ru_RU: 'Поиск организаций',
-    en_EN: ''
+    ru: 'Поиск организаций',
+    en: 'Company search'
   }
 }]
