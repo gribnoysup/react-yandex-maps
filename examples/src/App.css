@@ -7,11 +7,16 @@
   background-color: #ffffff;
 }
 
-.navigation {
-  min-width: 220px;
-  max-width: 220px;
+.menu {
+  display: flex;
+  flex-direction: column;
   width: 220px;
+  height: 100%;
   border-right: 1px solid lightgray;
+}
+
+.navigation {
+  flex-grow: 1;
 }
 
 .navigation__header {
