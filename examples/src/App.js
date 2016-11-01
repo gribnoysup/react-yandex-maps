@@ -62,6 +62,9 @@ class App extends Component {
               height={'100vh'}
               width={'100%'}
               value={selectedDemo.src}
+              editorProps={{
+                $blockScrolling: Infinity
+              }}
               readOnly
             />
           }
