@@ -6,7 +6,7 @@ import MapTypes from './util/types'
 import api from './util/api'
 import {EVENTS as EVENTS_MAP, separateEvents} from './util/events'
 
-const EVENTS = EVENTS_MAP['ObjectManager']
+const EVENTS = EVENTS_MAP['Map']
 
 export default class Map extends Component {
 
@@ -60,8 +60,11 @@ export default class Map extends Component {
   unmountMap() {
     const {events} = separateEvents(this.props)
     const {instance} = this.state
-    this.removeEvents(instance, events)
-    instance.destroy()
+
+    if (instance !== null) {
+      this.removeEvents(instance, events)
+      instance.destroy()
+    }
   }
 
   updateMap(prevProps = {}) {
