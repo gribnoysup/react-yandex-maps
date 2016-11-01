@@ -2,7 +2,14 @@ import IconCustomImage from './sandbox/popular/IconCustomImage'
 import ObjectManager from './sandbox/popular/ObjectManager'
 import SearchControl from './sandbox/popular/SearchControl'
 
+import MapBasics from './sandbox/map/MapBasics'
+import MapParams from './sandbox/map/MapParams'
+
+window.MapBasics = MapBasics
+
 const getSrc = (component) => {
+  if (!component) return null
+
   const libSrc = '../../../../dist/react-yandex-maps'
   const libName = 'react-yandex-maps'
   return component.__src.replace(libSrc, libName).trim()
@@ -34,5 +41,25 @@ export default [{
   label: {
     ru: 'Поиск организаций',
     en: 'Company search'
+  }
+}, {
+  label: {
+    ru: 'Карта',
+    en: 'Map'
+  },
+  isHeader: true
+}, {
+  component: MapBasics,
+  src: getSrc(MapBasics),
+  label: {
+    ru: 'Создание и удаление',
+    en: 'Putting the map on a page'
+  }
+}, {
+  component: MapParams,
+  src: getSrc(MapParams),
+  label: {
+    ru: 'Основные параметры',
+    en: 'Setting and changing the map settings'
   }
 }]
