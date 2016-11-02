@@ -138,7 +138,8 @@ when it unmounts.
 
 ## More Examples
 
-To look at examples clone this repo, `cd` to repo folder and run `npm start`
+You can go to https://gribnoysup.github.io/react-yandex-maps/ to look at examples,
+or clone this repo, `cd` to repo folder and run `npm start`
 
 ```shell
 git clone https://github.com/gribnoysup/react-yandex-maps.git
