@@ -13,18 +13,30 @@
   width: 220px;
   height: 100%;
   border-right: 1px solid lightgray;
+  font-size: 12px;
 }
 
-.navigation {
+.navigation-container {
   flex-grow: 1;
+  overflow: auto;
 }
 
 .navigation__header {
   font-size: 1.2em;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
 .navigation__header > a {
   color: #000000 !important;
+}
+
+.navigation > .navigation__item > a {
+  padding-left: 25px;
+}
+
+.navigation > li+li {
+  margin-top: 0;
 }
 
 .navigation > li > a {

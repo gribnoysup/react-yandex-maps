@@ -71,7 +71,7 @@ class GeoObject extends React.Component {
       instance.geometry.setCoordinates(geometry.coordinates)
     }
 
-    if (geometry.radius !== geometry.radius) {
+    if (geometry.radius !== prevGeometry.radius) {
       instance.geometry.setRadius(geometry.radius)
     }
 

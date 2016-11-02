@@ -31,24 +31,26 @@ class App extends Component {
     return (
       <div className="app">
         <div className="menu">
-          <Nav
-            stacked
-            bsStyle="pills"
-            className="navigation"
-            activeKey={selectedDemo}
-            onSelect={(selected) => this.setState({selectedDemo: selected})}
-          >
-            {demos.map((demo, i) => (
-              <NavItem
-                key={`nav_${i}`}
-                className={demo.isHeader ? 'navigation__header': 'navigation__item'}
-                disabled={!Boolean(demo.component)}
-                eventKey={demo}
-              >
-                {t(demo.label)}
-              </NavItem>
-            ))}
-          </Nav>
+          <div className="navigation-container">
+            <Nav
+              stacked
+              bsStyle="pills"
+              className="navigation"
+              activeKey={selectedDemo}
+              onSelect={(selected) => this.setState({selectedDemo: selected})}
+            >
+              {demos.map((demo, i) => (
+                <NavItem
+                  key={`nav_${i}`}
+                  className={demo.isHeader ? 'navigation__header': 'navigation__item'}
+                  disabled={!Boolean(demo.component)}
+                  eventKey={demo}
+                >
+                  {t(demo.label)}
+                </NavItem>
+              ))}
+            </Nav>
+          </div>
           <LanguageSelect
             value={language}
             onChange={(newVal) => this.setState({language: newVal})}
