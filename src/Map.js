@@ -121,6 +121,13 @@ export default class Map extends Component {
     return React.cloneElement(child, { api, collection })
   }
 
+  renderControl(child) {
+    const {api} = this.state
+    const {controls: collection} = this.state.instance
+
+    return React.cloneElement(child, { api, collection })
+  }
+
   renderChildren() {
     const {children} = this.props
     const {instance} = this.state
@@ -130,6 +137,7 @@ export default class Map extends Component {
     return React.Children.map(children, (child) => {
       if (child === null) return null
       if (child.type[SYMBOLS.GEO_OBJECT]) return this.renderGeoObject(child)
+      if (child.type[SYMBOLS.CONTROL]) return this.renderControl(child)
     })
   }
 

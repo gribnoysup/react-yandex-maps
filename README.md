@@ -74,6 +74,7 @@ Supported Yandex.Maps Objects:
 
 ```js
 Map,
+// GeoObjects
 Clusterer,
 GeoObject,
 ObjectManager,
@@ -82,6 +83,17 @@ Polyline,
 Rectangle,
 Polygon,
 Circle
+// Controls
+Button,
+FullscreenControl,
+GeolocationControl,
+Manager,
+RouteEditor,
+RulerControl,
+SearchControl,
+TrafficControl,
+TypeSelector,
+ZoomControl
 ```
 
 All Objects events are avaliable, just use camelCase event names instead of
@@ -116,7 +128,15 @@ const Circle = () => (
 )
 ```
 
-## More examples
+## The `instanceRef` Callback Attribute
+
+`react-yandex-maps` supports a special attribute, that [works similar]
+(https://facebook.github.io/react/docs/refs-and-the-dom.html) to React `ref`
+attribute. `react-yandex-maps` will call the `instanceRef` callback with the
+YandexMap Object instance when the component mounts, and call it with `null`
+when it unmounts.
+
+## More Examples
 
 To look at examples clone this repo, `cd` to repo folder and run `npm start`
 
@@ -134,8 +154,8 @@ npm start
 
 ## Thanks
 
-Thanks to @effrenus and his [yandex-map-react](https://github.com/effrenus/yandex-map-react)
-for inspiration
+Thanks to [@effrenus](https://github.com/effrenus/) and his [yandex-map-react]
+(https://github.com/effrenus/yandex-map-react) for inspiration
 
 Thanks to [create-react-app](https://github.com/facebookincubator/create-react-app)
 team for making examples so easy to make

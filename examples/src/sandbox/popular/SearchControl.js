@@ -11,16 +11,17 @@ export default function SearchControl() {
       height={350}
       state={{
         center: mapCenter,
-        controls: ['searchControl'],
-        zoom: mapZoom
+        zoom: mapZoom,
+        controls: []
       }}
-      options={{
-        searchControlProvider: 'yandex#search'
-      }}
-      onMapAvaliable={(map) => {
-        map.controls.get('searchControl').search('Starbucks')
-      }}
-    />
+    >
+      <YMaps.SearchControl
+        options={{ provider: 'yandex#search' }}
+        instanceRef={(instance) => {
+          if (instance !== null) instance.search('Starbucks')
+        }}
+      />
+    </YMaps.Map>
   )
 }
 
@@ -38,16 +39,17 @@ export default function SearchControl() {
       height={350}
       state={{
         center: mapCenter,
-        controls: ['searchControl'],
-        zoom: mapZoom
+        zoom: mapZoom,
+        controls: []
       }}
-      options={{
-        searchControlProvider: 'yandex#search'
-      }}
-      onMapAvaliable={(map) => {
-        map.controls.get('searchControl').search('Starbucks')
-      }}
-    />
+    >
+      <YMaps.SearchControl
+        options={{ provider: 'yandex#search' }}
+        instanceRef={(instance) => {
+          if (instance !== null) instance.search('Starbucks')
+        }}
+      />
+    </YMaps.Map>
   )
 }
 `

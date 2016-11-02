@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm install && npm run build && cd ./examples && npm install && npm start",
+    "watch": "NODE_ENV=development webpack --watch",
     "build": "webpack",
     "build:dev": "NODE_ENV=development npm run build",
     "build:prod": "npm run clear && NODE_ENV=production npm run build",

@@ -1,11 +1,11 @@
+// import Dummy from './sandbox/Dummy'
+
 import IconCustomImage from './sandbox/popular/IconCustomImage'
 import ObjectManager from './sandbox/popular/ObjectManager'
 import SearchControl from './sandbox/popular/SearchControl'
 
 import MapBasics from './sandbox/map/MapBasics'
 import MapParams from './sandbox/map/MapParams'
-
-window.MapBasics = MapBasics
 
 const getSrc = (component) => {
   if (!component) return null
@@ -16,6 +16,13 @@ const getSrc = (component) => {
 }
 
 export default [{
+//   label: {
+//     ru: 'Пустышка',
+//     en: 'Dummy'
+//   },
+//   component: Dummy,
+//   src: getSrc(Dummy)
+// }, {
   label: {
     ru: 'Популярные примеры',
     en: 'Popular examples'
