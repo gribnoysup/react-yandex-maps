@@ -40,3 +40,6 @@ jspm_packages
 
 # Idea files
 .idea
+
+# Other
+.DS_Store
