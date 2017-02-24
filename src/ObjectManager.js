@@ -1,5 +1,4 @@
 import React from 'react'
-import equal from 'lodash/isEqual'
 
 import { GeoObject as GeoObjectSymbol } from './util/symbols'
 import { separateEvents, addEvent, removeEvent } from './util/events'
@@ -47,11 +46,11 @@ export class ObjectManager extends React.Component {
       instance.setFilter(filter)
     }
 
-    if (!equal(clusters, prevClusters)) {
+    if (clusters !== prevClusters) {
       instance.clusters.options.set(clusters || {})
     }
 
-    if (!equal(objects, prevObjects)) {
+    if (objects !== prevObjects) {
       instance.objects.options.set(objects || {})
     }
 

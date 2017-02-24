@@ -1,5 +1,4 @@
 import React from 'react'
-import equal from 'lodash/isEqual'
 
 import invariant from 'invariant'
 
@@ -66,13 +65,25 @@ export class Map extends React.Component {
     const {options: prevOptions, state: prevState, events: prevEvents} = separateEvents(prevProps)
     const {options, state, events} = separateEvents(newProps)
 
-    if (prevState.type !== state.type) instance.setType(state.type)
-    if (prevState.zoom !== state.zoom) instance.setZoom(state.zoom)
+    if (prevState.type !== state.type) {
+      instance.setType(state.type)
+    }
 
-    if (!equal(prevState.center, state.center)) instance.setCenter(state.center)
-    if (!equal(prevState.bounds, state.bounds)) instance.setBounds(state.bounds)
+    if (prevState.zoom !== state.zoom) {
+      instance.setZoom(state.zoom)
+    }
 
-    if (!equal(prevOptions, options)) instance.options.set(options)
+    if (prevState.center !== state.center) {
+      instance.setCenter(state.center)
+    }
+
+    if (prevState.bounds !== state.bounds) {
+      instance.setBounds(state.bounds)
+    }
+
+    if (prevOptions !== options) {
+      instance.options.set(options)
+    }
 
     this.updateEvents(instance, prevEvents, events)
   }
@@ -109,6 +120,12 @@ export class Map extends React.Component {
     if (!instance) return null
 
     return React.Children.map(children, (child) => {
+
+      invariant(
+        child == null || child.type[Symbols.GeoObject] || child.type[Symbols.Control],
+        'A <Map> children should be <GeoObject> or <Control> components'
+      )
+
       if (!child) return null
 
       if (child.type[Symbols.GeoObject]) return this.renderGeoObject(child)

@@ -1,5 +1,4 @@
 import React from 'react'
-import equal from 'lodash/isEqual'
 
 import { GeoObject as GeoObjectSymbol } from './util/symbols'
 import { separateEvents, addEvent, removeEvent } from './util/events'
@@ -50,7 +49,7 @@ export class GeoObject extends React.Component {
 
     const {geometry, properties, options, events} = separateEvents(newProps)
 
-    if (!equal(geometry.coordinates, prevGeometry.coordinates)) {
+    if (geometry.coordinates !== prevGeometry.coordinates) {
       instance.geometry.setCoordinates(geometry.coordinates)
     }
 
@@ -58,11 +57,11 @@ export class GeoObject extends React.Component {
       instance.geometry.setRadius(geometry.radius)
     }
 
-    if (!equal(properties, prevProperties)) {
+    if (properties !== prevProperties) {
       instance.properties.set(properties)
     }
 
-    if (!equal(options, prevOptions)) {
+    if (options !== prevOptions) {
       instance.options.set(options)
     }
 

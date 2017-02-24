@@ -15,6 +15,7 @@ function fetchScript(url) {
     script.onload = resolve
     script.onerror = reject
     script.src = url
+    script.async = "async"
 
     document.head.appendChild(script)
   })

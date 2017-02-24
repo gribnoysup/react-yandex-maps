@@ -59,7 +59,7 @@ export class YMaps extends React.Component {
 
     invariant(
       children == null || React.Children.count(children) === 1,
-      'An <YMaps> may have only one child element'
+      'A <YMaps> may have only one child element'
     )
   }
 

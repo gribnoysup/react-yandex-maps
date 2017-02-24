@@ -1,5 +1,6 @@
 import React from 'react'
-import equal from 'lodash/isEqual'
+
+import invariant from 'invariant'
 
 import { GeoObject as GeoObjectSymbol } from './util/symbols'
 import { separateEvents, addEvent, removeEvent } from './util/events'
@@ -34,7 +35,7 @@ export class Clusterer extends React.Component {
     const {options: prevOptions, events: prevEvents} = separateEvents(prevProps)
     const {options, events} = separateEvents(this.props)
 
-    if (!equal(options, prevOptions)) {
+    if (options !== prevOptions) {
       instance.options.set(options)
     }
 
@@ -76,7 +77,13 @@ export class Clusterer extends React.Component {
     if (!instance) return null
 
     return React.Children.map(children, (child) => {
+      invariant(
+        child == null, child.type[GeoObjectSymbol],
+        'A <Clusterer> children should be <GeoObject> components'
+      )
+
       if (!child) return null
+
       if (child.type[GeoObjectSymbol]) return this.renderGeoObject(child)
     })
   }

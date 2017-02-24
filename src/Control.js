@@ -1,5 +1,4 @@
 import React from 'react'
-import equal from 'lodash/isEqual'
 
 import { Control as ControlSymbol } from './util/symbols'
 import { separateEvents, addEvent, removeEvent } from './util/events'
@@ -34,15 +33,15 @@ export class Control extends React.Component {
     const {data: prevData, options: prevOptions, state: prevState, events: prevEvents} = separateEvents(prevProps)
     const {data, options, state, events} = separateEvents(this.props)
 
-    if (!equal(data, prevData)) {
+    if (data !== prevData) {
       instance.data.set(data)
     }
 
-    if (!equal(options, prevOptions)) {
+    if (options !== prevOptions) {
       instance.options.set(options)
     }
 
-    if (!equal(state, prevState)) {
+    if (state !== prevState) {
       instance.state.set(state)
     }
 
