@@ -61,9 +61,17 @@ export class Map extends React.Component {
     instance.destroy()
   }
 
-  update(instance, newProps = {}, prevProps = {}) {
-    const {options: prevOptions, state: prevState, events: prevEvents} = separateEvents(prevProps)
-    const {options, state, events} = separateEvents(newProps)
+  update(instance, prevProps = {}, newProps = {}) {
+    const {
+      width: prevWidth, height: prevHeight,
+      options: prevOptions, state: prevState, events: prevEvents
+    } = separateEvents(prevProps)
+
+    const {width, height, options, state, events} = separateEvents(newProps)
+
+    if (prevWidth !== width || prevHeight !== height) {
+      instance.container.fitToViewport()
+    }
 
     if (prevState.type !== state.type) {
       instance.setType(state.type)
@@ -77,7 +85,7 @@ export class Map extends React.Component {
       instance.setCenter(state.center)
     }
 
-    if (prevState.bounds !== state.bounds) {
+    if (state.bounds && prevState.bounds !== state.bounds) {
       instance.setBounds(state.bounds)
     }
 
@@ -138,17 +146,13 @@ export class Map extends React.Component {
     if (ymaps) this.mount()
   }
 
-  componentWillReceiveProps(newProps) {
-    const { instance } = this.state
-    if (instance) this.update(instance, this.props, newProps)
-  }
-
   componentDidUpdate(prevProps, prevState) {
     const { ymaps } = this.context
     const { instance } = this.state
     const { instanceRef } = this.props
 
     if (!instance && ymaps) this.mount()
+    if (instance) this.update(instance, prevProps, this.props)
 
     if (prevState.instance !== instance) {
       if (instance) {
