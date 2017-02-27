@@ -1,5 +1,5 @@
 import React from 'react'
-import { YMaps, Map, Placemark } from '../../../../../react-yandex-maps/src'
+import { YMaps, Map, Placemark } from 'react-yandex-maps'
 
 import myIcon from './myIcon.gif'
 

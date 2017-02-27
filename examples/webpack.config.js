@@ -3,6 +3,9 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const examples = path.resolve(process.cwd(), 'examples')
+const sandbox = path.join(examples, 'src', 'sandbox')
+
+const reactYandexMaps = path.resolve(process.cwd(), 'src')
 
 const vendor = [
   'react',
@@ -20,6 +23,13 @@ module.exports = {
   entry: {
     vendor: vendor,
     index: examples + '/src/index.js'
+  },
+
+  resolve: {
+    alias: {
+      'react-yandex-maps': reactYandexMaps,
+      'sandbox': sandbox
+    }
   },
 
   output: {

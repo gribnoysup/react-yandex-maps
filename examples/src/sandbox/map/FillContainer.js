@@ -1,5 +1,5 @@
 import React from 'react'
-import { YMaps, Map } from '../../../../../react-yandex-maps/src'
+import { YMaps, Map } from 'react-yandex-maps'
 
 const mapState = { center: [55.755768, 37.617671], zoom: 10 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { YMaps, Map, GeoObject, Placemark } from '../../../../../react-yandex-maps/src'
+import { YMaps, Map, GeoObject, Placemark } from 'react-yandex-maps'
 
 import placemarks from './placemark.json'
 

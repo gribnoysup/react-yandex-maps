@@ -4,68 +4,66 @@ import React from 'react'
 
 import Demo from './Demo'
 
-import MapBasics from '../sandbox/map/MapBasics'
-import rawMapBasics from '!raw-loader!../sandbox/map/MapBasics'
+import MapBasics from 'sandbox/map/MapBasics'
+import rawMapBasics from '!raw-loader!sandbox/map/MapBasics'
 
-import MapParams from '../sandbox/map/MapParams'
-import rawMapParams from '!raw-loader!../sandbox/map/MapParams'
+import MapParams from 'sandbox/map/MapParams'
+import rawMapParams from '!raw-loader!sandbox/map/MapParams'
 
-import FillContainer from '../sandbox/map/FillContainer'
-import rawFillContainer from '!raw-loader!../sandbox/map/FillContainer'
+import FillContainer from 'sandbox/map/FillContainer'
+import rawFillContainer from '!raw-loader!sandbox/map/FillContainer'
 
-import Placemark from '../sandbox/geoobjects/Placemark'
-import rawPlacemark from '!raw-loader!../sandbox/geoobjects/Placemark'
+import Placemark from 'sandbox/geoobjects/Placemark'
+import rawPlacemark from '!raw-loader!sandbox/geoobjects/Placemark'
 
-import IconCustomImage from '../sandbox/geoobjects/IconCustomImage'
-import rawIconCustomImage from '!raw-loader!../sandbox/geoobjects/IconCustomImage'
+import IconCustomImage from 'sandbox/geoobjects/IconCustomImage'
+import rawIconCustomImage from '!raw-loader!sandbox/geoobjects/IconCustomImage'
 
-import Polyline from '../sandbox/geoobjects/Polyline'
-import rawPolyline from '!raw-loader!../sandbox/geoobjects/Polyline'
+import Polyline from 'sandbox/geoobjects/Polyline'
+import rawPolyline from '!raw-loader!sandbox/geoobjects/Polyline'
 
-import Rectangle from '../sandbox/geoobjects/Rectangle'
-import rawRectangle from '!raw-loader!../sandbox/geoobjects/Rectangle'
-
-const replaceImport = (str) => str.replace(/'.+react-yandex-maps.+?'/, '\'react-yandex-maps\'')
+import Rectangle from 'sandbox/geoobjects/Rectangle'
+import rawRectangle from '!raw-loader!sandbox/geoobjects/Rectangle'
 
 const demos = {
   map: {
     'map-basics': {
       name: 'Putting the map on a page',
       component: MapBasics,
-      src: replaceImport(rawMapBasics)
+      src: rawMapBasics
     },
     'map-params': {
       name: 'Setting and changing the map settings',
       component: MapParams,
-      src: replaceImport(rawMapParams)
+      src: rawMapParams
     },
     'fill-container': {
       name: 'Resizing the map',
       component: FillContainer,
-      src: replaceImport(rawFillContainer)
+      src: rawFillContainer
     }
   },
-  
+
   geoobjects: {
     placemark: {
       name: 'Placemark',
       component: Placemark,
-      src: replaceImport(rawPlacemark)
+      src: rawPlacemark
     },
     'icon-custom-image': {
       name: 'Setting a custom placemark image',
       component: IconCustomImage,
-      src: replaceImport(rawIconCustomImage)
+      src: rawIconCustomImage
     },
     polyline: {
       name: 'Polylines',
       component: Polyline,
-      src: replaceImport(rawPolyline)
+      src: rawPolyline
     },
     rectangle: {
       name: 'Rectangle',
       component: Rectangle,
-      src: replaceImport(rawRectangle)
+      src: rawRectangle
     }
   }
 }
