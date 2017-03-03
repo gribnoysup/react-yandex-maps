@@ -78,8 +78,6 @@ export class Map extends React.Component {
     }
 
     if (prevState.behaviors !== state.behaviors) {
-      console.log(prevState.behaviors, state.behaviors)
-
       instance.behaviors.disable(prevState.behaviors || [])
       instance.behaviors.enable(state.behaviors || [])
     }
