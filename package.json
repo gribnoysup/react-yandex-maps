@@ -54,5 +54,8 @@
     "yandex-maps"
   ],
   "author": "Sergey Petushkov <petushkov.sergey@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash.difference": "^4.5.0"
+  }
 }
