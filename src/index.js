@@ -2,6 +2,8 @@ import Map from './Map'
 import Clusterer from './geo-objects/Clusterer'
 import ObjectManager from './geo-objects/ObjectManager'
 
+import Api from './util/api'
+
 import GeoObject from './geo-objects/GeoObject'
 
 import {
@@ -27,6 +29,7 @@ import {
  } from './controls/HelperComponents'
 
 export default {
+  Api,
   Map,
   Clusterer,
   GeoObject,
