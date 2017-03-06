@@ -17,7 +17,9 @@
     "build-examples": "rm -rf ./examples/build && NODE_ENV=production webpack -p --config ./examples/webpack.config.js",
     "build": "NODE_ENV=production node ./tools/build.js",
     "dev": "babel src -w -d main --ignore __tests__",
-    "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\" \"./examples/src/**/*.js\""
+    "prettier": "npm run prettier:src && npm run prettier:examples",
+    "prettier:src": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\"",
+    "prettier:examples": "prettier --single-quote --trailing-comma es5 --write \"./examples/src/**/*.js\""
   },
   "repository": {
     "type": "git",
