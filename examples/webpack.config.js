@@ -38,7 +38,7 @@ module.exports = {
 
   output: {
     path: examples + '/build',
-    publicPath: '/',
+    publicPath: '/react-yandex-maps/',
     filename: 'static/js/[name].[chunkhash:8].js'
   },
 
