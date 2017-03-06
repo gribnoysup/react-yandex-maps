@@ -36,11 +36,11 @@ export class ObjectManager extends React.Component {
 
   update(instance, prevProps = {}, newProps = {}) {
     const {
-      filter: prevFilter, events: prevEvents,
+      filter: prevFilter, events: prevEvents, features: prevFeatures,
       clusters: prevClusters, objects: prevObjects
     } = separateEvents(prevProps)
 
-    const {filter, events, clusters, objects} = separateEvents(newProps)
+    const {filter, events, features, clusters, objects} = separateEvents(newProps)
 
     if (filter !== prevFilter) {
       instance.setFilter(filter)
@@ -52,6 +52,11 @@ export class ObjectManager extends React.Component {
 
     if (objects !== prevObjects) {
       instance.objects.options.set(objects || {})
+    }
+
+    if (features !== prevFeatures) {
+      instance.removeAll()
+      instance.add(features)
     }
 
     this.updateEvents(instance, prevEvents, events)
