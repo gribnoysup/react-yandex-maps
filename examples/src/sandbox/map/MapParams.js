@@ -1,34 +1,34 @@
-import React from 'react'
-import { YMaps, Map } from 'react-yandex-maps'
+import React from 'react';
+import { YMaps, Map } from 'react-yandex-maps';
 
 const mapState = {
   center: [55.76, 37.64],
   zoom: 10,
   type: 'yandex#satellite',
-  bounds: undefined
-}
+  bounds: undefined,
+};
 
 class MapParams extends React.Component {
-  state = Object.assign({}, mapState)
+  state = Object.assign({}, mapState);
 
   setCenter(prevState) {
-    return Object.assign({}, prevState, { center: [57.767265, 40.925358] })
+    return Object.assign({}, prevState, { center: [57.767265, 40.925358] });
   }
 
   setBounds(prevState) {
-    return Object.assign({}, prevState, { bounds: [[37, 38], [39, 40]] })
+    return Object.assign({}, prevState, { bounds: [[37, 38], [39, 40]] });
   }
 
   setType(prevState) {
-    return Object.assign({}, prevState, { type: 'yandex#publicMapHybrid' })
+    return Object.assign({}, prevState, { type: 'yandex#publicMapHybrid' });
   }
 
   setDefault(prevState) {
-    return Object.assign({}, prevState, mapState)
+    return Object.assign({}, prevState, mapState);
   }
 
   updateState(fn) {
-    return () => this.setState(fn)
+    return () => this.setState(fn);
   }
 
   render() {
@@ -36,7 +36,7 @@ class MapParams extends React.Component {
       <YMaps>
         <div>
           {/* Map parameters can be set via props */}
-          <Map state={this.state}/>
+          <Map state={this.state} />
 
           {/* To change map parameters, just update map props */}
           <button onClick={this.updateState(this.setCenter)}>
@@ -54,8 +54,8 @@ class MapParams extends React.Component {
 
         </div>
       </YMaps>
-    )
+    );
   }
 }
 
-export default MapParams
+export default MapParams;

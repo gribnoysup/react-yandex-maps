@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link, Route } from 'react-router-dom'
+import React from 'react';
+import { Link, Route } from 'react-router-dom';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const List = styled.ul`
   width: 200px;
@@ -9,7 +9,7 @@ const List = styled.ul`
   padding: 0;
   list-style: none;
   font-size: 14px;
-`
+`;
 
 const NavHeader = styled.li`
   padding: 20px;
@@ -19,7 +19,7 @@ const NavHeader = styled.li`
   &:hover {
     background-color: #f6f5f3;
   }
-`
+`;
 
 const NavItem = styled.li`
   padding: 10px 10px 10px 30px;
@@ -33,35 +33,34 @@ const NavItem = styled.li`
   &:hover {
     background-color: #f6f5f3;
   }
-`
+`;
 
-const Navigation = ({path, name, id, onClick, routes, active}) =>
+const Navigation = ({ path, name, id, onClick, routes, active }) => (
   <Route path={path}>
-    {(props) =>
+    {props => (
       <List>
-        <NavHeader
-          id={id}
-          onClick={onClick}
-        >
+        <NavHeader id={id} onClick={onClick}>
           {name}
         </NavHeader>
 
-        {active && routes.map((route) =>
-          <NavItem
-            key={route.name}
-            onClick={() => props.push(path + route.to)}
-          >
-            <Link
-              to={path + route.to}
-              onClick={(event) => event.preventDefault()}
+        {active &&
+          routes.map(route => (
+            <NavItem
+              key={route.name}
+              onClick={() => props.push(path + route.to)}
             >
-              {route.name}
-            </Link>
-          </NavItem>
-        )}
+              <Link
+                to={path + route.to}
+                onClick={event => event.preventDefault()}
+              >
+                {route.name}
+              </Link>
+            </NavItem>
+          ))}
 
       </List>
-    }
+    )}
   </Route>
+);
 
-export default Navigation
+export default Navigation;

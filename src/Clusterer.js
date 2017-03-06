@@ -1,120 +1,123 @@
-import React from 'react'
+import React from 'react';
 
-import invariant from 'invariant'
+import invariant from 'invariant';
 
-import { GeoObject as GeoObjectSymbol } from './util/symbols'
-import { separateEvents, addEvent, removeEvent } from './util/events'
+import { GeoObject as GeoObjectSymbol } from './util/symbols';
+import { separateEvents, addEvent, removeEvent } from './util/events';
 
-const { func } = React.PropTypes
+const { func } = React.PropTypes;
 
 export class Clusterer extends React.Component {
-
   static propTypes = {
-    instanceRef: func
-  }
+    instanceRef: func,
+  };
 
   static defaultProps = {
-    instanceRef: Function.prototype
-  }
+    instanceRef: Function.prototype,
+  };
 
-  static [GeoObjectSymbol] = true
+  static [GeoObjectSymbol] = true;
 
-  state = { instance: null }
+  state = { instance: null };
 
   mount() {
-    const {collection, ymaps, options, events} = separateEvents(this.props)
-    const instance = new ymaps.Clusterer(options)
+    const { collection, ymaps, options, events } = separateEvents(this.props);
+    const instance = new ymaps.Clusterer(options);
 
-    Object.keys(events).forEach((key) => addEvent(events[key], key, instance))
-    collection.add(instance)
+    Object.keys(events).forEach(key => addEvent(events[key], key, instance));
+    collection.add(instance);
 
-    this.setState({ instance })
+    this.setState({ instance });
   }
 
   update(instance, prevProps = {}, newProps = {}) {
-    const {options: prevOptions, events: prevEvents} = separateEvents(prevProps)
-    const {options, events} = separateEvents(this.props)
+    const { options: prevOptions, events: prevEvents } = separateEvents(
+      prevProps
+    );
+    const { options, events } = separateEvents(this.props);
 
     if (options !== prevOptions) {
-      instance.options.set(options)
+      instance.options.set(options);
     }
 
-    this.updateEvents(instance, prevEvents, events)
+    this.updateEvents(instance, prevEvents, events);
   }
 
   updateEvents(instance, prevEvents, newEvents) {
-    const mergedEvents = Object.assign({}, prevEvents, newEvents)
+    const mergedEvents = Object.assign({}, prevEvents, newEvents);
 
-    Object.keys(mergedEvents).forEach((key) => {
+    Object.keys(mergedEvents).forEach(key => {
       if (prevEvents[key] !== newEvents[key]) {
-        removeEvent(prevEvents[key], key, instance)
-        addEvent(newEvents[key], key, instance)
+        removeEvent(prevEvents[key], key, instance);
+        addEvent(newEvents[key], key, instance);
       }
-    })
+    });
   }
 
   unmount() {
-    const { instance } = this.state
-    const { events, collection } = separateEvents(this.props)
+    const { instance } = this.state;
+    const { events, collection } = separateEvents(this.props);
 
-    if (!instance) return
+    if (!instance) return;
 
-    Object.keys(events).forEach((key) => removeEvent(events[key], key, instance))
-    collection.remove(instance)
+    Object.keys(events).forEach(key => removeEvent(events[key], key, instance));
+    collection.remove(instance);
   }
 
   renderGeoObject(child) {
-    const { ymaps } = this.context
-    const { geoObjects: collection } = this.state.instance
+    const { ymaps } = this.context;
+    const { geoObjects: collection } = this.state.instance;
 
-    return React.cloneElement(child, { ymaps, collection })
+    return React.cloneElement(child, { ymaps, collection });
   }
 
   get children() {
-    const { children } = this.props
-    const { instance } = this.state
+    const { children } = this.props;
+    const { instance } = this.state;
 
-    if (!instance) return null
+    if (!instance) return null;
 
-    return React.Children.map(children, (child) => {
+    return React.Children.map(children, child => {
       invariant(
-        child == null, child.type[GeoObjectSymbol],
+        child == null,
+        child.type[GeoObjectSymbol],
         'A <Clusterer> children should be <GeoObject> components'
-      )
+      );
 
-      if (!child) return null
+      if (!child) return null;
 
-      if (child.type[GeoObjectSymbol]) return this.renderGeoObject(child)
-    })
+      if (child.type[GeoObjectSymbol]) return this.renderGeoObject(child);
+    });
   }
 
   componentDidMount() {
-    const { ymaps } = this.props
-    if (ymaps) this.mount()
+    const { ymaps } = this.props;
+    if (ymaps) this.mount();
   }
 
   componentWillReceiveProps(newProps) {
-    const { instance } = this.state
-    if (instance) this.update(instance, this.props, newProps)
+    const { instance } = this.state;
+    if (instance) this.update(instance, this.props, newProps);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { instance } = this.state
-    const { instanceRef } = this.props
+    const { instance } = this.state;
+    const { instanceRef } = this.props;
 
     if (prevState.instance !== instance) {
       if (instance) {
-        instanceRef(instance)
+        instanceRef(instance);
       } else {
-        instanceRef(null)
+        instanceRef(null);
       }
     }
   }
 
   componentWillUnmount() {
-    this.unmount()
+    this.unmount();
   }
 
-  render() { return <noscript>{this.children}</noscript> }
-
+  render() {
+    return <noscript>{this.children}</noscript>;
+  }
 }

@@ -12,10 +12,12 @@
     "LICENSE"
   ],
   "scripts": {
+    "precommit": "npm run prettier && git add -A",
     "examples": "webpack-dev-server --config ./examples/webpack.config.js",
     "build-examples": "rm -rf ./examples/build && NODE_ENV=production webpack -p --config ./examples/webpack.config.js",
     "build": "NODE_ENV=production node ./tools/build.js",
-    "dev": "babel src -w -d main --ignore __tests__"
+    "dev": "babel src -w -d main --ignore __tests__",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\" \"./examples/src/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -46,10 +48,12 @@
     "fs-extra": "^2.0.0",
     "gzip-size": "^3.0.0",
     "html-webpack-plugin": "^2.28.0",
+    "husky": "^0.13.2",
     "in-publish": "^2.0.0",
     "invariant": "^2.2.2",
     "json-loader": "^0.5.4",
     "lodash": "^4.17.4",
+    "prettier": "^0.21.0",
     "pretty-bytes": "^4.0.2",
     "raw-loader": "^0.5.1",
     "react": "^15.4.2",

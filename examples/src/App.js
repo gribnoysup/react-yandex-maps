@@ -1,45 +1,44 @@
-import React from 'react'
-import styled from 'styled-components'
-import { HashRouter as Router, Route } from 'react-router-dom'
+import React from 'react';
+import styled from 'styled-components';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
-import Navigation from './components/Navigation'
-import DemoProvider from './components/DemoProvider'
+import Navigation from './components/Navigation';
+import DemoProvider from './components/DemoProvider';
 
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-`
+`;
 
 const NavContainer = styled.div`
   border-right: 1px solid rgba(0, 0, 0, .1);
-`
+`;
 
 class App extends React.Component {
-
-  state = { active: [] }
+  state = { active: [] };
 
   constructor(...args) {
-    super(...args)
-    this.onNavClick = this.onNavClick.bind(this)
+    super(...args);
+    this.onNavClick = this.onNavClick.bind(this);
   }
 
   onNavClick(event) {
-    const id = event.target.id
+    const id = event.target.id;
 
-    this.setState((prevState) => {
-      const index = prevState.active.indexOf(id)
+    this.setState(prevState => {
+      const index = prevState.active.indexOf(id);
 
       if (index === -1) {
-        return { active: prevState.active.concat(id) }
+        return { active: prevState.active.concat(id) };
       } else {
-        return prevState.active.splice(index, 1)
+        return prevState.active.splice(index, 1);
       }
-    })
+    });
   }
 
   render() {
-    const { active } = this.state
+    const { active } = this.state;
 
     return (
       <Router>
@@ -51,12 +50,14 @@ class App extends React.Component {
               name="Map"
               onClick={this.onNavClick}
               active={active.indexOf('Map') !== -1}
-
               path="/sandbox/map"
               routes={[
                 { name: 'Putting the map on a page', to: '/map-basics' },
-                { name: 'Setting and changing the map settings', to: '/map-params' },
-                { name: 'Resizing the map', to: '/fill-container' }
+                {
+                  name: 'Setting and changing the map settings',
+                  to: '/map-params',
+                },
+                { name: 'Resizing the map', to: '/fill-container' },
               ]}
             />
 
@@ -65,15 +66,17 @@ class App extends React.Component {
               name="GeoObjects"
               onClick={this.onNavClick}
               active={active.indexOf('GeoObjects') !== -1}
-
               path="/sandbox/geoobjects"
               routes={[
                 { name: 'Placemark', to: '/placemark' },
-                { name: 'Setting a custom placemark image', to: '/icon-custom-image' },
+                {
+                  name: 'Setting a custom placemark image',
+                  to: '/icon-custom-image',
+                },
                 { name: 'Polylines', to: '/polyline' },
                 { name: 'Rectangle', to: '/rectangle' },
                 { name: 'Polygon', to: '/polygon' },
-                { name: 'Circle', to: '/circle' }
+                { name: 'Circle', to: '/circle' },
               ]}
             />
           </NavContainer>
@@ -85,8 +88,8 @@ class App extends React.Component {
 
         </AppContainer>
       </Router>
-    )
+    );
   }
 }
 
-export default App
+export default App;

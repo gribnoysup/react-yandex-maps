@@ -1,9 +1,9 @@
-import React from 'react'
-import { YMaps, Map, GeoObject, Rectangle } from 'react-yandex-maps'
+import React from 'react';
+import { YMaps, Map, GeoObject, Rectangle } from 'react-yandex-maps';
 
-const mapState = { center: [55.674, 37.601], zoom: 11 }
+const mapState = { center: [55.674, 37.601], zoom: 11 };
 
-const RectangleDemo = () =>
+const RectangleDemo = () => (
   <YMaps>
     <Map state={mapState}>
 
@@ -14,15 +14,12 @@ const RectangleDemo = () =>
           // The geometry type is rectangle.
           type: 'Rectangle',
           // The coordinates.
-          coordinates: [
-            [55.665, 37.66],
-            [55.64, 37.53]
-          ]
+          coordinates: [[55.665, 37.66], [55.64, 37.53]],
         }}
         // Properties.
         properties={{
           hintContent: 'Перетащи меня!',
-          balloonContent: 'Прямоугольник 2'
+          balloonContent: 'Прямоугольник 2',
         }}
         // Options.
         options={{
@@ -33,20 +30,17 @@ const RectangleDemo = () =>
           // The color and transparency of borders.
           strokeColor: '#3caa3c88',
           // Line width.
-          strokeWidth: 7
+          strokeWidth: 7,
         }}
       />
 
       <Rectangle
         geometry={{
-          coordinates: [
-          [55.66, 37.60],
-          [55.71, 37.69]
-          ]
+          coordinates: [[55.66, 37.60], [55.71, 37.69]],
         }}
         properties={{
           hintContent: 'Меня перетаскивать нельзя!',
-          balloonContent: 'Прямоугольник 1'
+          balloonContent: 'Прямоугольник 1',
         }}
         options={{
           fillColor: '#7df9ff33',
@@ -54,11 +48,12 @@ const RectangleDemo = () =>
           strokeColor: '#0000FF',
           strokeOpacity: 0.5,
           strokeWidth: 2,
-          borderRadius: 6
+          borderRadius: 6,
         }}
       />
 
     </Map>
   </YMaps>
+);
 
-export default RectangleDemo
+export default RectangleDemo;

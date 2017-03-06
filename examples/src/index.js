@@ -1,8 +1,8 @@
-import React from 'react'
-import { injectGlobal } from 'styled-components'
-import { render } from 'react-dom'
+import React from 'react';
+import { injectGlobal } from 'styled-components';
+import { render } from 'react-dom';
 
-import App from './App'
+import App from './App';
 // eslint-disable-next-line
 injectGlobal`
   body {
@@ -27,6 +27,6 @@ injectGlobal`
     width: 100%;
     height: 100%;
   }
-`
+`;
 
-render(<App />, document.querySelector('#app'))
+render(<App />, document.querySelector('#app'));

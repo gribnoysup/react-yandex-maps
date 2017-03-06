@@ -1,19 +1,18 @@
-import React from 'react'
-import { YMaps, Map } from 'react-yandex-maps'
+import React from 'react';
+import { YMaps, Map } from 'react-yandex-maps';
 
-const mapState = { center: [55.76, 37.64], zoom: 10 }
+const mapState = { center: [55.76, 37.64], zoom: 10 };
 
 class MapBasics extends React.Component {
-
-  state = { showMap: true }
+  state = { showMap: true };
 
   toggleMap() {
-    const { showMap } = this.state
-    this.setState({ showMap: !showMap })
+    const { showMap } = this.state;
+    this.setState({ showMap: !showMap });
   }
 
   render() {
-    const { showMap } = this.state
+    const { showMap } = this.state;
 
     return (
       <YMaps>
@@ -22,8 +21,7 @@ class MapBasics extends React.Component {
           {showMap &&
             // When initializing the map, you must specify
             // its center and the zoom factor.
-            <Map state={mapState} />
-          }
+            <Map state={mapState} />}
 
           {/* To destroy it, just unmount component */}
           <button onClick={() => this.toggleMap()}>
@@ -32,9 +30,8 @@ class MapBasics extends React.Component {
 
         </div>
       </YMaps>
-    )
+    );
   }
-
 }
 
-export default MapBasics
+export default MapBasics;
