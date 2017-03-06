@@ -1,5 +1,6 @@
 import React from 'react'
 import isEqual from 'lodash.isequal'
+import difference from 'lodash.difference'
 
 import {GEO_OBJECT} from '../util/symbols'
 import {EVENTS as EVENTS_MAP, separateEvents} from '../util/events'
@@ -40,8 +41,8 @@ class ObjectManager extends React.Component {
   }
 
   updateInstance(prevProps = {}) {
-    const {filter: prevFilter, events: prevEvents, clusters: prevClusters, objects: prevObjects} = separateEvents(prevProps)
-    const {filter, events, clusters, objects} = separateEvents(this.props)
+    const {features: prevFeatures, filter: prevFilter, events: prevEvents, clusters: prevClusters, objects: prevObjects} = separateEvents(prevProps)
+    const {features, filter, events, clusters, objects} = separateEvents(this.props)
     const {instance} = this.state
 
     if (filter !== prevFilter) {
@@ -54,6 +55,17 @@ class ObjectManager extends React.Component {
 
     if (!isEqual(objects, prevObjects)) {
       instance.objects.options.set(objects || {})
+    }
+
+    if (!isEqual(features, prevFeatures)) {
+      const prevIds = prevFeatures.map(feature => feature.id)
+      const currentIds = features.map(feature => feature.id)
+      const toBeRemovedIds = difference(prevIds, currentIds)
+      const toBeAddedIds = difference(currentIds, prevIds)
+      const toBeAddedObjects = features.filter(feature => toBeAddedIds.includes(feature.id))
+
+      instance.remove(toBeRemovedIds)
+      instance.add(toBeAddedObjects)
     }
 
     if (!isEqual(events, prevEvents)) {
