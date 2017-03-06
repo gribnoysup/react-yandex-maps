@@ -71,7 +71,9 @@ class App extends React.Component {
                 { name: 'Placemark', to: '/placemark' },
                 { name: 'Setting a custom placemark image', to: '/icon-custom-image' },
                 { name: 'Polylines', to: '/polyline' },
-                { name: 'Rectangle', to: '/rectangle' }
+                { name: 'Rectangle', to: '/rectangle' },
+                { name: 'Polygon', to: '/polygon' },
+                { name: 'Circle', to: '/circle' }
               ]}
             />
           </NavContainer>

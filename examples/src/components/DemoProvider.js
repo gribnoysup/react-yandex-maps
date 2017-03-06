@@ -25,6 +25,12 @@ import rawPolyline from '!raw-loader!sandbox/geoobjects/Polyline'
 import Rectangle from 'sandbox/geoobjects/Rectangle'
 import rawRectangle from '!raw-loader!sandbox/geoobjects/Rectangle'
 
+import Polygon from 'sandbox/geoobjects/Polygon'
+import rawPolygon from '!raw-loader!sandbox/geoobjects/Polygon'
+
+import Circle from 'sandbox/geoobjects/Circle'
+import rawCircle from '!raw-loader!sandbox/geoobjects/Circle'
+
 const demos = {
   map: {
     'map-basics': {
@@ -64,6 +70,16 @@ const demos = {
       name: 'Rectangle',
       component: Rectangle,
       src: rawRectangle
+    },
+    polygon: {
+      name: 'Polygon',
+      component: Polygon,
+      src: rawPolygon
+    },
+    circle: {
+      name: 'Circle',
+      component: Circle,
+      src: rawCircle
     }
   }
 }

@@ -7,22 +7,32 @@ const RectangleDemo = () =>
   <YMaps>
     <Map state={mapState}>
 
+      {/* Creating a geo object with the "rectangle" geometry type. */}
       <GeoObject
+        // Geometry = geometry type + the coordinates of the geo object.
         geometry={{
+          // The geometry type is rectangle.
           type: 'Rectangle',
+          // The coordinates.
           coordinates: [
-          [55.665, 37.66],
-          [55.64, 37.53]
+            [55.665, 37.66],
+            [55.64, 37.53]
           ]
         }}
+        // Properties.
         properties={{
           hintContent: 'Перетащи меня!',
           balloonContent: 'Прямоугольник 2'
         }}
+        // Options.
         options={{
+          // The object can be dragged.
           draggable: true,
+          // The fill color and transparency.
           fillColor: '#ffff0022',
+          // The color and transparency of borders.
           strokeColor: '#3caa3c88',
+          // Line width.
           strokeWidth: 7
         }}
       />

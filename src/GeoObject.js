@@ -10,7 +10,7 @@ export class GeoObject extends React.Component {
   static propTypes = {
     geometry: shape({
       type: oneOf(['Point', 'LineString', 'Rectangle', 'Polygon', 'Circle']).isRequired,
-      coordinates: oneOfType([arrayOf(number), arrayOf(arrayOf(number))]).isRequired,
+      coordinates: oneOfType([arrayOf(number), arrayOf(arrayOf(number)), arrayOf(arrayOf(arrayOf(number)))]).isRequired,
       radius: number,
     }),
 

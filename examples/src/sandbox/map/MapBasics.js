@@ -19,8 +19,13 @@ class MapBasics extends React.Component {
       <YMaps>
         <div id="map-basics">
 
-          {showMap && <Map state={mapState} />}
+          {showMap &&
+            // When initializing the map, you must specify
+            // its center and the zoom factor.
+            <Map state={mapState} />
+          }
 
+          {/* To destroy it, just unmount component */}
           <button onClick={() => this.toggleMap()}>
             {showMap ? 'Delete map' : 'Show map'}
           </button>

@@ -9,17 +9,24 @@ const PlacemarkDemo = () =>
   <YMaps>
     <Map state={mapState}>
 
+      {/* Creating a geo object with the "Point" geometry type. */}
       <GeoObject
+        // The geometry description.
         geometry={{
           type: "Point",
           coordinates: [55.8, 37.8]
         }}
+        // Properties.
         properties={{
+          // The placemark content.
           iconContent: 'Я тащусь',
           hintContent: 'Ну давай уже тащи'
         }}
+        // Options.
         options={{
+          // The placemark's icon will stretch to fit its contents.
           preset: 'islands#blackStretchyIcon',
+          // The placemark can be moved.
           draggable: true
         }}
       />

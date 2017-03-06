@@ -35,8 +35,10 @@ class MapParams extends React.Component {
     return (
       <YMaps>
         <div>
+          {/* Map parameters can be set via props */}
           <Map state={this.state}/>
 
+          {/* To change map parameters, just update map props */}
           <button onClick={this.updateState(this.setCenter)}>
             Change center
           </button>
