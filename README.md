@@ -40,7 +40,8 @@ npm install --save react react-yandex-maps
 - `<TypeSelector />`
 - `<ZoomControl />`
 
-## Basic Usage
+## Basic Usage (compared to [yandex maps quick start guide]
+(https://tech.yandex.com/maps/doc/jsapi/2.1/quick-start/tasks/quick-start-docpage/))
 
 ### With Yandex Maps API
 
