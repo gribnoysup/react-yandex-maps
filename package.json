@@ -1,6 +1,6 @@
 {
   "name": "react-yandex-maps",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Yandex Maps API bindings for React",
   "main": "dist/react-yandex-maps.js",
   "scripts": {
