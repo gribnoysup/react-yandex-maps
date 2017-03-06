@@ -3,6 +3,11 @@
   "version": "0.6.0",
   "description": "Yandex Maps API bindings for React",
   "main": "dist/react-yandex-maps.js",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm install && npm run build && cd ./examples && npm install && npm start",
