@@ -1,6 +1,6 @@
 {
   "name": "react-yandex-maps",
-  "version": "0.6.1",
+  "version": "1.0.0",
   "description": "Yandex Maps API bindings for React",
   "main": "main/index.js",
   "module": "es/index.js",
@@ -14,12 +14,13 @@
   "scripts": {
     "precommit": "npm run prettier && git add -A",
     "examples": "webpack-dev-server --config ./examples/webpack.config.js",
-    "build-examples": "rm -rf ./examples/build && NODE_ENV=production webpack -p --config ./examples/webpack.config.js",
+    "build:examples": "rm -rf ./examples/build && NODE_ENV=production webpack -p --config ./examples/webpack.config.js",
     "build": "NODE_ENV=production node ./tools/build.js",
     "dev": "babel src -w -d main --ignore __tests__",
     "prettier": "npm run prettier:src && npm run prettier:examples",
     "prettier:src": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\"",
-    "prettier:examples": "prettier --single-quote --trailing-comma es5 --write \"./examples/src/**/*.js\""
+    "prettier:examples": "prettier --single-quote --trailing-comma es5 --write \"./examples/src/**/*.js\"",
+    "publish:examples": "npm run build:examples && gh-pages -d ./examples/build"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,7 @@
     "eslint-plugin-react": "^6.4.1",
     "file-loader": "^0.10.0",
     "fs-extra": "^2.0.0",
+    "gh-pages": "^0.12.0",
     "gzip-size": "^3.0.0",
     "html-webpack-plugin": "^2.28.0",
     "husky": "^0.13.2",

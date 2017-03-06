@@ -9,7 +9,8 @@ const reactYandexMaps = path.resolve(process.cwd(), 'src')
 
 const vendor = [
   'react',
-  'react-dom'
+  'react-dom',
+  'styled-components'
 ]
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
@@ -61,7 +62,12 @@ module.exports = {
       {
         test: /\.(gif|png|svg|jpe?g)$/,
         use: [
-          { loader: 'file-loader' }
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'static/assets/[name].[hash:8].[ext]'
+            }
+          }
         ]
       },
       {
@@ -74,6 +80,10 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+        names: ['vendor', 'manifest'],
+        minChunks: Infinity
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
     }),
