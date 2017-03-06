@@ -6,14 +6,46 @@ bindings for React
 ## Install
 
 ```shell
-npm install --save https://github.com/gribnoysup/react-yandex-maps.git
+npm install --save react react-yandex-maps
 ```
 
-## Basic Usage
+## Components
+
+### Basic components
+
+- `<YMaps />` - provides child components with yandex maps api via context
+- `<Map />` - Map instance
+- `<Clusterer />` - Clusterer instance
+- `<ObjectManager />` - ObjectManager instance
+- `<GeoObject />` - generic GeoObject instance
+- `<Control />` - generic Control instance
+
+### GeoObject shorthands
+
+- `<Placemark />`
+- `<Polyline />`
+- `<Rectangle />`
+- `<Polygon />`
+- `<Circle />`
+
+### Control shorthands
+
+- `<Button />`
+- `<FullscreenControl />`
+- `<GeolocationControl />`
+- `<RouteEditor />`
+- `<RulerControl />`
+- `<SearchControl />`
+- `<TrafficControl />`
+- `<TypeSelector />`
+- `<ZoomControl />`
+
+## Basic Usage (compared to [yandex maps quick start guide]
+(https://tech.yandex.com/maps/doc/jsapi/2.1/quick-start/tasks/quick-start-docpage/))
+
+### With Yandex Maps API
 
 ```js
-// with yandex maps api
-
 window.ymaps.ready(function () {
   const myMap = new window.ymaps.Map('map', {
     center: [55.751574, 37.573856],
@@ -21,7 +53,6 @@ window.ymaps.ready(function () {
   }, {
     searchControlProvider: 'yandex#search'
   })
-
 
   const myPlacemark = new window.ymaps.Placemark([55.751574, 37.573856], {
     hintContent: 'Собственный значок метки',
@@ -35,74 +66,49 @@ window.ymaps.ready(function () {
 
   myMap.geoObjects.add(myPlacemark)
 })
-
-
-// with react-yandex-maps
-
-import YMaps from 'react-yandex-maps'
-
-const BasicMap = () => (
-  <YMaps.Map
-    state={{
-      center: [55.76, 37.64],
-      zoom: 10
-    }}
-    options={{
-      searchControlProvider: 'yandex#search'
-    }}
-  >
-    <YMaps.Placemark
-      geometry={{
-        coordinates: [55.826479, 37.487208]
-      }}
-      properties={{
-        hintContent: 'Собственный значок метки',
-        balloonContent: 'Это красивая метка'
-      }}
-      options={{
-        iconLayout: 'default#image',
-        iconImageHref: 'images/myIcon.gif',
-        iconImageSize: [30, 42],
-        iconImageOffset: [-3, -42]
-      }}
-    />
-  </YMaps.Map>
-)
 ```
 
-Supported Yandex.Maps Objects:
+### With react-yandex-maps
 
 ```js
-Map,
-// GeoObjects
-Clusterer,
-GeoObject,
-ObjectManager,
-Placemark,
-Polyline,
-Rectangle,
-Polygon,
-Circle
-// Controls
-Button,
-FullscreenControl,
-GeolocationControl,
-Manager,
-RouteEditor,
-RulerControl,
-SearchControl,
-TrafficControl,
-TypeSelector,
-ZoomControl
+import { YMaps, Map, Placemark } from 'react-yandex-maps';
+
+const mapState = { center: [55.76, 37.64], zoom: 10 };
+
+const MyPlacemark = () => (
+  <YMaps>
+    <Map state={mapState}>
+
+      <Placemark
+        geometry={{
+          coordinates: [55.751574, 37.573856]
+        }}
+        properties={{
+          hintContent: 'Собственный значок метки',
+          balloonContent: 'Это красивая метка'
+        }}
+        options={{
+          iconLayout: 'default#image',
+          iconImageHref: 'images/myIcon.gif',
+          iconImageSize: [30, 42],
+          iconImageOffset: [-3, -42]
+        }}
+      />
+
+    </Map>
+  </YMaps>
+);
 ```
 
-All Objects events are avaliable, just use camelCase event names instead of
+## Events
+
+All Objects events are available, just use camelCase event names instead of
 default ones (for example `geometrychange -> onGeometryChange`):
+
+### With Yandex Maps API
 
 ```js
 function handleEventSomehow() {/* more code */}
-
-// with yandex maps api:
 
 const circle = new window.ymaps.GeoObject({
   geometry: {
@@ -113,12 +119,17 @@ const circle = new window.ymaps.GeoObject({
 })
 
 circle.events.add('geometrychange', handleEventSomehow)
+```
 
-// with react-yandex-maps
-import YMaps from 'react-yandex-maps'
+### With react-yandex-maps
 
-const Circle = () => (
-  <YMaps.Circle
+```js
+import { Circle } from 'react-yandex-maps'
+
+function handleEventSomehow() {/* more code */}
+
+const CircleWithEvents = () => (
+  <Circle
     geometry={{
       coordinates: [55.76, 37.64],
       radius: 10000
@@ -144,19 +155,16 @@ or clone this repo, `cd` to repo folder and run `npm start`
 ```shell
 git clone https://github.com/gribnoysup/react-yandex-maps.git
 cd ./react-yandex-maps
-npm start
+npm install && npm run examples
 ```
 
-## TODO:
+## TODO
 
-- More propTypes
-- Add tests
-- More docs and examples
+- [ ] Add tests
+- [ ] Add more propTypes
+- [ ] Add more examples
 
-## Thanks
+## Acknowledgements
 
 Thanks to [@effrenus](https://github.com/effrenus/) and his [yandex-map-react]
 (https://github.com/effrenus/yandex-map-react) for inspiration
-
-Thanks to [create-react-app](https://github.com/facebookincubator/create-react-app)
-team for making examples so easy to make

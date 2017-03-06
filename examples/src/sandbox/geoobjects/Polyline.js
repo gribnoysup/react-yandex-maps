@@ -1,115 +1,71 @@
-import React from 'react'
-import YMaps from '../../../../dist/react-yandex-maps'
+import React from 'react';
+import { YMaps, Map, GeoObject, Polyline } from 'react-yandex-maps';
 
-const mapCenter = [55.72, 37.44]
-const mapZoom = 10
+const mapState = { center: [55.72, 37.44], zoom: 10 };
 
-export default function Polyline() {
-  return (
-    <YMaps.Map
-      width={400}
-      height={350}
-      state={{
-        center: mapCenter,
-        zoom: mapZoom
-      }}
-    >
-      <YMaps.GeoObject
+const PolylineDemo = () => (
+  <YMaps>
+    {/* Creating the map. */}
+    <Map state={mapState}>
+
+      {/* Creating a polyline using the GeoObject class. */}
+      <GeoObject
+        // Describing the geometry of the geo object.
         geometry={{
-          type: "LineString",
-          coordinates: [
-            [55.80, 37.50],
-            [55.70, 37.40]
-          ]
+          // The "Polyline" geometry type.
+          type: 'LineString',
+          // Specifying the coordinates of the vertices of the polyline.
+          coordinates: [[55.80, 37.50], [55.70, 37.40]],
         }}
+        // Defining properties of the geo object.
         properties={{
-          hintContent: "Я геообъект",
-          balloonContent: "Меня можно перетащить"
+          // The contents of the hint.
+          hintContent: 'Я геообъект',
+          // The contents of the balloon.
+          balloonContent: 'Меня можно перетащить',
         }}
+        // Setting the geo object options.
         options={{
+          // Enabling drag-n-drop for the polyline.
           draggable: true,
-          strokeColor: "#FFFF00",
-          strokeWidth: 5
+          // The line color.
+          strokeColor: '#FFFF00',
+          // Line width.
+          strokeWidth: 5,
         }}
       />
-      <YMaps.Polyline
+
+      {/* Creating a polyline using the Polyline auxiliary class. */}
+      <Polyline
         geometry={{
+          // Specifying the coordinates of the vertices of the polyline.
           coordinates: [
             [55.80, 37.50],
             [55.80, 37.40],
             [55.70, 37.50],
-            [55.70, 37.40]
-          ]
+            [55.70, 37.40],
+          ],
         }}
+        // Describing the properties of the geo object.
         properties={{
-          balloonContent: "Ломаная линия"
+          // The contents of the balloon.
+          balloonContent: 'Ломаная линия',
         }}
+        // Setting options for the geo object.
         options={{
+          // Disabling the close button on a balloon.
           balloonCloseButton: false,
-          strokeColor: "#000000",
+          // The line color.
+          strokeColor: '#000000',
+          // Line width.
           strokeWidth: 4,
-          strokeOpacity: 0.5
+          // The transparency coefficient.
+          strokeOpacity: 0.5,
         }}
       />
-    </YMaps.Map>
-  )
-}
 
-Polyline.__src = `
-import React from 'react'
-import YMaps from '../../../../dist/react-yandex-maps'
+    </Map>
+  </YMaps>
+);
 
-const mapCenter = [55.72, 37.44]
-const mapZoom = 10
-
-export default function Polyline() {
-  return (
-    <YMaps.Map
-      width={400}
-      height={350}
-      state={{
-        center: mapCenter,
-        zoom: mapZoom
-      }}
-    >
-      <YMaps.GeoObject
-        geometry={{
-          type: "LineString",
-          coordinates: [
-            [55.80, 37.50],
-            [55.70, 37.40]
-          ]
-        }}
-        properties={{
-          hintContent: "Я геообъект",
-          balloonContent: "Меня можно перетащить"
-        }}
-        options={{
-          draggable: true,
-          strokeColor: "#FFFF00",
-          strokeWidth: 5
-        }}
-      />
-      <YMaps.Polyline
-        geometry={{
-          coordinates: [
-            [55.80, 37.50],
-            [55.80, 37.40],
-            [55.70, 37.50],
-            [55.70, 37.40]
-          ]
-        }}
-        properties={{
-          balloonContent: "Ломаная линия"
-        }}
-        options={{
-          balloonCloseButton: false,
-          strokeColor: "#000000",
-          strokeWidth: 4,
-          strokeOpacity: 0.5
-        }}
-      />
-    </YMaps.Map>
-  )
-}
-`
+export default PolylineDemo;

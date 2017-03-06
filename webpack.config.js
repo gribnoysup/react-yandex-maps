@@ -1,49 +1,35 @@
-var webpack = require('webpack')
-var path = require('path')
-
-var env = JSON.stringify(process.env)
+const webpack = require('webpack')
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.js'),
-
-  module: {
-    loaders: [
-      {test: /\.jsx?$/, loaders: ['babel-loader']}
-    ]
-  },
 
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'react-yandex-maps.js',
-    library: 'react-yandex-maps',
+    library: 'ReactYandexMaps',
     libraryTarget: 'umd'
   },
 
-  resolve: {
-    extensions: ['', '.jsx', '.js']
+  externals: {
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    }
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [{ loader: 'babel-loader' }]
+      }
+    ]
   },
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': env
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      }
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     })
-  ],
-
-  externals: [
-    {
-      'react': {
-        root: 'React',
-        commonjs2: 'react',
-        commonjs: 'react',
-        amd: 'react'
-      }
-    }
   ]
+  
 }

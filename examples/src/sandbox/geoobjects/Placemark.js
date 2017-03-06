@@ -1,79 +1,42 @@
-import React from 'react'
-import YMaps from '../../../../dist/react-yandex-maps'
+import React from 'react';
+import { YMaps, Map, GeoObject, Placemark } from 'react-yandex-maps';
 
-import placemarks from './placemark.json'
+import placemarks from './placemark.json';
 
-const mapCenter = [55.76, 37.64]
-const mapZoom = 10
+const mapState = { center: [55.76, 37.64], zoom: 10 };
 
-export default function Placemark() {
-  return (
-    <YMaps.Map
-      width={400}
-      height={350}
-      state={{
-        center: mapCenter,
-        zoom: mapZoom
-      }}
-    >
-      <YMaps.GeoObject
+const PlacemarkDemo = () => (
+  <YMaps>
+    <Map state={mapState}>
+
+      {/* Creating a geo object with the "Point" geometry type. */}
+      <GeoObject
+        // The geometry description.
         geometry={{
-          type: "Point",
-          coordinates: [55.8, 37.8]
+          type: 'Point',
+          coordinates: [55.8, 37.8],
         }}
+        // Properties.
         properties={{
+          // The placemark content.
           iconContent: 'Я тащусь',
-          hintContent: 'Ну давай уже тащи'
+          hintContent: 'Ну давай уже тащи',
         }}
+        // Options.
         options={{
+          // The placemark's icon will stretch to fit its contents.
           preset: 'islands#blackStretchyIcon',
-          draggable: true
+          // The placemark can be moved.
+          draggable: true,
         }}
       />
+
       {placemarks.map((placemarkParams, i) => (
-        <YMaps.Placemark key={i} {...placemarkParams}/>
+        <Placemark key={i} {...placemarkParams} />
       ))}
-    </YMaps.Map>
-  )
-}
 
-Placemark.__src = `
-import React from 'react'
-import YMaps from '../../../../dist/react-yandex-maps'
+    </Map>
+  </YMaps>
+);
 
-import placemarks from './placemark.json'
-
-const mapCenter = [55.76, 37.64]
-const mapZoom = 10
-
-export default function Placemark() {
-  return (
-    <YMaps.Map
-      width={400}
-      height={350}
-      state={{
-        center: mapCenter,
-        zoom: mapZoom
-      }}
-    >
-      <YMaps.GeoObject
-        geometry={{
-          type: "Point",
-          coordinates: [55.8, 37.8]
-        }}
-        properties={{
-          iconContent: 'Я тащусь',
-          hintContent: 'Ну давай уже тащи'
-        }}
-        options={{
-          preset: 'islands#blackStretchyIcon',
-          draggable: true
-        }}
-      />
-      {placemarks.map((placemarkParams) => (
-        <YMaps.Placemark key={i} {...placemarkParams}/>
-      ))}
-    </YMaps.Map>
-  )
-}
-`
+export default PlacemarkDemo;

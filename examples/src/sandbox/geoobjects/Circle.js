@@ -1,75 +1,45 @@
-import React from 'react'
-import YMaps from '../../../../dist/react-yandex-maps'
+import React from 'react';
+import { YMaps, Map, Circle } from 'react-yandex-maps';
 
-const mapCenter = [55.76, 37.64]
-const mapZoom = 10
+const mapState = { center: [55.76, 37.64], zoom: 10 };
 
-export default function Circle() {
-  return (
-    <YMaps.Map
-      width={400}
-      height={350}
-      state={{
-        center: mapCenter,
-        zoom: mapZoom
-      }}
-    >
-      <YMaps.Circle
+const CircleDemo = () => (
+  <YMaps>
+    <Map state={mapState}>
+
+      <Circle
         geometry={{
+          // The coordinates of the center of the circle.
           coordinates: [55.76, 37.60],
-          radius: 10000
+          // The radius of the circle in meters.
+          radius: 10000,
         }}
         properties={{
-          balloonContent: "Радиус круга - 10 км",
-          hintContent: "Подвинь меня"
+          // Describing the properties of the circle.
+          // The contents of the balloon.
+          balloonContent: 'Радиус круга - 10 км',
+          // The contents of the hint.
+          hintContent: 'Подвинь меня',
         }}
         options={{
+          // Setting the circle options.
+          // Enabling drag-n-drop for the circle.
           draggable: true,
-          fillColor: "#DB709377",
-          strokeColor: "#990066",
+          // Fill color. The last byte (77) defines transparency.
+          // The transparency of the fill can also be set using
+          // the option "fillOpacity".
+          fillColor: '#DB709377',
+          // Stroke color.
+          strokeColor: '#990066',
+          // Stroke transparency.
           strokeOpacity: 0.8,
-          strokeWidth: 5
+          // The width of the stroke in pixels.
+          strokeWidth: 5,
         }}
       />
-    </YMaps.Map>
-  )
-}
 
-Circle.__src = `
-import React from 'react'
-import YMaps from '../../../../dist/react-yandex-maps'
+    </Map>
+  </YMaps>
+);
 
-const mapCenter = [55.76, 37.64]
-const mapZoom = 10
-
-export default function Circle() {
-  return (
-    <YMaps.Map
-      width={400}
-      height={350}
-      state={{
-        center: mapCenter,
-        zoom: mapZoom
-      }}
-    >
-      <YMaps.Circle
-        geometry={{
-          coordinates: [55.76, 37.60],
-          radius: 10000
-        }}
-        properties={{
-          balloonContent: "Радиус круга - 10 км",
-          hintContent: "Подвинь меня"
-        }}
-        options={{
-          draggable: true,
-          fillColor: "#DB709377",
-          strokeColor: "#990066",
-          strokeOpacity: 0.8,
-          strokeWidth: 5
-        }}
-      />
-    </YMaps.Map>
-  )
-}
-`
+export default CircleDemo;

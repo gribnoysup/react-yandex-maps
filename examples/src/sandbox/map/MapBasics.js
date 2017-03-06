@@ -1,79 +1,37 @@
-import React from 'react'
-import YMaps from '../../../../dist/react-yandex-maps'
+import React from 'react';
+import { YMaps, Map } from 'react-yandex-maps';
 
-const mapCenter = [55.76, 37.64]
-const mapZoom = 10
+const mapState = { center: [55.76, 37.64], zoom: 10 };
 
-export default class MapBasics extends React.Component {
-  constructor(...args) {
-    super(...args)
-    this.state = { showMap: true }
+class MapBasics extends React.Component {
+  state = { showMap: true };
+
+  toggleMap() {
+    const { showMap } = this.state;
+    this.setState({ showMap: !showMap });
   }
 
   render() {
-    const {showMap} = this.state
+    const { showMap } = this.state;
 
     return (
-      <div>
-        <div style={{width: 400, height: 350}}>
+      <YMaps>
+        <div id="map-basics">
+
           {showMap &&
-            <YMaps.Map
-              width={400}
-              height={350}
-              state={{
-                center: mapCenter,
-                zoom: mapZoom
-              }}
-            />
-          }
-        </div>
-        <div style={{padding: 20}}>
-          <button onClick={() => this.setState({showMap: !showMap})}>
-            {showMap ? 'Удалить карту' : 'Показать карту'}
+            // When initializing the map, you must specify
+            // its center and the zoom factor.
+            <Map state={mapState} />}
+
+          {/* To destroy it, just unmount component */}
+          <button onClick={() => this.toggleMap()}>
+            {showMap ? 'Delete map' : 'Show map'}
           </button>
+
         </div>
-      </div>
-    )
+      </YMaps>
+    );
   }
 }
 
-MapBasics.__src = `
-import React from 'react'
-import YMaps from '../../../../dist/react-yandex-maps'
-
-const mapCenter = [55.76, 37.64]
-const mapZoom = 10
-
-export default class MapBasics extends React.Component {
-  constructor(...args) {
-    super(...args)
-    this.state = { showMap: true }
-  }
-
-  render() {
-    const {showMap} = this.state
-
-    return (
-      <div>
-        <div style={{width: 400, height: 350}}>
-          {showMap &&
-            <YMaps.Map
-              width={400}
-              height={350}
-              state={{
-                center: mapCenter,
-                zoom: mapZoom
-              }}
-            />
-          }
-        </div>
-        <div style={{padding: 20}}>
-          <button onClick={() => this.setState({showMap: !showMap})}>
-            {showMap ? 'Удалить карту' : 'Показать карту'}
-          </button>
-        </div>
-      </div>
-    )
-  }
-}
-`
+export default MapBasics;

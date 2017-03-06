@@ -1,45 +1,14 @@
-import Map from './Map'
-import Clusterer from './geo-objects/Clusterer'
-import ObjectManager from './geo-objects/ObjectManager'
+export { YMaps } from './YMaps';
+export { Map } from './Map';
 
-import Api from './util/api'
+export { GeoObject } from './GeoObject';
+export { ObjectManager } from './ObjectManager';
+export { Clusterer } from './Clusterer';
+export { Control } from './Control';
 
-import GeoObject from './geo-objects/GeoObject'
+export { Placemark, Polyline, Rectangle, Polygon, Circle } from './Helpers';
 
-import {
-  Placemark,
-  Polyline,
-  Rectangle,
-  Polygon,
-  Circle
-} from './geo-objects/HelperComponents'
-
-import Control from './controls/Control'
-
-import {
-  Button,
-  FullscreenControl,
-  GeolocationControl,
-  RouteEditor,
-  RulerControl,
-  SearchControl,
-  TrafficControl,
-  TypeSelector,
-  ZoomControl
- } from './controls/HelperComponents'
-
-export default {
-  Api,
-  Map,
-  Clusterer,
-  GeoObject,
-  ObjectManager,
-  Placemark,
-  Polyline,
-  Rectangle,
-  Polygon,
-  Circle,
-  Control,
+export {
   Button,
   FullscreenControl,
   GeolocationControl,
@@ -49,4 +18,4 @@ export default {
   TrafficControl,
   TypeSelector,
   ZoomControl,
-}
+} from './Helpers';
