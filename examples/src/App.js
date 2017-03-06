@@ -79,6 +79,20 @@ class App extends React.Component {
                 { name: 'Circle', to: '/circle' },
               ]}
             />
+
+            <Navigation
+              id="ObjectManager"
+              name="ObjectManager"
+              onClick={this.onNavClick}
+              active={active.indexOf('ObjectManager') !== -1}
+              path="/sandbox/objectmanager"
+              routes={[
+                {
+                  name: 'Adding a large number of objects to the map',
+                  to: '/objectmanager',
+                },
+              ]}
+            />
           </NavContainer>
 
           <Route

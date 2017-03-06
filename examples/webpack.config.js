@@ -12,9 +12,11 @@ const vendor = [
   'react-dom'
 ]
 
+const NODE_ENV = process.env.NODE_ENV || 'development'
+
 module.exports = {
 
-  // devtool: 'cheap-module-eval-source-map',
+  devtool: NODE_ENV === 'development' ? 'source-map' : '',
 
   devServer: {
     historyApiFallback: true,
@@ -43,6 +45,14 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        enforce: 'pre',
+        exclude: /node_modules/,
+        use: [
+          { loader: 'source-map-loader' }
+        ]
+      },
+      {
+        test: /\.js$/,
         exclude: /node_modules/,
         use: [
           { loader: 'babel-loader' }
@@ -65,7 +75,7 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
     }),
     new HtmlWebpackPlugin({
       inject: true,

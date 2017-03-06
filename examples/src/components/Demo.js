@@ -30,7 +30,6 @@ const Demo = ({ component: Component, src, name }) => (
   <DemoContainer>
     <EditorContainer>
       <EditorHeader>{name}</EditorHeader>
-      {/* TODO: files array, not one src?? */}
       <StyledEditor src={src} />
     </EditorContainer>
     <ComponentContainer>

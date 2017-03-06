@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, withRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -35,32 +35,22 @@ const NavItem = styled.li`
   }
 `;
 
-const Navigation = ({ path, name, id, onClick, routes, active }) => (
-  <Route path={path}>
-    {props => (
-      <List>
-        <NavHeader id={id} onClick={onClick}>
-          {name}
-        </NavHeader>
+const Navigation = ({ path, name, id, onClick, routes, active, ...props }) => (
+  <List>
+    <NavHeader id={id} onClick={onClick}>
+      {name}
+    </NavHeader>
 
-        {active &&
-          routes.map(route => (
-            <NavItem
-              key={route.name}
-              onClick={() => props.push(path + route.to)}
-            >
-              <Link
-                to={path + route.to}
-                onClick={event => event.preventDefault()}
-              >
-                {route.name}
-              </Link>
-            </NavItem>
-          ))}
+    {active &&
+      routes.map(route => (
+        <NavItem key={route.name} onClick={() => props.push(path + route.to)}>
+          <Link to={path + route.to} onClick={event => event.preventDefault()}>
+            {route.name}
+          </Link>
+        </NavItem>
+      ))}
 
-      </List>
-    )}
-  </Route>
+  </List>
 );
 
-export default Navigation;
+export default withRouter(Navigation);

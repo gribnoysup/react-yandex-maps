@@ -31,6 +31,9 @@ import rawPolygon from '!raw-loader!sandbox/geoobjects/Polygon';
 import Circle from 'sandbox/geoobjects/Circle';
 import rawCircle from '!raw-loader!sandbox/geoobjects/Circle';
 
+import ObjectManager from 'sandbox/objectmanager/ObjectManager';
+import rawObjectManager from '!raw-loader!sandbox/objectmanager/ObjectManager';
+
 const demos = {
   map: {
     'map-basics': {
@@ -80,6 +83,14 @@ const demos = {
       name: 'Circle',
       component: Circle,
       src: rawCircle,
+    },
+  },
+
+  objectmanager: {
+    objectmanager: {
+      name: 'Adding a large number of objects to the map',
+      component: ObjectManager,
+      src: rawObjectManager,
     },
   },
 };

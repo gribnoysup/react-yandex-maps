@@ -34,7 +34,7 @@ export class ObjectManager extends React.Component {
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
     collection.add(instance);
 
-    instance.add(features);
+    instance.add(features || []);
     instance.setFilter(filter);
     instance.clusters.options.set(clusters || {});
     instance.objects.options.set(objects || {});
@@ -68,11 +68,26 @@ export class ObjectManager extends React.Component {
     }
 
     if (features !== prevFeatures) {
-      instance.removeAll();
-      instance.add(features);
+      this.updateFeatures(instance, prevFeatures || [], features || []);
     }
 
     this.updateEvents(instance, prevEvents, events);
+  }
+
+  updateFeatures(instance, prevFeatures, features) {
+    const prevIds = prevFeatures.map(feature => feature.id);
+    const newIds = features.map(feature => feature.id);
+
+    const toRemove = prevFeatures.filter(
+      feature => newIds.indexOf(feature.id) === -1
+    );
+
+    const toAdd = features.filter(
+      feature => prevIds.indexOf(feature.id) === -1
+    );
+
+    if (toRemove.length > 0) instance.remove(toRemove);
+    if (toAdd.length > 0) instance.add(toAdd);
   }
 
   updateEvents(instance, prevEvents, newEvents) {

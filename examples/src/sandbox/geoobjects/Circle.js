@@ -8,7 +8,7 @@ const CircleDemo = () => (
     <Map state={mapState}>
 
       <Circle
-        state={{
+        geometry={{
           // The coordinates of the center of the circle.
           coordinates: [55.76, 37.60],
           // The radius of the circle in meters.
