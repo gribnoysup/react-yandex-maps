@@ -6,7 +6,7 @@ bindings for React
 ## Install
 
 ```shell
-npm install --save react react-yandex-maps
+npm install --save react-yandex-maps
 ```
 
 ## Components
