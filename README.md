@@ -107,7 +107,7 @@ default ones (for example `geometrychange -> onGeometryChange`):
 ### With Yandex Maps API
 
 ```js
-function handleEventSomehow() {/* more code */}
+function onGeometryChange() {/* more code */}
 
 const circle = new window.ymaps.GeoObject({
   geometry: {
@@ -125,15 +125,13 @@ circle.events.add('geometrychange', handleEventSomehow)
 ```js
 import { Circle } from 'react-yandex-maps'
 
-function handleEventSomehow() {/* more code */}
-
-const CircleWithEvents = () => (
+const CircleWithEvents = ({onGeometryChange}) => (
   <Circle
     geometry={{
       coordinates: [55.76, 37.64],
       radius: 10000
     }}
-    onGeometryChange={handleEventSomehow}
+    onGeometryChange={onGeometryChange}
   />
 )
 ```
