@@ -179,9 +179,8 @@ export class Map extends React.Component {
     const { width, height } = this.props;
 
     return this.context.ymaps &&
-      <div style={{ width: '100%', height: '100%' }}>
+      <div style={{ width, height }} ref={this.getMapNode}>
         {this.children}
-        <div style={{ width, height }} ref={this.getMapNode} />
       </div>;
   }
 }
