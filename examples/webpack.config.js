@@ -7,6 +7,8 @@ const sandbox = path.join(examples, 'src', 'sandbox')
 
 const reactYandexMaps = path.resolve(process.cwd(), 'src')
 
+const devServer = process.argv[1].indexOf('webpack-dev-server') !== -1
+
 const vendor = [
   'react',
   'react-dom',
@@ -38,7 +40,7 @@ module.exports = {
 
   output: {
     path: examples + '/build',
-    publicPath: '/react-yandex-maps/',
+    publicPath: devServer ? '/' : '/react-yandex-maps/',
     filename: 'static/js/[name].[chunkhash:8].js'
   },
 
