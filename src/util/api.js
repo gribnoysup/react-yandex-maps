@@ -23,7 +23,7 @@ function fetchScript(url) {
 
 class YandexMapsApi {
   constructor() {
-    this.api = window[ns] || null;
+    this.api = typeof window !== 'undefined' ? (window[ns] || null) : null;
     this.promise = null;
   }
 
