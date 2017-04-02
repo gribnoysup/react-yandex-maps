@@ -163,5 +163,4 @@ npm install && npm run examples
 
 ## Acknowledgements
 
-Thanks to [@effrenus](https://github.com/effrenus/) and his [yandex-map-react]
-(https://github.com/effrenus/yandex-map-react) for inspiration
+Thanks to [@effrenus](https://github.com/effrenus/) and his [yandex-map-react](https://github.com/effrenus/yandex-map-react) for inspiration
