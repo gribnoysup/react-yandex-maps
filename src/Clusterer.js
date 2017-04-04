@@ -2,7 +2,7 @@ import React from 'react';
 
 import invariant from 'invariant';
 
-import { GeoObject as GeoObjectSymbol } from './util/symbols';
+import Symbols from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
 const { func } = React.PropTypes;
@@ -16,7 +16,7 @@ export class Clusterer extends React.Component {
     instanceRef: Function.prototype,
   };
 
-  static [GeoObjectSymbol] = true;
+  static [Symbols.GeoObject] = true;
 
   state = { instance: null };
 
@@ -80,13 +80,14 @@ export class Clusterer extends React.Component {
     return React.Children.map(children, child => {
       invariant(
         child == null,
-        child.type[GeoObjectSymbol],
-        'A <Clusterer> children should be <GeoObject> components'
+        child.type[Symbols.GeoObject] || child.type[Symbols.Route],
+        'A <Clusterer> children should be <GeoObject> or <Route> component'
       );
 
       if (!child) return null;
 
-      if (child.type[GeoObjectSymbol]) return this.renderGeoObject(child);
+      if (child.type[Symbols.GeoObject] || child.type[Symbols.Route])
+        return this.renderGeoObject(child);
     });
   }
 

@@ -138,13 +138,15 @@ export class Map extends React.Component {
       invariant(
         child == null ||
           child.type[Symbols.GeoObject] ||
-          child.type[Symbols.Control],
-        'A <Map> children should be <GeoObject> or <Control> components'
+          child.type[Symbols.Control] ||
+          child.type[Symbols.Route],
+        'A <Map> children should be <Route>, <GeoObject> or <Control> component'
       );
 
       if (!child) return null;
 
-      if (child.type[Symbols.GeoObject]) return this.renderGeoObject(child);
+      if (child.type[Symbols.GeoObject] || child.type[Symbols.Route])
+        return this.renderGeoObject(child);
       if (child.type[Symbols.Control]) return this.renderControl(child);
     });
   }
