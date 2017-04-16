@@ -93,6 +93,20 @@ class App extends React.Component {
                 },
               ]}
             />
+
+            <Navigation
+              id="Routing"
+              name="Routing"
+              onClick={this.onNavClick}
+              active={active.indexOf('Routing') !== -1}
+              path="/sandbox/routing"
+              routes={[
+                {
+                  name: 'Building a route',
+                  to: '/router',
+                },
+              ]}
+            />
           </NavContainer>
 
           <Route

@@ -1,11 +1,13 @@
+export const Map = Symbol.for('Map');
 export const GeoObject = Symbol.for('GeoObject');
 export const Control = Symbol.for('Control');
-export const Popup = Symbol.for('Popup');
-export const Map = Symbol.for('Map');
+export const Route = Symbol.for('Route');
+export const Point = Symbol.for('Point');
 
 export default {
+  Map,
   GeoObject,
   Control,
-  Popup,
-  Map,
+  Route,
+  Point,
 };

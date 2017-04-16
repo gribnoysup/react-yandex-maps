@@ -34,6 +34,9 @@ import rawCircle from '!raw-loader!sandbox/geoobjects/Circle';
 import ObjectManager from 'sandbox/objectmanager/ObjectManager';
 import rawObjectManager from '!raw-loader!sandbox/objectmanager/ObjectManager';
 
+import Router from 'sandbox/routing/Router';
+import rawRouter from '!raw-loader!sandbox/routing/Router';
+
 const demos = {
   map: {
     'map-basics': {
@@ -91,6 +94,14 @@ const demos = {
       name: 'Adding a large number of objects to the map',
       component: ObjectManager,
       src: rawObjectManager,
+    },
+  },
+
+  routing: {
+    router: {
+      name: 'Building a route',
+      component: Router,
+      src: rawRouter,
     },
   },
 };
