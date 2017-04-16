@@ -11,6 +11,10 @@ export class Point extends React.Component {
     value: oneOfType([string, array]).isRequired,
   };
 
+  static defaultProps = {
+    type: 'wayPoint',
+  };
+
   static [PointSymbol] = true;
 
   render() {
