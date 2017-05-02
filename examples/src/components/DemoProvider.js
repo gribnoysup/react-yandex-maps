@@ -34,6 +34,9 @@ import rawCircle from '!raw-loader!sandbox/geoobjects/Circle';
 import ObjectManager from 'sandbox/objectmanager/ObjectManager';
 import rawObjectManager from '!raw-loader!sandbox/objectmanager/ObjectManager';
 
+import ClustererCreate from 'sandbox/clustering/ClustererCreate';
+import rawClustererCreate from '!raw-loader!sandbox/clustering/ClustererCreate';
+
 const demos = {
   map: {
     'map-basics': {
@@ -91,6 +94,14 @@ const demos = {
       name: 'Adding a large number of objects to the map',
       component: ObjectManager,
       src: rawObjectManager,
+    },
+  },
+
+  clustering: {
+    'clusterer-create': {
+      name: 'Adding a large number of objects to the map',
+      component: ClustererCreate,
+      src: rawClustererCreate,
     },
   },
 };

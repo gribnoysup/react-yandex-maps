@@ -93,6 +93,20 @@ class App extends React.Component {
                 },
               ]}
             />
+
+            <Navigation
+              id="Clustering"
+              name="Clustering"
+              onClick={this.onNavClick}
+              active={active.indexOf('Clustering') !== -1}
+              path="/sandbox/clustering"
+              routes={[
+                {
+                  name: 'Creating a clusterer',
+                  to: '/clusterer-create',
+                },
+              ]}
+            />
           </NavContainer>
 
           <Route

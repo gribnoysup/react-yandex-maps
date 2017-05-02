@@ -65,8 +65,8 @@ export class Clusterer extends React.Component {
   }
 
   renderGeoObject(child) {
-    const { ymaps } = this.context;
-    const { geoObjects: collection } = this.state.instance;
+    const { instance: collection } = this.state;
+    const { ymaps } = this.props;
 
     return React.cloneElement(child, { ymaps, collection });
   }
@@ -79,8 +79,7 @@ export class Clusterer extends React.Component {
 
     return React.Children.map(children, child => {
       invariant(
-        child == null,
-        child.type[GeoObjectSymbol],
+        child == null || child.type[GeoObjectSymbol],
         'A <Clusterer> children should be <GeoObject> components'
       );
 
