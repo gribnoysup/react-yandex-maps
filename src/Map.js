@@ -1,11 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import invariant from 'invariant';
 
 import Symbols from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
-const { object, oneOfType, number, string, func } = React.PropTypes;
+const {
+  object,
+  oneOfType,
+  number,
+  string,
+  func
+} = PropTypes;
 
 export class Map extends React.Component {
   static propTypes = {
