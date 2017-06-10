@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import invariant from 'invariant';
 
 import { GeoObject as GeoObjectSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
-const { func } = React.PropTypes;
+const { func } = PropTypes;
 
 export class Clusterer extends React.Component {
   static propTypes = {

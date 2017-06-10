@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { GeoObject as GeoObjectSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
@@ -11,7 +12,7 @@ const {
   number,
   arrayOf,
   func,
-} = React.PropTypes;
+} = PropTypes;
 
 export class GeoObject extends React.Component {
   static propTypes = {
