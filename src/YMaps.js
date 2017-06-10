@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import invariant from 'invariant';
 
 import YandexMapsApi from './util/api';
 
-const { node, bool, shape, string, oneOf, object, func } = React.PropTypes;
+const { node, bool, shape, string, oneOf, object, func } = PropTypes;
 
 export class YMaps extends React.Component {
   static propTypes = {
