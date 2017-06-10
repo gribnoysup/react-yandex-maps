@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Control as ControlSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
-const { func } = React.PropTypes;
+const { func } = PropTypes;
 
 export class Control extends React.Component {
   static propTypes = {
