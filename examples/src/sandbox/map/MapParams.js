@@ -45,13 +45,10 @@ class MapParams extends React.Component {
           <button onClick={this.updateState(this.setBounds)}>
             Change boundaries
           </button>
-          <button onClick={this.updateState(this.setType)}>
-            Change type
-          </button>
+          <button onClick={this.updateState(this.setType)}>Change type</button>
           <button onClick={this.updateState(this.setDefault)}>
             Reset to default
           </button>
-
         </div>
       </YMaps>
     );

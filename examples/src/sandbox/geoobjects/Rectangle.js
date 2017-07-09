@@ -3,10 +3,9 @@ import { YMaps, Map, GeoObject, Rectangle } from 'react-yandex-maps';
 
 const mapState = { center: [55.674, 37.601], zoom: 11 };
 
-const RectangleDemo = () => (
+const RectangleDemo = () =>
   <YMaps>
     <Map state={mapState}>
-
       {/* Creating a geo object with the "rectangle" geometry type. */}
       <GeoObject
         // Geometry = geometry type + the coordinates of the geo object.
@@ -36,7 +35,7 @@ const RectangleDemo = () => (
 
       <Rectangle
         geometry={{
-          coordinates: [[55.66, 37.60], [55.71, 37.69]],
+          coordinates: [[55.66, 37.6], [55.71, 37.69]],
         }}
         properties={{
           hintContent: 'Меня перетаскивать нельзя!',
@@ -51,9 +50,7 @@ const RectangleDemo = () => (
           borderRadius: 6,
         }}
       />
-
     </Map>
-  </YMaps>
-);
+  </YMaps>;
 
 export default RectangleDemo;

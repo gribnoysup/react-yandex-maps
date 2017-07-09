@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { GeoObject as GeoObjectSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
-const { func } = PropTypes;
+const { func, object } = PropTypes;
 
 export class ObjectManager extends React.Component {
   static propTypes = {
@@ -15,25 +14,35 @@ export class ObjectManager extends React.Component {
     instanceRef: Function.prototype,
   };
 
-  static [GeoObjectSymbol] = true;
+  static contextTypes = {
+    ymaps: object,
+    parent: object,
+  };
 
   state = { instance: null };
 
   mount() {
     const {
-      collection,
-      ymaps,
       features,
       filter,
       options,
       clusters,
       objects,
       events,
+      instanceRef,
     } = separateEvents(this.props);
+
+    const { ymaps, parent } = this.context;
+
     const instance = new ymaps.ObjectManager(options);
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
-    collection.add(instance);
+
+    if (typeof parent.add === 'function') {
+      parent.add(instance);
+    } else {
+      parent.geoObjects.add(instance);
+    }
 
     instance.add(features || []);
     instance.setFilter(filter);
@@ -41,6 +50,10 @@ export class ObjectManager extends React.Component {
     instance.objects.options.set(objects || {});
 
     this.setState({ instance });
+
+    if (typeof instanceRef === 'function') {
+      instanceRef(instance);
+    }
   }
 
   update(instance, prevProps = {}, newProps = {}) {
@@ -103,36 +116,33 @@ export class ObjectManager extends React.Component {
   }
 
   unmount() {
+    const { parent } = this.context;
     const { instance } = this.state;
-    const { events, collection } = separateEvents(this.props);
+    const { events, instanceRef } = separateEvents(this.props);
 
-    if (!instance) return;
+    if (instance !== null) {
+      Object.keys(events).forEach(key =>
+        removeEvent(events[key], key, instance)
+      );
+      if (typeof parent.remove === 'function') {
+        parent.remove(instance);
+      } else {
+        parent.geoObjects.remove(instance);
+      }
+    }
 
-    Object.keys(events).forEach(key => removeEvent(events[key], key, instance));
-    collection.remove(instance);
+    if (typeof instanceRef === 'function') {
+      instanceRef(null);
+    }
   }
 
   componentDidMount() {
-    const { ymaps } = this.props;
-    if (ymaps) this.mount();
+    this.mount();
   }
 
   componentWillReceiveProps(newProps) {
     const { instance } = this.state;
-    if (instance) this.update(instance, this.props, newProps);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { instance } = this.state;
-    const { instanceRef } = this.props;
-
-    if (prevState.instance !== instance) {
-      if (instance) {
-        instanceRef(instance);
-      } else {
-        instanceRef(null);
-      }
-    }
+    if (instance !== null) this.update(instance, this.props, newProps);
   }
 
   componentWillUnmount() {

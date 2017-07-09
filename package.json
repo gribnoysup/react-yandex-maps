@@ -12,7 +12,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "precommit": "npm run prettier && git add -A",
+    "precommit": "lint-staged",
     "examples": "webpack-dev-server --config ./examples/webpack.config.js",
     "build:examples": "rm -rf ./examples/build && NODE_ENV=production webpack -p --config ./examples/webpack.config.js",
     "build": "NODE_ENV=production node ./tools/build.js",
@@ -20,7 +20,14 @@
     "prettier": "npm run prettier:src && npm run prettier:examples",
     "prettier:src": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\"",
     "prettier:examples": "prettier --single-quote --trailing-comma es5 --write \"./examples/src/**/*.js\"",
+    "prettier:staged": "prettier --single-quote --trailing-comma es5 --write",
     "publish:examples": "npm run build:examples && gh-pages -d ./examples/build"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run prettier:staged",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -56,8 +63,9 @@
     "in-publish": "^2.0.0",
     "invariant": "^2.2.2",
     "json-loader": "^0.5.4",
+    "lint-staged": "^4.0.1",
     "lodash": "^4.17.4",
-    "prettier": "^0.21.0",
+    "prettier": "^1.5.2",
     "pretty-bytes": "^4.0.2",
     "prop-types": "^15.5.10",
     "raw-loader": "^0.5.1",

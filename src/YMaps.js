@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import invariant from 'invariant';
-
 import YandexMapsApi from './util/api';
 
 const { node, bool, shape, string, oneOf, object, func } = PropTypes;
@@ -36,13 +34,12 @@ export class YMaps extends React.Component {
     ymaps: object,
   };
 
+  state = { ymaps: null };
+
+  _mounted = true;
+
   getChildContext() {
     return { ymaps: this.state.ymaps };
-  }
-
-  constructor(...args) {
-    super(...args);
-    this.state = { ymaps: null };
   }
 
   componentDidMount() {
@@ -50,21 +47,20 @@ export class YMaps extends React.Component {
 
     YandexMapsApi.get(query, version, enterprise).then(ymaps => {
       onApiAvaliable(ymaps);
-      this.setState({ ymaps });
+      this._mounted && this.setState({ ymaps });
     });
   }
 
-  componentWillMount() {
-    const { children } = this.props;
-
-    invariant(
-      children == null || React.Children.count(children) === 1,
-      'A <YMaps> may have only one child element'
-    );
+  componentWillUnmount() {
+    this._mounted = false;
   }
 
   render() {
     const { children } = this.props;
-    return children ? React.Children.only(children) : null;
+    const { ymaps } = this.state;
+
+    return typeof children === 'function'
+      ? children(ymaps)
+      : children ? React.Children.only(children) : null;
   }
 }

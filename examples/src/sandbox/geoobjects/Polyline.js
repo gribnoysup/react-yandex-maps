@@ -3,11 +3,10 @@ import { YMaps, Map, GeoObject, Polyline } from 'react-yandex-maps';
 
 const mapState = { center: [55.72, 37.44], zoom: 10 };
 
-const PolylineDemo = () => (
+const PolylineDemo = () =>
   <YMaps>
     {/* Creating the map. */}
     <Map state={mapState}>
-
       {/* Creating a polyline using the GeoObject class. */}
       <GeoObject
         // Describing the geometry of the geo object.
@@ -15,7 +14,7 @@ const PolylineDemo = () => (
           // The "Polyline" geometry type.
           type: 'LineString',
           // Specifying the coordinates of the vertices of the polyline.
-          coordinates: [[55.80, 37.50], [55.70, 37.40]],
+          coordinates: [[55.8, 37.5], [55.7, 37.4]],
         }}
         // Defining properties of the geo object.
         properties={{
@@ -39,12 +38,7 @@ const PolylineDemo = () => (
       <Polyline
         geometry={{
           // Specifying the coordinates of the vertices of the polyline.
-          coordinates: [
-            [55.80, 37.50],
-            [55.80, 37.40],
-            [55.70, 37.50],
-            [55.70, 37.40],
-          ],
+          coordinates: [[55.8, 37.5], [55.8, 37.4], [55.7, 37.5], [55.7, 37.4]],
         }}
         // Describing the properties of the geo object.
         properties={{
@@ -63,9 +57,7 @@ const PolylineDemo = () => (
           strokeOpacity: 0.5,
         }}
       />
-
     </Map>
-  </YMaps>
-);
+  </YMaps>;
 
 export default PolylineDemo;

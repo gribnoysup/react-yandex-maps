@@ -37,6 +37,9 @@ import rawObjectManager from '!raw-loader!sandbox/objectmanager/ObjectManager';
 import ClustererCreate from 'sandbox/clustering/ClustererCreate';
 import rawClustererCreate from '!raw-loader!sandbox/clustering/ClustererCreate';
 
+import Button from 'sandbox/controls/Button';
+import rawButton from '!raw-loader!sandbox/controls/Button';
+
 const demos = {
   map: {
     'map-basics': {
@@ -102,6 +105,14 @@ const demos = {
       name: 'Adding a large number of objects to the map',
       component: ClustererCreate,
       src: rawClustererCreate,
+    },
+  },
+
+  controls: {
+    button: {
+      name: 'Adding buttons to the map',
+      component: Button,
+      src: rawButton,
     },
   },
 };

@@ -35,22 +35,20 @@ const NavItem = styled.li`
   }
 `;
 
-const Navigation = ({ path, name, id, onClick, routes, active, ...props }) => (
+const Navigation = ({ path, name, id, onClick, routes, active, ...props }) =>
   <List>
     <NavHeader id={id} onClick={onClick}>
       {name}
     </NavHeader>
 
     {active &&
-      routes.map(route => (
+      routes.map(route =>
         <NavItem key={route.name} onClick={() => props.push(path + route.to)}>
           <Link to={path + route.to} onClick={event => event.preventDefault()}>
             {route.name}
           </Link>
         </NavItem>
-      ))}
-
-  </List>
-);
+      )}
+  </List>;
 
 export default withRouter(Navigation);

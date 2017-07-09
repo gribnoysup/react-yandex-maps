@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import invariant from 'invariant';
-
-import { GeoObject as GeoObjectSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
-const { func } = PropTypes;
+const { func, object } = PropTypes;
 
 export class Clusterer extends React.Component {
   static propTypes = {
@@ -17,18 +14,39 @@ export class Clusterer extends React.Component {
     instanceRef: Function.prototype,
   };
 
-  static [GeoObjectSymbol] = true;
+  static contextTypes = {
+    ymaps: object,
+    parent: object,
+  };
+
+  static childContextTypes = {
+    parent: object,
+  };
 
   state = { instance: null };
 
+  getChildContext() {
+    return { parent: this.state.instance };
+  }
+
   mount() {
-    const { collection, ymaps, options, events } = separateEvents(this.props);
+    const { ymaps, parent } = this.context;
+    const { options, events, instanceRef } = separateEvents(this.props);
     const instance = new ymaps.Clusterer(options);
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
-    collection.add(instance);
+
+    if (typeof parent.add === 'function') {
+      parent.add(instance);
+    } else {
+      parent.geoObjects.add(instance);
+    }
 
     this.setState({ instance });
+
+    if (typeof instanceRef === 'function') {
+      instanceRef(instance);
+    }
   }
 
   update(instance, prevProps = {}, newProps = {}) {
@@ -56,61 +74,36 @@ export class Clusterer extends React.Component {
   }
 
   unmount() {
+    const { parent } = this.context;
     const { instance } = this.state;
-    const { events, collection } = separateEvents(this.props);
+    const { events, instanceRef } = separateEvents(this.props);
 
     if (!instance) return;
 
-    Object.keys(events).forEach(key => removeEvent(events[key], key, instance));
-    collection.remove(instance);
-  }
-
-  renderGeoObject(child) {
-    const { instance: collection } = this.state;
-    const { ymaps } = this.props;
-
-    return React.cloneElement(child, { ymaps, collection });
-  }
-
-  get children() {
-    const { children } = this.props;
-    const { instance } = this.state;
-
-    if (!instance) return null;
-
-    return React.Children.map(children, child => {
-      invariant(
-        child == null || child.type[GeoObjectSymbol],
-        'A <Clusterer> children should be <GeoObject> components'
+    if (instance !== null) {
+      Object.keys(events).forEach(key =>
+        removeEvent(events[key], key, instance)
       );
 
-      if (!child) return null;
+      if (typeof parent.remove === 'function') {
+        parent.remove(instance);
+      } else {
+        parent.geoObjects.remove(instance);
+      }
+    }
 
-      if (child.type[GeoObjectSymbol]) return this.renderGeoObject(child);
-    });
+    if (typeof instanceRef === 'function') {
+      instanceRef(null);
+    }
   }
 
   componentDidMount() {
-    const { ymaps } = this.props;
-    if (ymaps) this.mount();
+    this.mount();
   }
 
   componentWillReceiveProps(newProps) {
     const { instance } = this.state;
-    if (instance) this.update(instance, this.props, newProps);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { instance } = this.state;
-    const { instanceRef } = this.props;
-
-    if (prevState.instance !== instance) {
-      if (instance) {
-        instanceRef(instance);
-      } else {
-        instanceRef(null);
-      }
-    }
+    if (instance !== null) this.update(instance, this.props, newProps);
   }
 
   componentWillUnmount() {
@@ -118,6 +111,13 @@ export class Clusterer extends React.Component {
   }
 
   render() {
-    return <noscript>{this.children}</noscript>;
+    const { children } = this.props;
+    const { instance } = this.state;
+
+    return (
+      <noscript>
+        {instance && children}
+      </noscript>
+    );
   }
 }
