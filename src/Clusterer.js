@@ -35,7 +35,12 @@ export class Clusterer extends React.Component {
     const instance = new ymaps.Clusterer(options);
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
-    parent.geoObjects.add(instance);
+
+    if (typeof parent.add === 'function') {
+      parent.add(instance);
+    } else {
+      parent.geoObjects.add(instance);
+    }
 
     this.setState({ instance });
 

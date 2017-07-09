@@ -73,18 +73,16 @@ export class Map extends React.Component {
 
   update(instance, prevProps = {}, newProps = {}) {
     const {
-      width: prevWidth,
-      height: prevHeight,
       options: prevOptions,
       state: prevState,
       events: prevEvents,
     } = separateEvents(prevProps);
 
-    const { width, height, options, state, events } = separateEvents(newProps);
+    const { options, state, events } = separateEvents(newProps);
 
-    if (prevWidth !== width || prevHeight !== height) {
-      instance.container.fitToViewport();
-    }
+    // if (prevWidth !== width || prevHeight !== height) {
+    //   instance.container.fitToViewport();
+    // }
 
     if (prevState.type !== state.type) {
       instance.setType(state.type);
@@ -134,6 +132,17 @@ export class Map extends React.Component {
       this.mount(nextContext.ymaps);
     } else if (this.state.instance !== null) {
       this.update(this.state.instance, this.props, nextProps);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.width !== this.props.width ||
+      prevProps.height !== this.props.height
+    ) {
+      // fitToViewport on with/height update should happen after
+      // component width/height update happened
+      this.state.instance.container.fitToViewport();
     }
   }
 
