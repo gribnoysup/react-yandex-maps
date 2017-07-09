@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import invariant from 'invariant';
-
 import Symbols from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
@@ -31,34 +29,49 @@ export class Map extends React.Component {
     ymaps: object,
   };
 
+  static childContextTypes = {
+    parent: object,
+  };
+
   static [Symbols.Map] = true;
 
-  constructor(...args) {
-    super(...args);
-    this.state = { instance: null };
-    this.getMapNode = this.getMapNode.bind(this);
+  state = { instance: null };
+
+  mapNode = null;
+
+  getChildContext() {
+    return { parent: this.state.instance };
   }
 
-  getMapNode(ref) {
-    this.mapNode = ref;
-  }
+  getMapNode = ref => (this.mapNode = ref);
 
   mount(ymaps = this.context.ymaps) {
-    const { state, options, events } = separateEvents(this.props);
+    const { state, options, events, instanceRef } = separateEvents(this.props);
+
     const instance = new ymaps.Map(this.mapNode, state, options);
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
     this.setState({ instance });
+
+    if (typeof instanceRef === 'function') {
+      instanceRef(instance);
+    }
   }
 
   unmount() {
     const { instance } = this.state;
-    const { events } = separateEvents(this.props);
+    const { events, instanceRef } = separateEvents(this.props);
 
-    if (!instance) return;
+    if (instance !== null) {
+      Object.keys(events).forEach(key =>
+        removeEvent(events[key], key, instance)
+      );
+      instance.destroy();
+    }
 
-    Object.keys(events).forEach(key => removeEvent(events[key], key, instance));
-    instance.destroy();
+    if (typeof instanceRef === 'function') {
+      instanceRef(null);
+    }
   }
 
   update(instance, prevProps = {}, newProps = {}) {
@@ -115,60 +128,15 @@ export class Map extends React.Component {
     });
   }
 
-  renderGeoObject(child) {
-    const { ymaps } = this.context;
-    const { geoObjects: collection } = this.state.instance;
-
-    return React.cloneElement(child, { ymaps, collection });
-  }
-
-  renderControl(child) {
-    const { ymaps } = this.context;
-    const { controls: collection } = this.state.instance;
-
-    return React.cloneElement(child, { ymaps, collection });
-  }
-
-  get children() {
-    const { children } = this.props;
-    const { instance } = this.state;
-
-    if (!instance) return null;
-
-    return React.Children.map(children, child => {
-      invariant(
-        child == null ||
-          child.type[Symbols.GeoObject] ||
-          child.type[Symbols.Control],
-        'A <Map> children should be <GeoObject> or <Control> components'
-      );
-
-      if (!child) return null;
-
-      if (child.type[Symbols.GeoObject]) return this.renderGeoObject(child);
-      if (child.type[Symbols.Control]) return this.renderControl(child);
-    });
-  }
-
   componentDidMount() {
-    const { ymaps } = this.context;
-    if (ymaps) this.mount();
+    if (this.context.ymaps) this.mount();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { ymaps } = this.context;
-    const { instance } = this.state;
-    const { instanceRef } = this.props;
-
-    if (!instance && ymaps) this.mount();
-    if (instance) this.update(instance, prevProps, this.props);
-
-    if (prevState.instance !== instance) {
-      if (instance) {
-        instanceRef(instance);
-      } else {
-        instanceRef(null);
-      }
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (nextContext.ymaps !== null && this.state.instance === null) {
+      this.mount(nextContext.ymaps);
+    } else if (this.state.instance !== null) {
+      this.update(this.state.instance, this.props, nextProps);
     }
   }
 
@@ -177,11 +145,13 @@ export class Map extends React.Component {
   }
 
   render() {
-    const { width, height } = this.props;
+    const { width, height, children } = this.props;
+    const { instance } = this.state;
 
-    return this.context.ymaps &&
+    return (
       <div style={{ width, height }} ref={this.getMapNode}>
-        {this.children}
-      </div>;
+        {instance && children}
+      </div>
+    );
   }
 }

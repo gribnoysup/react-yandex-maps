@@ -4,26 +4,13 @@ import PropTypes from 'prop-types';
 import { GeoObject as GeoObjectSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
-const {
-  object,
-  shape,
-  oneOf,
-  oneOfType,
-  number,
-  arrayOf,
-  func,
-} = PropTypes;
+const { object, shape, oneOf, oneOfType, number, arrayOf, func } = PropTypes;
 
 export class GeoObject extends React.Component {
   static propTypes = {
     geometry: shape({
-      type: oneOf([
-        'Point',
-        'LineString',
-        'Rectangle',
-        'Polygon',
-        'Circle',
-      ]).isRequired,
+      type: oneOf(['Point', 'LineString', 'Rectangle', 'Polygon', 'Circle'])
+        .isRequired,
       coordinates: oneOfType([
         arrayOf(number),
         arrayOf(arrayOf(number)),
@@ -35,14 +22,16 @@ export class GeoObject extends React.Component {
     properties: object,
     options: object,
 
-    collection: object,
-    ymaps: object,
-
     instanceRef: func,
   };
 
   static defaultProps = {
     instanceRef: Function.prototype,
+  };
+
+  static contextTypes = {
+    ymaps: object,
+    parent: object,
   };
 
   static [GeoObjectSymbol] = true;
@@ -51,19 +40,30 @@ export class GeoObject extends React.Component {
 
   mount() {
     const {
-      collection,
-      ymaps,
       events,
       geometry,
       properties,
       options,
+      instanceRef,
     } = separateEvents(this.props);
+
+    const { ymaps, parent } = this.context;
+
     const instance = new ymaps.GeoObject({ geometry, properties }, options);
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
-    collection.add(instance);
+
+    if (typeof parent.add === 'function') {
+      parent.add(instance);
+    } else {
+      parent.geoObjects.add(instance);
+    }
 
     this.setState({ instance });
+
+    if (typeof instanceRef === 'function') {
+      instanceRef(instance);
+    }
   }
 
   update(instance, prevProps = {}, newProps = {}) {
@@ -107,36 +107,33 @@ export class GeoObject extends React.Component {
   }
 
   unmount() {
+    const { parent } = this.context;
     const { instance } = this.state;
-    const { events, collection } = separateEvents(this.props);
+    const { events, instanceRef } = separateEvents(this.props);
 
-    if (!instance) return;
+    if (instance !== null) {
+      Object.keys(events).forEach(key =>
+        removeEvent(events[key], key, instance)
+      );
+      if (typeof parent.remove === 'function') {
+        parent.remove(instance);
+      } else {
+        parent.geoObjects.remove(instance);
+      }
+    }
 
-    Object.keys(events).forEach(key => removeEvent(events[key], key, instance));
-    collection.remove(instance);
+    if (typeof instanceRef === 'function') {
+      instanceRef(null);
+    }
   }
 
   componentDidMount() {
-    const { ymaps } = this.props;
-    if (ymaps) this.mount();
+    this.mount();
   }
 
   componentWillReceiveProps(newProps) {
     const { instance } = this.state;
-    if (instance) this.update(instance, this.props, newProps);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { instance } = this.state;
-    const { instanceRef } = this.props;
-
-    if (prevState.instance !== instance) {
-      if (instance) {
-        instanceRef(instance);
-      } else {
-        instanceRef(null);
-      }
-    }
+    if (instance !== null) this.update(instance, this.props, newProps);
   }
 
   componentWillUnmount() {

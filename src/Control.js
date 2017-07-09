@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Control as ControlSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
-const { func } = PropTypes;
+const { func, object } = PropTypes;
 
 export class Control extends React.Component {
   static propTypes = {
@@ -15,26 +15,31 @@ export class Control extends React.Component {
     instanceRef: Function.prototype,
   };
 
+  static contextTypes = {
+    ymaps: object,
+    parent: object,
+  };
+
   static [ControlSymbol] = true;
 
   state = { instance: null };
 
   mount() {
-    const {
-      ymaps,
-      type,
-      collection,
-      data,
-      options,
-      state,
-      events,
-    } = separateEvents(this.props);
+    const { type, data, options, state, events, instanceRef } = separateEvents(
+      this.props
+    );
+    const { ymaps, parent } = this.context;
+
     const instance = new ymaps.control[type]({ data, options, state });
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
-    collection.add(instance);
+    parent.controls.add(instance);
 
     this.setState({ instance });
+
+    if (typeof instanceRef === 'function') {
+      instanceRef(instance);
+    }
   }
 
   update(instance, prevProps = {}, newProps = {}) {
@@ -44,6 +49,7 @@ export class Control extends React.Component {
       state: prevState,
       events: prevEvents,
     } = separateEvents(prevProps);
+
     const { data, options, state, events } = separateEvents(this.props);
 
     if (data !== prevData) {
@@ -73,36 +79,27 @@ export class Control extends React.Component {
   }
 
   unmount() {
+    const { parent } = this.context;
     const { instance } = this.state;
-    const { events, collection } = separateEvents(this.props);
+    const { events, instanceRef } = separateEvents(this.props);
 
     if (!instance) return;
 
     Object.keys(events).forEach(key => removeEvent(events[key], key, instance));
-    collection.remove(instance);
+    parent.controls.remove(instance);
+
+    if (typeof instanceRef === 'function') {
+      instanceRef(null);
+    }
   }
 
   componentDidMount() {
-    const { ymaps } = this.props;
-    if (ymaps) this.mount();
+    this.mount();
   }
 
   componentWillReceiveProps(newProps) {
     const { instance } = this.state;
-    if (instance) this.update(instance, this.props, newProps);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { instance } = this.state;
-    const { instanceRef } = this.props;
-
-    if (prevState.instance !== instance) {
-      if (instance) {
-        instanceRef(instance);
-      } else {
-        instanceRef(null);
-      }
-    }
+    if (instance !== null) this.update(instance, this.props, newProps);
   }
 
   componentWillUnmount() {

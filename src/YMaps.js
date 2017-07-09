@@ -57,7 +57,9 @@ export class YMaps extends React.Component {
     const { children } = this.props;
 
     invariant(
-      children == null || React.Children.count(children) === 1,
+      children == null ||
+        typeof children === 'function' ||
+        React.Children.count(children) === 1,
       'A <YMaps> may have only one child element'
     );
   }
