@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Symbols from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
 const { object, oneOfType, number, string, func } = PropTypes;
@@ -32,8 +31,6 @@ export class Map extends React.Component {
   static childContextTypes = {
     parent: object,
   };
-
-  static [Symbols.Map] = true;
 
   state = { instance: null };
 

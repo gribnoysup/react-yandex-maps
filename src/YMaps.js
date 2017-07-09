@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import invariant from 'invariant';
-
 import YandexMapsApi from './util/api';
 
 const { node, bool, shape, string, oneOf, object, func } = PropTypes;
@@ -53,17 +51,6 @@ export class YMaps extends React.Component {
     });
   }
 
-  componentWillMount() {
-    const { children } = this.props;
-
-    invariant(
-      children == null ||
-        typeof children === 'function' ||
-        React.Children.count(children) === 1,
-      'A <YMaps> may have only one child element'
-    );
-  }
-
   componentWillUnmount() {
     this._mounted = false;
   }
@@ -71,7 +58,7 @@ export class YMaps extends React.Component {
   render() {
     const { children } = this.props;
     const { ymaps } = this.state;
-    // TODO: Support callback children maybe? Pass `ymaps` somehow?
+
     return typeof children === 'function'
       ? children(ymaps)
       : children ? React.Children.only(children) : null;

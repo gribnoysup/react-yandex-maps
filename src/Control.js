@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Control as ControlSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
 const { func, object } = PropTypes;
@@ -19,8 +18,6 @@ export class Control extends React.Component {
     ymaps: object,
     parent: object,
   };
-
-  static [ControlSymbol] = true;
 
   state = { instance: null };
 

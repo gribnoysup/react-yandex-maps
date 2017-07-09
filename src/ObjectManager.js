@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { GeoObject as GeoObjectSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
 const { func, object } = PropTypes;
@@ -19,8 +18,6 @@ export class ObjectManager extends React.Component {
     ymaps: object,
     parent: object,
   };
-
-  static [GeoObjectSymbol] = true;
 
   state = { instance: null };
 

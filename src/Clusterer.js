@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { GeoObject as GeoObjectSymbol } from './util/symbols';
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
 const { func, object } = PropTypes;
@@ -14,8 +13,6 @@ export class Clusterer extends React.Component {
   static defaultProps = {
     instanceRef: Function.prototype,
   };
-
-  static [GeoObjectSymbol] = true;
 
   static contextTypes = {
     ymaps: object,
