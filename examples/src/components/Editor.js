@@ -6,7 +6,7 @@ import 'brace/theme/xcode';
 
 const editorProps = { $blockScrolling: true };
 
-const Editor = ({ src, ...restProps }) => (
+const Editor = ({ src, ...restProps }) =>
   <AceEditor
     mode="jsx"
     theme="xcode"
@@ -14,7 +14,6 @@ const Editor = ({ src, ...restProps }) => (
     readOnly
     value={src}
     {...restProps}
-  />
-);
+  />;
 
 export default Editor;

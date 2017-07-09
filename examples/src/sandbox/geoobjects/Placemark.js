@@ -5,10 +5,9 @@ import placemarks from './placemark.json';
 
 const mapState = { center: [55.76, 37.64], zoom: 10 };
 
-const PlacemarkDemo = () => (
+const PlacemarkDemo = () =>
   <YMaps>
     <Map state={mapState}>
-
       {/* Creating a geo object with the "Point" geometry type. */}
       <GeoObject
         // The geometry description.
@@ -31,12 +30,10 @@ const PlacemarkDemo = () => (
         }}
       />
 
-      {placemarks.map((placemarkParams, i) => (
+      {placemarks.map((placemarkParams, i) =>
         <Placemark key={i} {...placemarkParams} />
-      ))}
-
+      )}
     </Map>
-  </YMaps>
-);
+  </YMaps>;
 
 export default PlacemarkDemo;

@@ -3,7 +3,7 @@ import { YMaps, Map, GeoObject, Polygon } from 'react-yandex-maps';
 
 const mapState = { center: [55.73, 37.75], zoom: 10 };
 
-const PolygonDemo = () => (
+const PolygonDemo = () =>
   <YMaps>
     <Map state={mapState}>
       <GeoObject
@@ -11,13 +11,13 @@ const PolygonDemo = () => (
           type: 'Polygon',
           coordinates: [
             [
-              [55.75, 37.80],
-              [55.80, 37.90],
-              [55.75, 38.00],
-              [55.70, 38.00],
-              [55.70, 37.80],
+              [55.75, 37.8],
+              [55.8, 37.9],
+              [55.75, 38.0],
+              [55.7, 38.0],
+              [55.7, 37.8],
             ],
-            [[55.75, 37.82], [55.75, 37.98], [55.65, 37.90]],
+            [[55.75, 37.82], [55.75, 37.98], [55.65, 37.9]],
           ],
           fillRule: 'nonZero',
         }}
@@ -36,13 +36,13 @@ const PolygonDemo = () => (
         geometry={{
           coordinates: [
             [
-              [55.75, 37.50],
-              [55.80, 37.60],
-              [55.75, 37.70],
-              [55.70, 37.70],
-              [55.70, 37.50],
+              [55.75, 37.5],
+              [55.8, 37.6],
+              [55.75, 37.7],
+              [55.7, 37.7],
+              [55.7, 37.5],
             ],
-            [[55.75, 37.52], [55.75, 37.68], [55.65, 37.60]],
+            [[55.75, 37.52], [55.75, 37.68], [55.65, 37.6]],
           ],
         }}
         properties={{
@@ -54,7 +54,6 @@ const PolygonDemo = () => (
         }}
       />
     </Map>
-  </YMaps>
-);
+  </YMaps>;
 
 export default PolygonDemo;

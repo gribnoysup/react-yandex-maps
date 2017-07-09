@@ -5,7 +5,7 @@ import myIcon from './myIcon.gif';
 
 const mapState = { center: [55.751574, 37.573856], zoom: 9 };
 
-const IconCustomImage = () => (
+const IconCustomImage = () =>
   <YMaps>
     <Map state={mapState}>
       <Placemark
@@ -29,7 +29,6 @@ const IconCustomImage = () => (
         }}
       />
     </Map>
-  </YMaps>
-);
+  </YMaps>;
 
 export default IconCustomImage;

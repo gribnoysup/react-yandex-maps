@@ -20,13 +20,11 @@ class FillContainer extends React.Component {
     return (
       <YMaps>
         <div id="map-basics">
-
           <button onClick={() => this.setState(this.resizeMap)}>
             {small ? 'Expand' : 'Collapse'}
           </button>
 
           <Map state={mapState} width={width} height={height} />
-
         </div>
       </YMaps>
     );

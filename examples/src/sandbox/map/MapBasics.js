@@ -17,7 +17,6 @@ class MapBasics extends React.Component {
     return (
       <YMaps>
         <div id="map-basics">
-
           {showMap &&
             // When initializing the map, you must specify
             // its center and the zoom factor.
@@ -27,7 +26,6 @@ class MapBasics extends React.Component {
           <button onClick={() => this.toggleMap()}>
             {showMap ? 'Delete map' : 'Show map'}
           </button>
-
         </div>
       </YMaps>
     );

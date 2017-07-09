@@ -40,13 +40,10 @@ class YandexMapsApi {
     const options = Object.assign({ ns, lang, mode }, query, callbacks);
 
     return Object.keys(options)
-      .reduce(
-        (prev, key) => {
-          if (typeof options[key] === 'undefined') return prev;
-          return prev.concat(`${key}=${options[key]}`);
-        },
-        []
-      )
+      .reduce((prev, key) => {
+        if (typeof options[key] === 'undefined') return prev;
+        return prev.concat(`${key}=${options[key]}`);
+      }, [])
       .join('&');
   }
 
@@ -81,7 +78,7 @@ class YandexMapsApi {
     // TODO: If yandex maps are loaded already, provide a way to use it
     if (this.api) Promise.resolve(this.api);
 
-    return this.load(query, version, enterprise).then(api => this.api = api);
+    return this.load(query, version, enterprise).then(api => (this.api = api));
   }
 }
 

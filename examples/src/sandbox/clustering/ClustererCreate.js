@@ -22,7 +22,7 @@ const getPointOptions = () => {
   };
 };
 
-const ClustererCreate = () => (
+const ClustererCreate = () =>
   <YMaps>
     <Map state={mapState}>
       <Clusterer
@@ -34,17 +34,16 @@ const ClustererCreate = () => (
           geoObjectHideIconOnBalloonOpen: false,
         }}
       >
-        {points.map((coordinates, idx) => (
+        {points.map((coordinates, idx) =>
           <Placemark
             key={idx}
             geometry={{ coordinates }}
             properties={getPointData(idx)}
             options={getPointOptions()}
           />
-        ))}
+        )}
       </Clusterer>
     </Map>
-  </YMaps>
-);
+  </YMaps>;
 
 export default ClustererCreate;
