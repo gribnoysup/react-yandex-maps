@@ -39,6 +39,7 @@ npm install --save react-yandex-maps
 - `<TrafficControl />`
 - `<TypeSelector />`
 - `<ZoomControl />`
+- `<ListBoxControl />`
 
 ## Basic Usage (compared to [yandex maps quick start guide](https://tech.yandex.com/maps/doc/jsapi/2.1/quick-start/tasks/quick-start-docpage/))
 
