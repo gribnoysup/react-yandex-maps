@@ -64,3 +64,7 @@ export function TypeSelector(props) {
 export function ZoomControl(props) {
   return <Control type="ZoomControl" {...props} />;
 }
+
+export function ListBoxControl(props) {
+  return <Control type="ListBox" {...props} />;
+}

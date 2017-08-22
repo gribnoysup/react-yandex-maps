@@ -22,15 +22,25 @@ export class Control extends React.Component {
   state = { instance: null };
 
   mount() {
-    const { type, data, options, state, events, instanceRef } = separateEvents(
-      this.props
-    );
+    const {
+      type,
+      data,
+      options,
+      state,
+      events,
+      items,
+      instanceRef,
+    } = separateEvents(this.props);
     const { ymaps, parent } = this.context;
 
     const instance = new ymaps.control[type]({ data, options, state });
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
     parent.controls.add(instance);
+
+    if (items && items.length > 0) {
+      this.updateItems(instance, items);
+    }
 
     this.setState({ instance });
 
@@ -39,15 +49,39 @@ export class Control extends React.Component {
     }
   }
 
+  updateItems(instance, itemsProps) {
+    const { ymaps } = this.context;
+
+    const itemsIterator = instance.getIterator();
+    const prevItems = [];
+
+    let prevItem = itemsIterator.getNext();
+    while (prevItem !== itemsIterator.STOP_ITERATION) {
+      prevItems.push(prevItem);
+      prevItem = itemsIterator.getNext();
+    }
+
+    prevItems.forEach(item => instance.remove(prevItem));
+
+    itemsProps.forEach(({ onClick, ...itemProps }) => {
+      const item = new ymaps.control.ListBoxItem(itemProps);
+      if (onClick) {
+        addEvent(onClick, 'onClick', item);
+      }
+      instance.add(item);
+    });
+  }
+
   update(instance, prevProps = {}, newProps = {}) {
     const {
       data: prevData,
       options: prevOptions,
       state: prevState,
       events: prevEvents,
+      items: prevItems,
     } = separateEvents(prevProps);
 
-    const { data, options, state, events } = separateEvents(this.props);
+    const { data, options, state, events, items } = separateEvents(newProps);
 
     if (data !== prevData) {
       instance.data.set(data);
@@ -59,6 +93,10 @@ export class Control extends React.Component {
 
     if (state !== prevState) {
       instance.state.set(state);
+    }
+
+    if (items !== prevItems) {
+      this.updateItems(instance, items);
     }
 
     this.updateEvents(instance, prevEvents, events);
