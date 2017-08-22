@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import YandexMapsApi from './util/api';
 
-const { node, bool, shape, string, oneOf, object, func } = PropTypes;
+const { node, bool, shape, string, oneOf, object, func, oneOfType } = PropTypes;
 
 export class YMaps extends React.Component {
   static propTypes = {
-    children: node,
+    children: oneOfType([node, func]),
     onApiAvaliable: func,
 
     enterprise: bool,
@@ -46,6 +46,8 @@ export class YMaps extends React.Component {
     const { query, version, enterprise, onApiAvaliable } = this.props;
 
     YandexMapsApi.get(query, version, enterprise).then(ymaps => {
+      window.ymaps = ymaps;
+
       onApiAvaliable(ymaps);
       this._mounted && this.setState({ ymaps });
     });
