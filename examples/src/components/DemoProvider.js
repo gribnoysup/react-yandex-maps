@@ -40,6 +40,9 @@ import rawClustererCreate from '!raw-loader!sandbox/clustering/ClustererCreate';
 import Button from 'sandbox/controls/Button';
 import rawButton from '!raw-loader!sandbox/controls/Button';
 
+import ListBox from 'sandbox/controls/ListBox';
+import rawListBox from '!raw-loader!sandbox/controls/ListBox';
+
 const demos = {
   map: {
     'map-basics': {
@@ -113,6 +116,11 @@ const demos = {
       name: 'Adding buttons to the map',
       component: Button,
       src: rawButton,
+    },
+    listbox: {
+      name: 'Adding listbox to the map',
+      component: ListBox,
+      src: rawListBox,
     },
   },
 };

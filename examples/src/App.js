@@ -116,6 +116,10 @@ class App extends React.Component {
                   name: 'Adding buttons to the map',
                   to: '/button',
                 },
+                {
+                  name: 'Adding listbox to the map',
+                  to: '/listbox',
+                },
               ]}
             />
           </NavContainer>

@@ -16,9 +16,15 @@ const StyledEditor = styled(Editor)`
   border-radius: 4px;
 `;
 
-const EditorHeader = styled.h2`font-weight: 400;`;
+// prettier-ignore
+const EditorHeader = styled.h2`
+  font-weight: 400;
+`;
 
-const ComponentContainer = styled.div`padding: 20px;`;
+// prettier-ignore
+const ComponentContainer = styled.div`
+  padding: 20px;
+`;
 
 const Demo = ({ component: Component, src, name }) =>
   <DemoContainer>

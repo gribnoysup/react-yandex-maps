@@ -19,6 +19,14 @@ export class Control extends React.Component {
     parent: object,
   };
 
+  static childContextTypes = {
+    parent: object,
+  };
+
+  getChildContext() {
+    return { parent: this.state.instance };
+  }
+
   state = { instance: null };
 
   mount() {
@@ -30,7 +38,12 @@ export class Control extends React.Component {
     const instance = new ymaps.control[type]({ data, options, state });
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
-    parent.controls.add(instance);
+
+    if (typeof parent.add === 'function') {
+      parent.add(instance);
+    } else {
+      parent.controls.add(instance);
+    }
 
     this.setState({ instance });
 
@@ -104,6 +117,13 @@ export class Control extends React.Component {
   }
 
   render() {
-    return null;
+    const { children } = this.props;
+    const { instance } = this.state;
+
+    return (
+      <noscript>
+        {instance && children}
+      </noscript>
+    );
   }
 }
