@@ -23,11 +23,11 @@ export class Clusterer extends React.Component {
     parent: object,
   };
 
-  state = { instance: null };
-
   getChildContext() {
     return { parent: this.state.instance };
   }
+
+  state = { instance: null };
 
   mount() {
     const { ymaps, parent } = this.context;
