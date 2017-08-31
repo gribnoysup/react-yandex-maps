@@ -12,6 +12,8 @@
     "LICENSE"
   ],
   "scripts": {
+    "prepublish": "npm run bulid",
+    "postpublish": "npm run publish:examples",
     "precommit": "lint-staged",
     "examples": "webpack-dev-server --config ./examples/webpack.config.js",
     "build:examples": "rm -rf ./examples/build && NODE_ENV=production webpack -p --config ./examples/webpack.config.js",
