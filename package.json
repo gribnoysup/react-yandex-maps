@@ -12,7 +12,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "prepublish": "npm run bulid",
+    "prepublish": "npm run build",
     "postpublish": "npm run publish:examples",
     "precommit": "lint-staged",
     "examples": "webpack-dev-server --config ./examples/webpack.config.js",
