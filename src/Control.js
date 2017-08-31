@@ -39,10 +39,10 @@ export class Control extends React.Component {
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
 
-    if (typeof parent.add === 'function') {
-      parent.add(instance);
-    } else {
+    if (parent.controls && typeof parent.controls.add === 'function') {
       parent.controls.add(instance);
+    } else if (parent.add && typeof parent.add === 'function') {
+      parent.add(instance);
     }
 
     this.setState({ instance });
@@ -96,7 +96,12 @@ export class Control extends React.Component {
     if (!instance) return;
 
     Object.keys(events).forEach(key => removeEvent(events[key], key, instance));
-    parent.controls.remove(instance);
+
+    if (parent.controls && typeof parent.controls.remove === 'function') {
+      parent.controls.remove(instance);
+    } else if (parent.remove && typeof parent.remove === 'function') {
+      parent.remove(instance);
+    }
 
     if (typeof instanceRef === 'function') {
       instanceRef(null);
