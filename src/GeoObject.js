@@ -50,10 +50,10 @@ export class GeoObject extends React.Component {
 
     Object.keys(events).forEach(key => addEvent(events[key], key, instance));
 
-    if (typeof parent.add === 'function') {
-      parent.add(instance);
-    } else {
+    if (parent.geoObjects && typeof parent.geoObjects.add === 'function') {
       parent.geoObjects.add(instance);
+    } else if (parent.add && typeof parent.add === 'function') {
+      parent.add(instance);
     }
 
     this.setState({ instance });
@@ -112,10 +112,11 @@ export class GeoObject extends React.Component {
       Object.keys(events).forEach(key =>
         removeEvent(events[key], key, instance)
       );
-      if (typeof parent.remove === 'function') {
-        parent.remove(instance);
-      } else {
+
+      if (parent.geoObjects && typeof parent.geoObjects.remove === 'function') {
         parent.geoObjects.remove(instance);
+      } else if (parent.remove && typeof parent.remove === 'function') {
+        parent.remove(instance);
       }
     }
 
