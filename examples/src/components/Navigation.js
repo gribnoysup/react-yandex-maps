@@ -35,7 +35,7 @@ const NavItem = styled.li`
   }
 `;
 
-const Navigation = ({ path, name, id, onClick, routes, active, ...props }) =>
+const Navigation = ({ path, name, id, onClick, routes, active, history }) =>
   <List>
     <NavHeader id={id} onClick={onClick}>
       {name}
@@ -43,7 +43,7 @@ const Navigation = ({ path, name, id, onClick, routes, active, ...props }) =>
 
     {active &&
       routes.map(route =>
-        <NavItem key={route.name} onClick={() => props.push(path + route.to)}>
+        <NavItem key={route.name} onClick={() => history.push(path + route.to)}>
           <Link to={path + route.to} onClick={event => event.preventDefault()}>
             {route.name}
           </Link>
