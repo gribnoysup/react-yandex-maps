@@ -3,6 +3,7 @@ import { injectGlobal } from 'styled-components';
 import { render } from 'react-dom';
 
 import App from './App';
+
 // eslint-disable-next-line
 injectGlobal`
   body {

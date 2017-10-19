@@ -36,7 +36,7 @@
     "url": "https://github.com/gribnoysup/react-yandex-maps.git"
   },
   "peerDependencies": {
-    "react": "^0.14.9 || ^15.3.0"
+    "react": "^0.14.9 || ^15.3.0 || ^16.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -71,13 +71,13 @@
     "pretty-bytes": "^4.0.2",
     "prop-types": "^15.5.10",
     "raw-loader": "^0.5.1",
-    "react": "^15.5.4",
-    "react-ace": "^4.1.6",
-    "react-dom": "^15.5.4",
-    "react-router": "^4.0.0-beta.6",
-    "react-router-dom": "^4.0.0-beta.6",
+    "react": "^16.0.0",
+    "react-ace": "^5.4.0",
+    "react-dom": "^16.0.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "source-map-loader": "^0.1.6",
-    "styled-components": "^1.4.3",
+    "styled-components": "^2.2.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
   },
