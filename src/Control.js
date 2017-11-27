@@ -60,7 +60,7 @@ export class Control extends React.Component {
       events: prevEvents,
     } = separateEvents(prevProps);
 
-    const { data, options, state, events } = separateEvents(this.props);
+    const { data, options, state, events } = separateEvents(newProps);
 
     if (data !== prevData) {
       instance.data.set(data);
