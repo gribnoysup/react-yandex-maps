@@ -8,7 +8,7 @@ const { node, bool, shape, string, oneOf, object, func, oneOfType } = PropTypes;
 export class YMaps extends React.Component {
   static propTypes = {
     children: oneOfType([node, func]),
-    onApiAvaliable: func,
+    onApiAvailable: func,
 
     enterprise: bool,
     version: oneOf(['1.0', '1.1', '2.0', '2.1']),
@@ -26,7 +26,7 @@ export class YMaps extends React.Component {
 
   static defaultProps = {
     enterprise: false,
-    onApiAvaliable: Function.prototype,
+    onApiAvailable: Function.prototype,
     version: '2.1',
   };
 
@@ -43,12 +43,12 @@ export class YMaps extends React.Component {
   }
 
   componentDidMount() {
-    const { query, version, enterprise, onApiAvaliable } = this.props;
+    const { query, version, enterprise, onApiAvailable } = this.props;
 
     YandexMapsApi.get(query, version, enterprise).then(ymaps => {
       window.ymaps = ymaps;
 
-      onApiAvaliable(ymaps);
+      onApiAvailable(ymaps);
       this._mounted && this.setState({ ymaps });
     });
   }
