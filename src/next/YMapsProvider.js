@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { YMapsAPI } from './YMapsAPI';
+import { YMaps } from './YMaps';
 
 export class YMapsProvider extends React.Component {
   static propTypes = {
@@ -44,12 +44,7 @@ export class YMapsProvider extends React.Component {
     ymaps: PropTypes.object,
   };
 
-  constructor(props) {
-    super(props);
-    const { version, enterprise, query } = this.props;
-
-    this.ymaps = new YMapsAPI({ version, enterprise, query });
-  }
+  ymaps = new YMaps(this.props);
 
   getChildContext() {
     return {
