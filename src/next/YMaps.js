@@ -1,7 +1,9 @@
-export class YMapsAPI {
-  static onloadCallback = '__react-yandex-maps-onload';
+export class YMaps {
+  static _name = '__react-yandex-maps__';
 
-  static onerrorCallback = '__react-yandex-maps-onerror';
+  static onloadCallback = '__yandex-maps-api-onload__';
+
+  static onerrorCallback = '__yandex-maps-api-onerror__';
 
   static getBaseUrl(isEnterprise) {
     return `https://${isEnterprise ? 'enterprise.' : ''}api-maps.yandex.ru`;
@@ -21,6 +23,20 @@ export class YMapsAPI {
     });
   }
 
+  static loadModule(ymaps, moduleName, addons = []) {
+    return new Promise((resolve, reject) => {
+      ymaps.modules.require(
+        [moduleName].concat(addons),
+        (Module, ...addons) => {
+          ymaps[moduleName] = Module;
+          resolve(Module, ...addons);
+        },
+        reject,
+        ymaps
+      );
+    });
+  }
+
   constructor({ enterprise, version, query }) {
     this.options = { enterprise, version, query };
 
@@ -29,7 +45,7 @@ export class YMapsAPI {
         ? window[query.ns] || null
         : null;
 
-    this.promise = null;
+    this._promise = null;
     this.subscriptions = [];
   }
 
@@ -48,13 +64,13 @@ export class YMapsAPI {
 
   load = () => {
     if (this.api !== null) return Promise.resolve(this.api);
-    if (this.promise !== null) return this.promise;
+    if (this._promise !== null) return this._promise;
 
     const {
       onerrorCallback: onload,
       onloadCallback: onerror,
       getBaseUrl,
-    } = YMapsAPI;
+    } = YMaps;
 
     const query = { ...this.options.query, onload, onerror };
 
@@ -66,9 +82,10 @@ export class YMapsAPI {
 
     const url = [baseUrl, this.options.version, '?' + queryString].join('/');
 
-    this.promise = new Promise((resolve, reject) => {
+    this._promise = new Promise((resolve, reject) => {
       window[onload] = ymaps => {
         window[onload] = null;
+        ymaps.loadModule = YMaps.loadModule.bind(this, ymaps);
         resolve((this.api = ymaps));
       };
 
@@ -77,9 +94,9 @@ export class YMapsAPI {
         reject(err);
       };
 
-      YMapsAPI.fetchScript(url).catch(window[onerror]);
+      YMaps.fetchScript(url).catch(window[onerror]);
     });
 
-    return this.promise;
+    return this._promise;
   };
 }

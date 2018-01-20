@@ -1,9 +1,11 @@
+// TODO: hoist statics and all this HOC stuff
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import { getDisplayName } from './util/getDisplayName';
 
-export function withYMaps(Component) {
+export function withYMaps(Component, waitForApi = false) {
   return class extends React.Component {
     static displayName = `withYMaps(${getDisplayName(Component)})`;
 
@@ -60,7 +62,13 @@ export function withYMaps(Component) {
     render() {
       // eslint-disable-next-line no-unused-vars
       const { onLoad, onError, ...props } = this.props;
-      return <Component {...props} ymaps={this.context.ymaps.api} />;
+      const { api } = this.context.ymaps;
+
+      const shouldRender = waitForApi === false || api !== null;
+
+      return (
+        shouldRender && React.createElement(Component, { ...props, ymaps: api })
+      );
     }
   };
 }

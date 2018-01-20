@@ -137,7 +137,7 @@
 // export default App;
 
 import React from 'react';
-import { YMapsProvider, withYMaps } from 'react-yandex-maps';
+import { YMapsProvider, withYMaps, Map } from 'react-yandex-maps';
 
 const PropsLogger = props =>
   console.warn('--- props', props) || <div>World!</div>;
@@ -159,13 +159,32 @@ export default class App extends React.Component {
     return (
       <div>
         <YMapsProvider
-          onLoad={ymaps => console.log('Loaded!', ymaps)}
-          onError={err => console.log('oops, failed!', err)}
+          query={{
+            lang: 'ru_RU',
+            load: '',
+            ns: '',
+            mode: 'debug',
+          }}
         >
           <Blocker>
             <React.Fragment>
               <div>Hello,</div>
               <HOCTest />
+              <Map
+                // TODO: Document how to load controls properly.
+                // Controls are missing by default
+                addons={['control.RulerControl', 'control.ZoomControl']}
+                state={{
+                  center: [50, 30],
+                  zoom: 10,
+                  controls: ['rulerControl', 'zoomControl'],
+                }}
+                parentElementProps={{ style: { width: 320, height: 240 } }}
+              />
+              {/* <Map
+                state={{ center: [50, 30], zoom: 5 }}
+                parentElementProps={{ style: { width: 320, height: 240 } }}
+              /> */}
             </React.Fragment>
           </Blocker>
         </YMapsProvider>
