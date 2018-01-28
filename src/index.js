@@ -1,23 +1,4 @@
-export { YMaps } from './YMaps';
-export { Map } from './Map';
+export { YMapsProvider } from './YMapsProvider';
+export { withYMaps } from './withYMaps';
 
-export { GeoObject } from './GeoObject';
-export { ObjectManager } from './ObjectManager';
-export { Clusterer } from './Clusterer';
-export { Control } from './Control';
-
-export { Placemark, Polyline, Rectangle, Polygon, Circle } from './Helpers';
-
-export {
-  Button,
-  FullscreenControl,
-  GeolocationControl,
-  RouteEditor,
-  RulerControl,
-  SearchControl,
-  TrafficControl,
-  TypeSelector,
-  ZoomControl,
-  ListBox,
-  ListBoxItem,
-} from './Helpers';
+export { default as Map } from './Map';

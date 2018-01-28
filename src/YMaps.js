@@ -1,68 +1,105 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+export class YMaps {
+  constructor({ enterprise, version, query }) {
+    this.options = { enterprise, version, query };
 
-import YandexMapsApi from './util/api';
+    this.api =
+      typeof window !== 'undefined' && query.ns !== ''
+        ? window[query.ns] || null
+        : null;
 
-const { node, bool, shape, string, oneOf, object, func, oneOfType } = PropTypes;
+    this._promise = null;
+    this.subscriptions = [];
 
-export class YMaps extends React.Component {
-  static propTypes = {
-    children: oneOfType([node, func]),
-    onApiAvailable: func,
+    this.subscribe = fn => {
+      this.subscriptions.push(fn);
+      return () => this.unsubscribe(fn);
+    };
 
-    enterprise: bool,
-    version: oneOf(['1.0', '1.1', '2.0', '2.1']),
+    this.unsubscribe = fn => {
+      this.subscriptions.splice(this.subscriptions.indexOf(fn), 1);
+    };
 
-    query: shape({
-      lang: string,
-      apiKey: string,
-      coordorder: oneOf(['latlong', 'longlat']),
-      load: string,
-      mode: oneOf(['debug', 'release']),
-      csp: bool,
-      ns: string,
-    }),
-  };
+    this.update = () => {
+      this.subscriptions.forEach(fn => fn.call(this));
+    };
 
-  static defaultProps = {
-    enterprise: false,
-    onApiAvailable: Function.prototype,
-    version: '2.1',
-  };
+    this.load = () => {
+      if (this.api !== null) return Promise.resolve(this.api);
+      if (this._promise !== null) return this._promise;
 
-  static childContextTypes = {
-    ymaps: object,
-  };
+      const {
+        onerrorCallback: onload,
+        onloadCallback: onerror,
+        getBaseUrl,
+      } = YMaps;
 
-  state = { ymaps: null };
+      // TODO: Change when microbundle supports rest-spread
+      // const query = { ...this.options.query, onload, onerror };
+      const query = Object.assign({ onload, onerror }, this.options.query);
 
-  _mounted = true;
+      const queryString = Object.keys(query)
+        .map(key => `${key}=${query[key]}`)
+        .join('&');
 
-  getChildContext() {
-    return { ymaps: this.state.ymaps };
-  }
+      const baseUrl = getBaseUrl(this.options.enterprise);
 
-  componentDidMount() {
-    const { query, version, enterprise, onApiAvailable } = this.props;
+      const url = [baseUrl, this.options.version, '?' + queryString].join('/');
 
-    YandexMapsApi.get(query, version, enterprise).then(ymaps => {
-      window.ymaps = ymaps;
+      this._promise = new Promise((resolve, reject) => {
+        window[onload] = ymaps => {
+          window[onload] = null;
+          ymaps.loadModule = YMaps.loadModule.bind(this, ymaps);
+          resolve((this.api = ymaps));
+        };
 
-      onApiAvailable(ymaps);
-      this._mounted && this.setState({ ymaps });
-    });
-  }
+        window[onerror] = err => {
+          window[onerror] = null;
+          reject(err);
+        };
 
-  componentWillUnmount() {
-    this._mounted = false;
-  }
+        YMaps.fetchScript(url).catch(window[onerror]);
+      });
 
-  render() {
-    const { children } = this.props;
-    const { ymaps } = this.state;
-
-    return typeof children === 'function'
-      ? children(ymaps)
-      : children ? React.Children.only(children) : null;
+      return this._promise;
+    };
   }
 }
+
+YMaps._name = '__react-yandex-maps__';
+
+YMaps.onloadCallback = '__yandex-maps-api-onload__';
+
+YMaps.onerrorCallback = '__yandex-maps-api-onerror__';
+
+YMaps.getBaseUrl = function getBaseUrl(isEnterprise) {
+  return `https://${isEnterprise ? 'enterprise.' : ''}api-maps.yandex.ru`;
+};
+
+YMaps.fetchScript = function fetchScript(url) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+
+    script.type = 'text/javascript';
+    script.onload = resolve;
+    script.onerror = reject;
+    script.src = url;
+    script.async = 'async';
+
+    document.head.appendChild(script);
+  });
+};
+
+YMaps.loadModule = function loadModule(ymaps, moduleName, addons = []) {
+  return new Promise((resolve, reject) => {
+    ymaps.modules.require(
+      [moduleName].concat(addons),
+      // TODO: Change when microbundle supports rest-spread
+      function resolve() {
+        ymaps[moduleName] = arguments[0];
+        resolve.apply(null, arguments);
+      },
+      reject,
+      ymaps
+    );
+  });
+};

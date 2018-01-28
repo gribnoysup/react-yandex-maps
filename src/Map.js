@@ -1,163 +1,217 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { separateEvents, addEvent, removeEvent } from './util/events';
+import { withYMaps } from './withYMaps';
 
-const { object, oneOfType, number, string, func } = PropTypes;
+import {
+  separateEvents,
+  addEvent,
+  removeEvent,
+  updateEvents,
+} from './util/events';
 
-export class Map extends React.Component {
-  static propTypes = {
-    state: object,
-    options: object,
-    width: oneOfType([number, string]),
-    height: oneOfType([number, string]),
-    instanceRef: func,
-  };
+import { omit } from './util/omit';
 
-  static defaultProps = {
-    state: {
-      center: [0, 0],
-      zoom: 1,
-    },
-    width: 400,
-    height: 315,
-    instanceRef: Function.prototype,
-  };
+import { getProp, isControlledProp } from './util/props';
 
-  static contextTypes = {
-    ymaps: object,
-  };
+// TODO: Include the whole list?
+const MapAddonsPropType = PropTypes.string;
 
-  static childContextTypes = {
-    parent: object,
-  };
+const MapStatePropTypes = {
+  bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  center: PropTypes.arrayOf(PropTypes.number),
+  controls: PropTypes.arrayOf(PropTypes.string),
+  behaviors: PropTypes.arrayOf(PropTypes.string),
+  margin: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number),
+    PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))
+  ]),
+  type: PropTypes.oneOf(['yandex#map', 'yandex#satellite', 'yandex#hybrid']),
+  zoom: PropTypes.number,
+};
 
-  state = { instance: null };
+// TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
+const MapOptionsPropTypes = {};
 
-  mapNode = null;
+class Map extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getChildContext() {
-    return { parent: this.state.instance };
-  }
+    this._mountPromise = null;
+    this._isMounted = true;
+    this._parentElement = null;
+    this._instance = null;
 
-  getMapNode = ref => (this.mapNode = ref);
-
-  mount(ymaps = this.context.ymaps) {
-    const { state, options, events, instanceRef } = separateEvents(this.props);
-
-    const instance = new ymaps.Map(this.mapNode, state, options);
-
-    Object.keys(events).forEach(key => addEvent(events[key], key, instance));
-    this.setState({ instance });
-
-    if (typeof instanceRef === 'function') {
-      instanceRef(instance);
-    }
-  }
-
-  unmount() {
-    const { instance } = this.state;
-    const { events, instanceRef } = separateEvents(this.props);
-
-    if (instance !== null) {
-      Object.keys(events).forEach(key =>
-        removeEvent(events[key], key, instance)
-      );
-      instance.destroy();
-    }
-
-    if (typeof instanceRef === 'function') {
-      instanceRef(null);
-    }
-  }
-
-  update(instance, prevProps = {}, newProps = {}) {
-    const {
-      options: prevOptions,
-      state: prevState,
-      events: prevEvents,
-    } = separateEvents(prevProps);
-
-    const { options, state, events } = separateEvents(newProps);
-
-    // if (prevWidth !== width || prevHeight !== height) {
-    //   instance.container.fitToViewport();
-    // }
-
-    if (prevState.type !== state.type) {
-      instance.setType(state.type);
-    }
-
-    if (prevState.behaviors !== state.behaviors) {
-      instance.behaviors.disable(prevState.behaviors || []);
-      instance.behaviors.enable(state.behaviors || []);
-    }
-
-    if (prevState.zoom !== state.zoom) {
-      instance.setZoom(state.zoom);
-    }
-
-    if (prevState.center !== state.center) {
-      instance.setCenter(state.center);
-    }
-
-    if (state.bounds && prevState.bounds !== state.bounds) {
-      instance.setBounds(state.bounds);
-    }
-
-    if (prevOptions !== options) {
-      instance.options.set(options);
-    }
-
-    this.updateEvents(instance, prevEvents, events);
-  }
-
-  updateEvents(instance, prevEvents, newEvents) {
-    const mergedEvents = Object.assign({}, prevEvents, newEvents);
-
-    Object.keys(mergedEvents).forEach(key => {
-      if (prevEvents[key] !== newEvents[key]) {
-        removeEvent(prevEvents[key], key, instance);
-        addEvent(newEvents[key], key, instance);
+    this._getRef = ref => {
+      if (typeof this.props.parentElementProps.ref === 'function') {
+        this.props.parentElementProps.ref(ref);
       }
-    });
+
+      this._parentElement = ref;
+    };
+  }
+
+  mountObject(Map, props = this.props) {
+    this._mountPromise = null;
+
+    if (this._isMounted) {
+      const { instanceRef, _events } = separateEvents(props);
+
+      const state = getProp(props, 'state');
+      const options = getProp(props, 'options');
+
+      this._instance = new Map(this._parentElement, state, options);
+
+      Object.keys(_events).forEach(key =>
+        addEvent(this._instance, key, _events[key])
+      );
+
+      if (typeof instanceRef === 'function') {
+        instanceRef(this._instance);
+      }
+    }
+  }
+
+  updateObject(oldProps, newProps) {
+    const { _events: oldEvents } = separateEvents(oldProps);
+    const { _events: newEvents } = separateEvents(newProps);
+
+    if (isControlledProp(oldProps, 'state')) {
+      const oldState = getProp(oldProps, 'state');
+      const newState = getProp(newProps, 'state');
+
+      if (oldState.type !== newState.type) {
+        if (oldState.type !== newState.type) {
+          this._instance.setType(newState.type);
+        }
+
+        if (oldState.behaviors !== newState.behaviors) {
+          this._instance.behaviors.disable(oldState.behaviors || []);
+          this._instance.behaviors.enable(newState.behaviors || []);
+        }
+
+        if (oldState.zoom !== newState.zoom) {
+          this._instance.setZoom(newState.zoom);
+        }
+
+        if (oldState.center !== newState.center) {
+          this._instance.setCenter(newState.center);
+        }
+
+        if (newState.bounds && oldState.bounds !== newState.bounds) {
+          this._instance.setBounds(newState.bounds);
+        }
+      }
+
+      if (isControlledProp(oldProps, 'options')) {
+        const oldOptions = getProp(oldProps, 'options');
+        const newOptions = getProp(newProps, 'options');
+
+        if (oldOptions !== newOptions) {
+          this._instance.options.set(newOptions);
+        }
+      }
+    }
+
+    updateEvents(this._instance, oldEvents, newEvents);
+  }
+
+  unmountObject(props = this.props) {
+    const { instanceRef, _events } = separateEvents(props);
+
+    if (this._instance !== null) {
+      Object.keys(_events).forEach(key =>
+        removeEvent(this._instance, key, _events[key])
+      );
+
+      this._instance.destroy();
+      this._instance = null;
+
+      if (typeof instanceRef === 'function') {
+        instanceRef(null);
+      }
+    }
   }
 
   componentDidMount() {
-    if (this.context.ymaps) this.mount();
-  }
-
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextContext.ymaps !== null && this.state.instance === null) {
-      this.mount(nextContext.ymaps);
-    } else if (this.state.instance !== null) {
-      this.update(this.state.instance, this.props, nextProps);
+    if (this.props.ymaps !== null) {
+      this.props.ymaps
+        .loadModule('Map', this.props.addons)
+        .then(Module => this.mountObject(Module));
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentWillReceiveProps(newProps) {
     if (
-      prevProps.width !== this.props.width ||
-      prevProps.height !== this.props.height
+      this._instance === null &&
+      this._mountPromise === null &&
+      newProps.ymaps !== null &&
+      newProps.ymaps !== this.props.ymaps
     ) {
-      // fitToViewport on with/height update should happen after
-      // component width/height update happened
-      this.state.instance.container.fitToViewport();
+      this._mountPromise = newProps.ymaps
+        .loadModule('Map', newProps.addons)
+        .then(Module => this.mountObject(Module));
+    }
+
+    if (this._instance !== null) {
+      this.updateObject(this.props, newProps);
     }
   }
 
   componentWillUnmount() {
-    this.unmount();
+    this._isMounted = false;
+    this.unmountObject();
   }
 
   render() {
-    const { width, height, children } = this.props;
-    const { instance } = this.state;
+    const { children, parentElementProps } = this.props;
+    // eslint-disable-next-line no-unused-vars
+    const { ref, children: _ } = parentElementProps;
 
-    return (
-      <div style={{ width, height }} ref={this.getMapNode}>
-        {instance && children}
-      </div>
+    return React.createElement(
+      'div',
+      Object.assign(
+        { ref: this._getRef },
+        // TODO: Change when microbundle supports rest-spread
+        omit(parentElementProps, ['ref', 'children'])
+      ),
+      children
     );
   }
 }
+
+Map.propTypes = {
+  // Enables addons for Map
+  // https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/modules-docpage/#addons
+  addons: PropTypes.oneOfType([
+    MapAddonsPropType,
+    PropTypes.arrayOf(MapAddonsPropType)
+  ]),
+
+  // Map state parameters
+  // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state
+  state: PropTypes.shape(MapStatePropTypes),
+  defaultState: PropTypes.shape(MapStatePropTypes),
+
+  // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
+  options: PropTypes.shape(MapOptionsPropTypes),
+  defaultOptions: PropTypes.shape(MapOptionsPropTypes),
+
+  // Props that will be passed to the map parentElement created by react-yandex-maps
+  // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-parentElement
+  parentElementProps: PropTypes.object,
+
+  // ref prop but for YMaps object instances
+  instanceRef: PropTypes.func,
+
+  // Yandex Maps API object
+  ymaps: PropTypes.object,
+
+  children: PropTypes.node,
+};
+
+Map.defaultProps = {
+  parentElementProps: {},
+};
+
+export default withYMaps(Map, true);
