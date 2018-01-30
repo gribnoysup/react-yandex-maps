@@ -52,8 +52,6 @@ class Map extends React.Component {
   }
 
   mountObject(Map, props = this.props) {
-    this._mountPromise = null;
-
     if (this._isMounted) {
       const { instanceRef, _events } = separateEvents(props);
 
@@ -117,6 +115,8 @@ class Map extends React.Component {
   }
 
   unmountObject(props = this.props) {
+    this._mountPromise = null;
+
     const { instanceRef, _events } = separateEvents(props);
 
     if (this._instance !== null) {
@@ -135,7 +135,7 @@ class Map extends React.Component {
 
   componentDidMount() {
     if (this.props.ymaps !== null) {
-      this.props.ymaps
+      this._mountPromise = this.props.ymaps
         .loadModule('Map', this.props.addons)
         .then(Module => this.mountObject(Module));
     }

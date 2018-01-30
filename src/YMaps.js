@@ -94,7 +94,7 @@ YMaps.loadModule = function loadModule(ymaps, moduleName, addons = []) {
     ymaps.modules.require(
       [moduleName].concat(addons),
       // TODO: Change when microbundle supports rest-spread
-      function resolve() {
+      function resolveYMapsModule() {
         ymaps[moduleName] = arguments[0];
         resolve.apply(null, arguments);
       },
