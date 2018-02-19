@@ -3,4 +3,6 @@ dist
 
 .*
 !.gitignore
+!.babelrc
+!.eslintrc.js
 !.eslintrc
