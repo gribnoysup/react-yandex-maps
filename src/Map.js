@@ -97,11 +97,21 @@ export class Map extends React.Component {
       instance.setZoom(state.zoom);
     }
 
-    if (prevState.center !== state.center) {
+    if (
+      prevState.center[0] !== state.center[0] ||
+      prevState.center[1] !== state.center[1]
+    ) {
       instance.setCenter(state.center);
     }
 
-    if (state.bounds && prevState.bounds !== state.bounds) {
+    if (
+      state.bounds && (
+        prevState.bounds[0][0] !== state.bounds[0][0] ||
+        prevState.bounds[0][1] !== state.bounds[0][1] ||
+        prevState.bounds[1][0] !== state.bounds[1][0] ||
+        prevState.bounds[1][1] !== state.bounds[1][1]
+      )
+    ) {
       instance.setBounds(state.bounds);
     }
 
