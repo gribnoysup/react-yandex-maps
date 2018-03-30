@@ -33,8 +33,6 @@ export class YMaps {
         getBaseUrl,
       } = YMaps;
 
-      // TODO: Change when microbundle supports rest-spread
-      // const query = { ...this.options.query, onload, onerror };
       const query = Object.assign({ onload, onerror }, this.options.query);
 
       const queryString = Object.keys(query)
@@ -93,7 +91,6 @@ YMaps.loadModule = function loadModule(ymaps, moduleName, addons = []) {
   return new Promise((resolve, reject) => {
     ymaps.modules.require(
       [moduleName].concat(addons),
-      // TODO: Change when microbundle supports rest-spread
       function resolveYMapsModule() {
         ymaps[moduleName] = arguments[0];
         resolve.apply(null, arguments);

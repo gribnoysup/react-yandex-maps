@@ -165,14 +165,11 @@ class Map extends React.Component {
 
   render() {
     const { children, parentElementProps } = this.props;
-    // eslint-disable-next-line no-unused-vars
-    const { ref, children: _ } = parentElementProps;
 
     return React.createElement(
       'div',
       Object.assign(
         { ref: this._getRef },
-        // TODO: Change when microbundle supports rest-spread
         omit(parentElementProps, ['ref', 'children'])
       ),
       children
