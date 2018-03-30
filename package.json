@@ -2,12 +2,16 @@
   "name": "react-yandex-maps",
   "version": "3.0.0-alpha.0",
   "description": "Yandex Maps API bindings for React",
-  "files": [
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["README.md", "LICENSE"],
   "scripts": {
+    "prettier": "prettier --write",
+    "lint": "eslint",
+    "precommit": "lint-staged",
     "build": "microbundle --target=browser --strict=true --entry=src/index.js"
+  },
+  "lint-staged": {
+    "*.js": ["npm run lint", "npm run prettier", "git add"],
+    "*.{json,css,md}": ["npm run prettier", "git add"]
   },
   "repository": {
     "type": "git",
@@ -20,17 +24,13 @@
     "babel-eslint": "^8.2.2",
     "eslint": "^4.16.0",
     "eslint-plugin-react": "^7.7.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
     "microbundle": "^0.4.4",
     "prettier": "^1.11.1",
     "react": "^16.2.0"
   },
-  "keywords": [
-    "react",
-    "react-component",
-    "yandex",
-    "maps",
-    "yandex-maps"
-  ],
+  "keywords": ["react", "react-component", "yandex", "maps", "yandex-maps"],
   "author": "Sergey Petushkov <petushkov.sergey@gmail.com>",
   "license": "MIT"
 }

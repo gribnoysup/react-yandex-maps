@@ -35,7 +35,7 @@ YMapsProvider.propTypes = {
       'en_RU',
       'ru_RU',
       'ru_UA',
-      'uk_UA'
+      'uk_UA',
     ]).isRequired,
     apikey: PropTypes.string,
     coordorder: PropTypes.oneOf(['latlong', 'longlat']),
