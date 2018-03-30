@@ -59,7 +59,6 @@ export function withYMaps(Component, waitForApi = false) {
         shouldRender &&
         React.createElement(
           Component,
-          // TODO: Change when microbundle supports rest-spread
           Object.assign({ ymaps: api }, omit(this.props, ['onLoad', 'onError']))
         )
       );
