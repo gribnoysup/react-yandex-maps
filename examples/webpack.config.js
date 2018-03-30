@@ -17,6 +17,7 @@ module.exports = {
   output: {
     filename: '[name].[chunkhash:8].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
 
   devtool: 'cheap-module-eval-source-map',
@@ -50,8 +51,9 @@ module.exports = {
   ],
 
   devServer: {
+    publicPath: '/',
     historyApiFallback: true,
     compress: true,
-    port: 4242,
+    port: 3232,
   },
 };
