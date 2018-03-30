@@ -12,7 +12,7 @@ class UsingAddons extends React.Component {
               'geolocationControl',
               'fullscreenControl',
               'rulerControl',
-              'trafficControl'
+              'trafficControl',
             ],
             center: [55.76, 37.64],
             zoom: 7,
@@ -24,7 +24,7 @@ class UsingAddons extends React.Component {
             'control.GeolocationControl',
             'control.FullscreenControl',
             'control.RulerControl',
-            'control.TrafficControl'
+            'control.TrafficControl',
           ]}
         />
       </YMapsProvider>

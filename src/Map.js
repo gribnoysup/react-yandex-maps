@@ -24,7 +24,7 @@ const MapStatePropTypes = {
   behaviors: PropTypes.arrayOf(PropTypes.string),
   margin: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.number),
-    PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))
+    PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   ]),
   type: PropTypes.oneOf(['yandex#map', 'yandex#satellite', 'yandex#hybrid']),
   zoom: PropTypes.number,
@@ -182,7 +182,7 @@ Map.propTypes = {
   // https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/modules-docpage/#addons
   addons: PropTypes.oneOfType([
     MapAddonsPropType,
-    PropTypes.arrayOf(MapAddonsPropType)
+    PropTypes.arrayOf(MapAddonsPropType),
   ]),
 
   // Map state parameters

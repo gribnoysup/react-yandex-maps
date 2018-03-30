@@ -9,4 +9,3 @@ module.exports = {
     'react/jsx-no-undef': ['error', { allowGlobals: true }],
   },
 };
-
