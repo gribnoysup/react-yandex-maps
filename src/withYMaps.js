@@ -1,3 +1,5 @@
+/* global process */
+
 // TODO: hoist statics and all this HOC stuff
 
 import React from 'react';
@@ -11,6 +13,8 @@ export function withYMaps(Component, waitForApi = false, modules = []) {
   class WithYMaps extends React.Component {
     constructor() {
       super();
+
+      this.state = { loading: true };
       this._isMounted = false;
     }
 
@@ -30,13 +34,12 @@ export function withYMaps(Component, waitForApi = false, modules = []) {
         .load()
         .then(api => {
           return Promise.all(
-            modules
-              .concat(this.props.modules)
-              .map(moduleName => api.loadModule(moduleName))
+            modules.concat(this.props.modules).map(api.loadModule)
           ).then(() => {
             if (this._isMounted === true) {
-              this.forceUpdate();
-              this.props.onLoad(api);
+              this.setState({ loading: false }, () => {
+                this.props.onLoad(api);
+              });
             }
           });
         })
@@ -52,9 +55,10 @@ export function withYMaps(Component, waitForApi = false, modules = []) {
     }
 
     render() {
+      const { loading } = this.state;
       const { api } = this.context.ymaps;
 
-      const shouldRender = waitForApi === false || api !== null;
+      const shouldRender = waitForApi === false || loading === false;
 
       return (
         shouldRender &&
@@ -69,7 +73,10 @@ export function withYMaps(Component, waitForApi = false, modules = []) {
     }
   }
 
-  WithYMaps.displayName = `withYMaps(${name(Component)})`;
+  WithYMaps.displayName =
+    process.env.NODE_ENV !== 'production'
+      ? `withYMaps(${name(Component)})`
+      : WithYMaps.displayName;
 
   WithYMaps.propTypes = {
     onLoad: PropTypes.func,
