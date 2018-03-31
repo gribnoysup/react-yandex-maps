@@ -3,54 +3,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { getDisplayName } from './util/getDisplayName';
+import { getDisplayName as name } from './util/getDisplayName';
 
 import { omit } from './util/omit';
 
-export function withYMaps(Component, waitForApi = false) {
+export function withYMaps(Component, waitForApi = false, modules = []) {
   class WithYMaps extends React.Component {
     constructor() {
       super();
+      this._isMounted = false;
+    }
 
-      this._isMounted = true;
-      this._unsubscribe = null;
+    componentWillMount() {
+      if (!this.context.ymaps) {
+        throw new Error(
+          "Couldn't find YMaps in the context. " +
+            `Make sure that <${name(Component)} /> is inside <YMapsProvider />`
+        );
+      }
     }
 
     componentDidMount() {
-      if (this.context.ymaps.api === null) {
-        this._unsubscribe = this.context.ymaps.subscribe(() => {
-          if (this._isMounted === true) {
-            this._unsubscribe();
-            this.forceUpdate();
-          }
-        });
+      this._isMounted = true;
 
-        this.context.ymaps
-          .load()
-          .then(api => {
+      this.context.ymaps
+        .load()
+        .then(api => {
+          return Promise.all(
+            modules
+              .concat(this.props.modules)
+              .map(moduleName => api.loadModule(moduleName))
+          ).then(() => {
             if (this._isMounted === true) {
-              this.context.ymaps.update();
+              this.forceUpdate();
               this.props.onLoad(api);
             }
-          })
-          .catch(err => {
-            if (this._isMounted === true) {
-              this.props.onError(err);
-            }
           });
-      }
+        })
+        .catch(err => {
+          if (this._isMounted === true) {
+            this.props.onError(err);
+          }
+        });
     }
 
     componentWillUnmount() {
-      if (typeof this._unsubscribe === 'function') {
-        this._unsubscribe();
-      }
       this._isMounted = false;
     }
 
     render() {
-      // eslint-disable-next-line no-unused-vars
-      const { onLoad, onError } = this.props;
       const { api } = this.context.ymaps;
 
       const shouldRender = waitForApi === false || api !== null;
@@ -59,22 +60,27 @@ export function withYMaps(Component, waitForApi = false) {
         shouldRender &&
         React.createElement(
           Component,
-          Object.assign({ ymaps: api }, omit(this.props, ['onLoad', 'onError']))
+          Object.assign(
+            { ymaps: api },
+            omit(this.props, ['onLoad', 'onError', 'modules'])
+          )
         )
       );
     }
   }
 
-  WithYMaps.displayName = `withYMaps(${getDisplayName(Component)})`;
+  WithYMaps.displayName = `withYMaps(${name(Component)})`;
 
   WithYMaps.propTypes = {
     onLoad: PropTypes.func,
     onError: PropTypes.func,
+    modules: PropTypes.arrayOf(PropTypes.string),
   };
 
   WithYMaps.defaultProps = {
     onLoad: Function.prototype,
     onError: Function.prototype,
+    modules: [],
   };
 
   WithYMaps.contextTypes = {
