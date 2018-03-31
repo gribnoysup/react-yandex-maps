@@ -1,3 +1,11 @@
+import set from './util/set';
+
+const defaultQuery = {
+  lang: 'ru_RU',
+  load: '',
+  ns: '',
+};
+
 export class YMaps {
   constructor({ enterprise, version, query }) {
     this.options = { enterprise, version, query };
@@ -8,20 +16,6 @@ export class YMaps {
         : null;
 
     this._promise = null;
-    this.subscriptions = [];
-
-    this.subscribe = fn => {
-      this.subscriptions.push(fn);
-      return () => this.unsubscribe(fn);
-    };
-
-    this.unsubscribe = fn => {
-      this.subscriptions.splice(this.subscriptions.indexOf(fn), 1);
-    };
-
-    this.update = () => {
-      this.subscriptions.forEach(fn => fn.call(this));
-    };
 
     this.load = () => {
       if (this.api !== null) return Promise.resolve(this.api);
@@ -33,7 +27,11 @@ export class YMaps {
         getBaseUrl,
       } = YMaps;
 
-      const query = Object.assign({ onload, onerror }, this.options.query);
+      const query = Object.assign(
+        { onload, onerror },
+        defaultQuery,
+        this.options.query
+      );
 
       const queryString = Object.keys(query)
         .map(key => `${key}=${query[key]}`)
@@ -87,13 +85,13 @@ YMaps.fetchScript = function fetchScript(url) {
   });
 };
 
-YMaps.loadModule = function loadModule(ymaps, moduleName, addons = []) {
+YMaps.loadModule = function loadModule(ymaps, moduleName) {
   return new Promise((resolve, reject) => {
     ymaps.modules.require(
-      [moduleName].concat(addons),
-      function resolveYMapsModule() {
-        ymaps[moduleName] = arguments[0];
-        resolve.apply(null, arguments);
+      moduleName,
+      Module => {
+        set(ymaps, moduleName, Module);
+        resolve(Module);
       },
       reject,
       ymaps
