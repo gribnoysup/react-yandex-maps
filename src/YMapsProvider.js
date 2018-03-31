@@ -15,6 +15,12 @@ export class YMapsProvider extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.preload === true) {
+      this.ymaps.load();
+    }
+  }
+
   render() {
     return this.props.children && React.Children.only(this.props.children);
   }
@@ -36,7 +42,7 @@ YMapsProvider.propTypes = {
       'ru_RU',
       'ru_UA',
       'uk_UA',
-    ]).isRequired,
+    ]),
     apikey: PropTypes.string,
     coordorder: PropTypes.oneOf(['latlong', 'longlat']),
     load: PropTypes.string,
@@ -46,6 +52,10 @@ YMapsProvider.propTypes = {
   }),
 
   children: PropTypes.node,
+
+  // Allows provider to preload Yandex Maps API even if
+  // there are no map components on the page
+  preload: PropTypes.bool,
 };
 
 YMapsProvider.defaultProps = {
@@ -56,6 +66,7 @@ YMapsProvider.defaultProps = {
     load: '',
     ns: '',
   },
+  preload: false,
 };
 
 YMapsProvider.childContextTypes = {
