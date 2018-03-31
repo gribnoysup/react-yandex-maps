@@ -14,9 +14,6 @@ import { omit } from './util/omit';
 
 import { getProp, isControlledProp } from './util/props';
 
-// TODO: Include the whole list?
-const MapAddonsPropType = PropTypes.string;
-
 const MapStatePropTypes = {
   bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   center: PropTypes.arrayOf(PropTypes.number),
@@ -37,42 +34,37 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
 
-    this._mountPromise = null;
-    this._isMounted = true;
     this._parentElement = null;
     this._instance = null;
 
     this._getRef = ref => {
-      if (typeof this.props.parentElementProps.ref === 'function') {
-        this.props.parentElementProps.ref(ref);
-      }
-
       this._parentElement = ref;
     };
   }
 
   mountObject(Map, props = this.props) {
-    if (this._isMounted) {
-      const { instanceRef, _events } = separateEvents(props);
+    const { instanceRef, _events } = separateEvents(props);
 
-      const state = getProp(props, 'state');
-      const options = getProp(props, 'options');
+    const state = getProp(props, 'state');
+    const options = getProp(props, 'options');
 
-      this._instance = new Map(this._parentElement, state, options);
+    this._instance = new Map(this._parentElement, state, options);
 
-      Object.keys(_events).forEach(key =>
-        addEvent(this._instance, key, _events[key])
-      );
+    Object.keys(_events).forEach(key =>
+      addEvent(this._instance, key, _events[key])
+    );
 
-      if (typeof instanceRef === 'function') {
-        instanceRef(this._instance);
-      }
+    if (typeof instanceRef === 'function') {
+      instanceRef(this._instance);
     }
   }
 
   updateObject(oldProps, newProps) {
-    const { _events: oldEvents } = separateEvents(oldProps);
-    const { _events: newEvents } = separateEvents(newProps);
+    const { _events: oldEvents, instanceRef: oldRef } = separateEvents(
+      oldProps
+    );
+
+    const { _events: newEvents, instanceRef } = separateEvents(newProps);
 
     if (isControlledProp(oldProps, 'state')) {
       const oldState = getProp(oldProps, 'state');
@@ -112,6 +104,13 @@ class Map extends React.Component {
     }
 
     updateEvents(this._instance, oldEvents, newEvents);
+
+    // Mimic React callback ref behavior:
+    // https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
+    if (oldRef !== instanceRef) {
+      if (typeof oldRef === 'function') oldRef(null);
+      if (typeof instanceRef === 'function') instanceRef(this._instance);
+    }
   }
 
   unmountObject(props = this.props) {
@@ -134,57 +133,41 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.ymaps !== null) {
-      this._mountPromise = this.props.ymaps
-        .loadModule('Map', this.props.addons)
-        .then(Module => this.mountObject(Module));
-    }
+    this.mountObject(this.props.ymaps.Map);
   }
 
-  componentWillReceiveProps(newProps) {
-    if (
-      this._instance === null &&
-      this._mountPromise === null &&
-      newProps.ymaps !== null &&
-      newProps.ymaps !== this.props.ymaps
-    ) {
-      this._mountPromise = newProps.ymaps
-        .loadModule('Map', newProps.addons)
-        .then(Module => this.mountObject(Module));
-    }
-
+  componentDidUpdate(prevProps) {
     if (this._instance !== null) {
-      this.updateObject(this.props, newProps);
+      this.updateObject(prevProps, this.props);
     }
   }
 
   componentWillUnmount() {
-    this._isMounted = false;
     this.unmountObject();
   }
 
   render() {
-    const { children, parentElementProps } = this.props;
+    const separatedProps = separateEvents(this.props);
+    const parentElementProps = omit(separatedProps, [
+      '_events',
+      'state',
+      'defaultState',
+      'options',
+      'defaultOptions',
+      'instanceRef',
+      'ymaps',
+      'children',
+    ]);
 
     return React.createElement(
       'div',
-      Object.assign(
-        { ref: this._getRef },
-        omit(parentElementProps, ['ref', 'children'])
-      ),
-      children
+      Object.assign({ ref: this._getRef }, parentElementProps),
+      this.props.children
     );
   }
 }
 
 Map.propTypes = {
-  // Enables addons for Map
-  // https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/modules-docpage/#addons
-  addons: PropTypes.oneOfType([
-    MapAddonsPropType,
-    PropTypes.arrayOf(MapAddonsPropType),
-  ]),
-
   // Map state parameters
   // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state
   state: PropTypes.shape(MapStatePropTypes),
@@ -193,10 +176,6 @@ Map.propTypes = {
   // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
   options: PropTypes.shape(MapOptionsPropTypes),
   defaultOptions: PropTypes.shape(MapOptionsPropTypes),
-
-  // Props that will be passed to the map parentElement created by react-yandex-maps
-  // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-parentElement
-  parentElementProps: PropTypes.object,
 
   // ref prop but for YMaps object instances
   instanceRef: PropTypes.func,
@@ -207,8 +186,4 @@ Map.propTypes = {
   children: PropTypes.node,
 };
 
-Map.defaultProps = {
-  parentElementProps: {},
-};
-
-export default withYMaps(Map, true);
+export default withYMaps(Map, true, ['Map']);
