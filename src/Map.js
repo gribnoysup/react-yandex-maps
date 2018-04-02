@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { withYMaps } from './withYMaps';
-
 import {
   separateEvents,
   addEvent,
   removeEvent,
   updateEvents,
 } from './util/events';
-
 import { omit } from './util/omit';
-
 import { getProp, isControlledProp } from './util/props';
+import { withYMaps } from './withYMaps';
+import { ParentContext } from './Context';
 
 const MapStatePropTypes = {
   bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
@@ -31,11 +29,13 @@ const MapStatePropTypes = {
 const MapOptionsPropTypes = {};
 
 class Map extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
+    this.state = { instance: null };
 
     this._parentElement = null;
-    this._instance = null;
+    this.state.instance = null;
 
     this._getRef = ref => {
       this._parentElement = ref;
@@ -48,23 +48,24 @@ class Map extends React.Component {
     const state = getProp(props, 'state');
     const options = getProp(props, 'options');
 
-    this._instance = new Map(this._parentElement, state, options);
+    const instance = new Map(this._parentElement, state, options);
 
     Object.keys(_events).forEach(key =>
-      addEvent(this._instance, key, _events[key])
+      addEvent(this.state.instance, key, _events[key])
     );
 
     if (typeof instanceRef === 'function') {
-      instanceRef(this._instance);
+      instanceRef(this.state.instance);
     }
+
+    this.setState({ instance });
   }
 
-  updateObject(oldProps, newProps) {
+  updateObject(instance, oldProps, newProps) {
+    const { _events: newEvents, instanceRef } = separateEvents(newProps);
     const { _events: oldEvents, instanceRef: oldRef } = separateEvents(
       oldProps
     );
-
-    const { _events: newEvents, instanceRef } = separateEvents(newProps);
 
     if (isControlledProp(oldProps, 'state')) {
       const oldState = getProp(oldProps, 'state');
@@ -72,24 +73,24 @@ class Map extends React.Component {
 
       if (oldState.type !== newState.type) {
         if (oldState.type !== newState.type) {
-          this._instance.setType(newState.type);
+          instance.setType(newState.type);
         }
 
         if (oldState.behaviors !== newState.behaviors) {
-          this._instance.behaviors.disable(oldState.behaviors || []);
-          this._instance.behaviors.enable(newState.behaviors || []);
+          instance.behaviors.disable(oldState.behaviors || []);
+          instance.behaviors.enable(newState.behaviors || []);
         }
 
         if (oldState.zoom !== newState.zoom) {
-          this._instance.setZoom(newState.zoom);
+          instance.setZoom(newState.zoom);
         }
 
         if (oldState.center !== newState.center) {
-          this._instance.setCenter(newState.center);
+          instance.setCenter(newState.center);
         }
 
         if (newState.bounds && oldState.bounds !== newState.bounds) {
-          this._instance.setBounds(newState.bounds);
+          instance.setBounds(newState.bounds);
         }
       }
 
@@ -98,18 +99,18 @@ class Map extends React.Component {
         const newOptions = getProp(newProps, 'options');
 
         if (oldOptions !== newOptions) {
-          this._instance.options.set(newOptions);
+          instance.options.set(newOptions);
         }
       }
     }
 
-    updateEvents(this._instance, oldEvents, newEvents);
+    updateEvents(instance, oldEvents, newEvents);
 
     // Mimic React callback ref behavior:
     // https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
     if (oldRef !== instanceRef) {
       if (typeof oldRef === 'function') oldRef(null);
-      if (typeof instanceRef === 'function') instanceRef(this._instance);
+      if (typeof instanceRef === 'function') instanceRef(instance);
     }
   }
 
@@ -118,13 +119,12 @@ class Map extends React.Component {
 
     const { instanceRef, _events } = separateEvents(props);
 
-    if (this._instance !== null) {
+    if (this.state.instance !== null) {
       Object.keys(_events).forEach(key =>
-        removeEvent(this._instance, key, _events[key])
+        removeEvent(this.state.instance, key, _events[key])
       );
 
-      this._instance.destroy();
-      this._instance = null;
+      this.state.instance.destroy();
 
       if (typeof instanceRef === 'function') {
         instanceRef(null);
@@ -137,8 +137,8 @@ class Map extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this._instance !== null) {
-      this.updateObject(prevProps, this.props);
+    if (this.state.instance !== null) {
+      this.updateObject(this.state.instance, prevProps, this.props);
     }
   }
 
@@ -159,10 +159,12 @@ class Map extends React.Component {
       'children',
     ]);
 
-    return React.createElement(
-      'div',
-      Object.assign({ ref: this._getRef }, parentElementProps),
-      this.props.children
+    return (
+      <ParentContext.Provider value={this.state.instance}>
+        <div ref={this._getRef} {...parentElementProps}>
+          {this.props.children}
+        </div>
+      </ParentContext.Provider>
     );
   }
 }
