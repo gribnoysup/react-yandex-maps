@@ -1,18 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { YMapsContext } from './Context';
 import { YMaps } from './YMaps';
 
-export class YMapsProvider extends React.Component {
+export default class Provider extends React.Component {
   constructor(props) {
     super(props);
-    this.ymaps = new YMaps(this.props);
-  }
-
-  getChildContext() {
-    return {
-      ymaps: this.ymaps,
-    };
+    this.ymaps = new YMaps(props);
   }
 
   componentDidMount() {
@@ -22,11 +17,15 @@ export class YMapsProvider extends React.Component {
   }
 
   render() {
-    return this.props.children && React.Children.only(this.props.children);
+    return (
+      <YMapsContext.Provider value={this.ymaps}>
+        {this.props.children}
+      </YMapsContext.Provider>
+    );
   }
 }
 
-YMapsProvider.propTypes = {
+Provider.propTypes = {
   version: PropTypes.string.isRequired,
   enterprise: PropTypes.bool,
 
@@ -58,7 +57,7 @@ YMapsProvider.propTypes = {
   preload: PropTypes.bool,
 };
 
-YMapsProvider.defaultProps = {
+Provider.defaultProps = {
   version: '2.1',
   enterprise: false,
   query: {
@@ -67,8 +66,4 @@ YMapsProvider.defaultProps = {
     ns: '',
   },
   preload: false,
-};
-
-YMapsProvider.childContextTypes = {
-  ymaps: PropTypes.object,
 };

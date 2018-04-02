@@ -1,13 +1,9 @@
-/* global process */
-
-// TODO: hoist statics and all this HOC stuff
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import { getDisplayName as name } from './util/getDisplayName';
-
 import { omit } from './util/omit';
+import { withYMapsContext } from './Context';
 
 export function withYMaps(Component, waitForApi = false, modules = []) {
   class WithYMaps extends React.Component {
@@ -19,7 +15,7 @@ export function withYMaps(Component, waitForApi = false, modules = []) {
     }
 
     componentWillMount() {
-      if (!this.context.ymaps) {
+      if (this.props.ymaps == null) {
         throw new Error(
           "Couldn't find YMaps in the context. " +
             `Make sure that <${name(Component)} /> is inside <YMapsProvider />`
@@ -30,7 +26,7 @@ export function withYMaps(Component, waitForApi = false, modules = []) {
     componentDidMount() {
       this._isMounted = true;
 
-      this.context.ymaps
+      this.props.ymaps
         .load()
         .then(api => {
           return Promise.all(
@@ -55,33 +51,22 @@ export function withYMaps(Component, waitForApi = false, modules = []) {
     }
 
     render() {
+      const { ymaps } = this.props;
       const { loading } = this.state;
-      const { api } = this.context.ymaps;
-
       const shouldRender = waitForApi === false || loading === false;
+      const props = omit(this.props, ['onLoad', 'onError', 'modules', 'ymaps']);
 
-      return (
-        shouldRender &&
-        React.createElement(
-          Component,
-          Object.assign(
-            { ymaps: api },
-            omit(this.props, ['onLoad', 'onError', 'modules'])
-          )
-        )
-      );
+      return shouldRender && <Component ymaps={ymaps.api} {...props} />;
     }
   }
 
-  WithYMaps.displayName =
-    process.env.NODE_ENV !== 'production'
-      ? `withYMaps(${name(Component)})`
-      : WithYMaps.displayName;
+  WithYMaps.displayName = `withYMaps(${name(Component)})`;
 
   WithYMaps.propTypes = {
     onLoad: PropTypes.func,
     onError: PropTypes.func,
     modules: PropTypes.arrayOf(PropTypes.string),
+    ymaps: PropTypes.object,
   };
 
   WithYMaps.defaultProps = {
@@ -90,9 +75,5 @@ export function withYMaps(Component, waitForApi = false, modules = []) {
     modules: [],
   };
 
-  WithYMaps.contextTypes = {
-    ymaps: PropTypes.object,
-  };
-
-  return WithYMaps;
+  return withYMapsContext(WithYMaps);
 }
