@@ -42,33 +42,21 @@ const propsTable = (
 const Example = () => (
   <Page>
     {md`
-# \`YMapsProvider\` Component
+# \`YMaps\` Provider Component
 
 This component is used to provide YMaps components with specific context that
 will allow them to access Yandex Maps API. You always need to add this component
 somewhere above your maps in the component tree.
 
-As \`<YMapsProvider>\` provides an API to fetch Yandex Maps API, this is the
-component you can use to customize your api query (example below shows default
-props):
+As \`<YMaps />\` provides an API to fetch Yandex Maps API, this is the component
+you can use to customize your api query:
 
-~~~jsx
+~~~react-live
 const Application = () => (
-  <YMapsProvider
-    version="2.1"
-    enterprise={false}
-    query={{
-      lang: 'ru_RU',
-      load: '',
-      ns: '',
-    }}
-    preload={false}
-  >
-    {/* Application components */}
-  </YMapsProvider>
+  <YMaps query={{ lang: 'en_RU' }}>Application with YMaps Provider</YMaps>
 );
 
-render(<Application />)
+render(<Application />);
 ~~~
 
 ## Props
@@ -76,8 +64,8 @@ render(<Application />)
 ${propsTable}
 
 Now you can add map components anywhere in your component tree below
-\`<YMapsProvider>\` and they will have access to anything needed to get Yandex
-Maps API.
+\`<YMaps />\` and they will have access to anything needed to get Yandex Maps
+API.
 
 Don't be afraid to add provider higher in your application tree, Yandex Maps API
 wouldn't be fetched until some map component will request it. If this behavior

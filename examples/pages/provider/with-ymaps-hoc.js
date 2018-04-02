@@ -82,9 +82,9 @@ class LengthPrinter extends React.Component {
 const ConnectedLengthPrinter = withYMaps(LengthPrinter, true, ['route']);
 
 render(
-  <YMapsProvider query={{ lang: 'en_RU' }}>
+  <YMaps query={{ lang: 'en_RU' }}>
     <ConnectedLengthPrinter route={['Moscow', 'St. Petersburg']} />
-  </YMapsProvider>
+  </YMaps>
 );
 ~~~
 
@@ -102,7 +102,7 @@ A few things to keep in mind:
   Maps, you need to explicitly specify this. There are several ways to do this:
   with the third argument of the \`withYMaps\` HOC (as shown in the example
   above), with the \`modules\` prop of connected component, or by providing
-  required module in \`query.load\` prop of \`<YMapsProvider />\` component
+  required module in \`query.load\` prop of \`<YMaps />\` component
     `}
   </Page>
 );

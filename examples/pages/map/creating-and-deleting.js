@@ -9,9 +9,9 @@ const Example = () => (
 # Creating and Deleting
 
 Compared to [the usual way][0] of attaching and detaching Yandex Maps on your
-page, you don't need to worry about doing this manually. Just add
-[\`Provider\`][1] component and \`Map\` component anywhere in your application
-ad you are good to go.
+page, you don't need to worry about doing this manually. Just add [\`YMaps\`][1]
+component and \`Map\` component anywhere in your application ad you are good to
+go.
 
 ~~~react-live
 class Application extends React.Component {
@@ -25,7 +25,7 @@ class Application extends React.Component {
 
   render() {
     return (
-      <YMapsProvider>
+      <YMaps>
         <React.Fragment>
           <button onClick={this.onButtonClick}>Show/Hide Map</button>
           {this.state.showMap && (
@@ -38,7 +38,7 @@ class Application extends React.Component {
             />
           )}
         </React.Fragment>
-      </YMapsProvider>
+      </YMaps>
     );
   }
 }

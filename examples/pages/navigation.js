@@ -4,7 +4,7 @@ const pages = [
     path: '/provider',
     pages: [
       {
-        title: 'YMapsProvider Component',
+        title: 'YMaps Provider Component',
         path: '/ymaps-provider-component',
       },
       {
