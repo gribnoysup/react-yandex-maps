@@ -27,6 +27,10 @@ const pages = [
       },
     ],
   },
+  {
+    title: 'GeoObject',
+    path: '/geo-object',
+  },
 ];
 
 export default pages;

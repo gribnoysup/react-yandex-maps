@@ -9,7 +9,7 @@ import {
 } from './util/events';
 import { omit } from './util/omit';
 import { getProp, isControlledProp } from './util/props';
-import { withYMaps } from './withYMaps';
+import withYMaps from './withYMaps';
 import { ParentContext } from './Context';
 
 const MapStatePropTypes = {
@@ -28,40 +28,76 @@ const MapStatePropTypes = {
 // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
 const MapOptionsPropTypes = {};
 
-class Map extends React.Component {
+export class Map extends React.Component {
   constructor() {
     super();
-
     this.state = { instance: null };
-
     this._parentElement = null;
-    this.state.instance = null;
-
     this._getRef = ref => {
       this._parentElement = ref;
     };
   }
 
-  mountObject(Map, props = this.props) {
+  componentDidMount() {
+    const instance = Map.mountObject(
+      this._parentElement,
+      this.props.ymaps.Map,
+      this.props
+    );
+
+    this.setState({ instance });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.state.instance !== null) {
+      Map.updateObject(this.state.instance, prevProps, this.props);
+    }
+  }
+
+  componentWillUnmount() {
+    Map.unmountObject(this.state.instance, this.props);
+  }
+
+  render() {
+    const separatedProps = separateEvents(this.props);
+    const parentElementProps = omit(separatedProps, [
+      '_events',
+      'state',
+      'defaultState',
+      'options',
+      'defaultOptions',
+      'instanceRef',
+      'ymaps',
+      'children',
+    ]);
+
+    return (
+      <ParentContext.Provider value={this.state.instance}>
+        <div ref={this._getRef} {...parentElementProps}>
+          {this.props.children}
+        </div>
+      </ParentContext.Provider>
+    );
+  }
+
+  static mountObject(parentElement, Map, props) {
     const { instanceRef, _events } = separateEvents(props);
 
     const state = getProp(props, 'state');
     const options = getProp(props, 'options');
 
-    const instance = new Map(this._parentElement, state, options);
+    const instance = new Map(parentElement, state, options);
 
-    Object.keys(_events).forEach(key =>
-      addEvent(this.state.instance, key, _events[key])
-    );
+    Object.keys(_events).forEach(key => addEvent(instance, key, _events[key]));
 
     if (typeof instanceRef === 'function') {
-      instanceRef(this.state.instance);
+      instanceRef(instance);
     }
 
-    this.setState({ instance });
+    return instance;
   }
 
-  updateObject(instance, oldProps, newProps) {
+  static updateObject(instance, oldProps, newProps) {
     const { _events: newEvents, instanceRef } = separateEvents(newProps);
     const { _events: oldEvents, instanceRef: oldRef } = separateEvents(
       oldProps
@@ -114,58 +150,20 @@ class Map extends React.Component {
     }
   }
 
-  unmountObject(props = this.props) {
-    this._mountPromise = null;
-
+  static unmountObject(instance, props) {
     const { instanceRef, _events } = separateEvents(props);
 
-    if (this.state.instance !== null) {
+    if (instance !== null) {
       Object.keys(_events).forEach(key =>
         removeEvent(this.state.instance, key, _events[key])
       );
 
-      this.state.instance.destroy();
+      instance.destroy();
 
       if (typeof instanceRef === 'function') {
         instanceRef(null);
       }
     }
-  }
-
-  componentDidMount() {
-    this.mountObject(this.props.ymaps.Map);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.state.instance !== null) {
-      this.updateObject(this.state.instance, prevProps, this.props);
-    }
-  }
-
-  componentWillUnmount() {
-    this.unmountObject();
-  }
-
-  render() {
-    const separatedProps = separateEvents(this.props);
-    const parentElementProps = omit(separatedProps, [
-      '_events',
-      'state',
-      'defaultState',
-      'options',
-      'defaultOptions',
-      'instanceRef',
-      'ymaps',
-      'children',
-    ]);
-
-    return (
-      <ParentContext.Provider value={this.state.instance}>
-        <div ref={this._getRef} {...parentElementProps}>
-          {this.props.children}
-        </div>
-      </ParentContext.Provider>
-    );
   }
 }
 

@@ -5,7 +5,7 @@ import { getDisplayName as name } from './util/getDisplayName';
 import { omit } from './util/omit';
 import { withYMapsContext } from './Context';
 
-export function withYMaps(Component, waitForApi = false, modules = []) {
+export default function withYMaps(Component, waitForApi = false, modules = []) {
   class WithYMaps extends React.Component {
     constructor() {
       super();

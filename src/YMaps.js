@@ -1,9 +1,12 @@
+/* global process */
+
 import set from './util/set';
 
 const defaultQuery = {
   lang: 'ru_RU',
   load: '',
   ns: '',
+  mode: process.env.NODE_ENV !== 'production' ? 'debug' : 'release',
 };
 
 export class YMaps {
