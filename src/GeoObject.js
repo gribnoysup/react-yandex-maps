@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  separateEvents,
-  addEvent,
-  removeEvent,
-  updateEvents,
-} from './util/events';
+import * as events from './util/events';
 import { getProp, isControlledProp } from './util/props';
 import { withParentContext } from './Context';
 import withYMaps from './withYMaps';
@@ -25,8 +20,8 @@ export class GeoObject extends React.Component {
     // `properties` keys and all the other Geojbect constructors
     // expect `geometry` and `properties` as separate arguments
     //
-    // We will hack around this difference with our custom constructor
-    // that way we can completely reuse GeoObject static methods.
+    // We will hack around this difference with our custom constructor.
+    // That way we can completely reuse GeoObject static methods.
     const YMapsGeoObjectConstructor = this.props.ymaps.GeoObject;
 
     function GeoObjectConstructor(geometry, properties, options) {
@@ -36,6 +31,7 @@ export class GeoObject extends React.Component {
     GeoObjectConstructor.prototype = YMapsGeoObjectConstructor.prototype;
 
     const instance = GeoObject.mountObject(GeoObjectConstructor, this.props);
+
     this.setState({ instance });
   }
 
@@ -54,7 +50,7 @@ export class GeoObject extends React.Component {
   }
 
   static mountObject(GeoObject, props) {
-    const { instanceRef, parent, _events } = separateEvents(props);
+    const { instanceRef, parent, _events } = events.separateEvents(props);
 
     const geometry = getProp(props, 'geometry');
     const properties = getProp(props, 'properties');
@@ -62,7 +58,9 @@ export class GeoObject extends React.Component {
 
     const instance = new GeoObject(geometry, properties, options);
 
-    Object.keys(_events).forEach(key => addEvent(instance, key, _events[key]));
+    Object.keys(_events).forEach(key =>
+      events.addEvent(instance, key, _events[key])
+    );
 
     if (parent.geoObjects && typeof parent.geoObjects.add === 'function') {
       parent.geoObjects.add(instance);
@@ -80,8 +78,8 @@ export class GeoObject extends React.Component {
   }
 
   static updateObject(instance, oldProps, newProps) {
-    const { _events: newEvents, instanceRef } = separateEvents(newProps);
-    const { _events: oldEvents, instanceRef: oldRef } = separateEvents(
+    const { _events: newEvents, instanceRef } = events.separateEvents(newProps);
+    const { _events: oldEvents, instanceRef: oldRef } = events.separateEvents(
       oldProps
     );
 
@@ -116,7 +114,7 @@ export class GeoObject extends React.Component {
       }
     }
 
-    updateEvents(instance, oldEvents, newEvents);
+    events.updateEvents(instance, oldEvents, newEvents);
 
     // Mimic React callback ref behavior:
     // https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
@@ -127,11 +125,11 @@ export class GeoObject extends React.Component {
   }
 
   static unmountObject(instance, props) {
-    const { instanceRef, _events } = separateEvents(props);
+    const { instanceRef, _events } = events.separateEvents(props);
 
     if (instance !== null) {
       Object.keys(_events).forEach(key =>
-        removeEvent(instance, key, _events[key])
+        events.removeEvent(instance, key, _events[key])
       );
 
       if (parent.geoObjects && typeof parent.geoObjects.remove === 'function') {

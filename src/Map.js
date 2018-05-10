@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  separateEvents,
-  addEvent,
-  removeEvent,
-  updateEvents,
-} from './util/events';
+import * as events from './util/events';
 import { omit } from './util/omit';
 import { getProp, isControlledProp } from './util/props';
 import withYMaps from './withYMaps';
@@ -59,7 +54,7 @@ export class Map extends React.Component {
   }
 
   render() {
-    const separatedProps = separateEvents(this.props);
+    const separatedProps = events.separateEvents(this.props);
     const parentElementProps = omit(separatedProps, [
       '_events',
       'state',
@@ -81,14 +76,16 @@ export class Map extends React.Component {
   }
 
   static mountObject(parentElement, Map, props) {
-    const { instanceRef, _events } = separateEvents(props);
+    const { instanceRef, _events } = events.separateEvents(props);
 
     const state = getProp(props, 'state');
     const options = getProp(props, 'options');
 
     const instance = new Map(parentElement, state, options);
 
-    Object.keys(_events).forEach(key => addEvent(instance, key, _events[key]));
+    Object.keys(_events).forEach(key =>
+      events.addEvent(instance, key, _events[key])
+    );
 
     if (typeof instanceRef === 'function') {
       instanceRef(instance);
@@ -98,8 +95,8 @@ export class Map extends React.Component {
   }
 
   static updateObject(instance, oldProps, newProps) {
-    const { _events: newEvents, instanceRef } = separateEvents(newProps);
-    const { _events: oldEvents, instanceRef: oldRef } = separateEvents(
+    const { _events: newEvents, instanceRef } = events.separateEvents(newProps);
+    const { _events: oldEvents, instanceRef: oldRef } = events.separateEvents(
       oldProps
     );
 
@@ -140,7 +137,7 @@ export class Map extends React.Component {
       }
     }
 
-    updateEvents(instance, oldEvents, newEvents);
+    events.updateEvents(instance, oldEvents, newEvents);
 
     // Mimic React callback ref behavior:
     // https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
@@ -151,11 +148,11 @@ export class Map extends React.Component {
   }
 
   static unmountObject(instance, props) {
-    const { instanceRef, _events } = separateEvents(props);
+    const { instanceRef, _events } = events.separateEvents(props);
 
     if (instance !== null) {
       Object.keys(_events).forEach(key =>
-        removeEvent(this.state.instance, key, _events[key])
+        events.removeEvent(this.state.instance, key, _events[key])
       );
 
       instance.destroy();
