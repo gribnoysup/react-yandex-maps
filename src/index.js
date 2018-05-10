@@ -15,3 +15,5 @@ export { default as Rectangle } from './Rectangle';
 export { default as Polygon } from './Polygon';
 
 export { default as Circle } from './Circle';
+
+export { default as Clusterer } from './Clusterer';
