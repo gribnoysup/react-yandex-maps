@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 
-import { YMaps, withYMaps, Map } from '../../dist/react-yandex-maps';
-
-const scope = { YMaps, withYMaps, Map };
+import * as scope from '../../dist/react-yandex-maps';
 
 const Editor = ({ code, noInline }) => (
   <LiveProvider code={code} scope={scope} noInline={noInline}>

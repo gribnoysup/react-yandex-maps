@@ -6,13 +6,20 @@ import navigation from '../pages/navigation';
 
 const NavigationBlock = ({ title: blockTitle, path: blockPath, pages }) => (
   <ul>
-    {blockTitle && <h3>{blockTitle}</h3>}
+    {blockTitle &&
+      blockPath && (
+        <h4>
+          <Link href={blockPath}>
+            <a>{blockTitle}</a>
+          </Link>
+        </h4>
+      )}
     {pages.map(({ title, path, pages }) => (
       <li key={title}>
         {pages && pages.length > 0 ? (
           <NavigationBlock title={title} path={path} pages={pages} />
         ) : (
-          <Link href={blockPath + path}>
+          <Link href={(blockPath ? blockPath : '') + path}>
             <a>{title}</a>
           </Link>
         )}
@@ -21,13 +28,13 @@ const NavigationBlock = ({ title: blockTitle, path: blockPath, pages }) => (
   </ul>
 );
 
-const NavigationPropType = {
+const NavigationBlockPropType = {
   title: PropTypes.string,
   path: PropTypes.string,
-  pages: PropTypes.arrayOf(PropTypes.shape(NavigationPropType)),
+  pages: PropTypes.arrayOf(PropTypes.shape(NavigationBlockPropType)),
 };
 
-NavigationBlock.propTypes = NavigationPropType;
+NavigationBlock.propTypes = NavigationBlockPropType;
 
 const Navigation = () => <NavigationBlock pages={navigation} />;
 
