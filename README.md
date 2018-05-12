@@ -101,6 +101,19 @@ const MyPlacemark = () => (
 );
 ```
 
+## Enterprise
+
+`react-yandex-maps` library also supports enterprise version of Yandex.Maps API:
+
+```jsx
+  <YMaps
+    enterprise
+    query={{
+      apikey: '// your api key here',
+    }}
+  />
+```
+
 ## Events
 
 All Objects events are available, just use camelCase event names instead of
