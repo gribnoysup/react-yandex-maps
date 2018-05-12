@@ -15,7 +15,7 @@ export class YMaps extends React.Component {
 
     query: shape({
       lang: string,
-      apiKey: string,
+      apikey: string,
       coordorder: oneOf(['latlong', 'longlat']),
       load: string,
       mode: oneOf(['debug', 'release']),

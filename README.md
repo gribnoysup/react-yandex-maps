@@ -101,6 +101,19 @@ const MyPlacemark = () => (
 );
 ```
 
+## Enterprise
+
+```bash
+    <YMaps
+        // ...
+        enterprise={ true }
+        query={{
+            apikey: '// your api key here',
+        }}
+        // ...
+    />
+```
+
 ## Events
 
 All Objects events are available, just use camelCase event names instead of
