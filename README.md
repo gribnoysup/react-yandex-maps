@@ -103,15 +103,15 @@ const MyPlacemark = () => (
 
 ## Enterprise
 
-```bash
-    <YMaps
-        // ...
-        enterprise={ true }
-        query={{
-            apikey: '// your api key here',
-        }}
-        // ...
-    />
+`react-yandex-maps` library also supports enterprise version of Yandex.Maps API:
+
+```jsx
+  <YMaps
+    enterprise
+    query={{
+      apikey: '// your api key here',
+    }}
+  />
 ```
 
 ## Events
