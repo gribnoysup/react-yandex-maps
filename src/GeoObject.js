@@ -87,12 +87,27 @@ export class GeoObject extends React.Component {
       const oldGeometry = getProp(oldProps, 'geometry');
       const newGeometry = getProp(newProps, 'geometry');
 
-      if (newGeometry.coordinates !== oldGeometry.coordinates) {
-        instance.geometry.setCoordinates(newGeometry.coordinates);
+      if (Array.isArray(newGeometry) && newGeometry !== oldGeometry) {
+        // Circle geoemtry is a special case
+        if (
+          Array.isArray(newGeometry[0]) &&
+          typeof newGeometry[1] === 'number'
+        ) {
+          instance.geometry.setCoordinates(newGeometry[0]);
+          instance.geometry.setRadius(newGeometry[1]);
+        } else {
+          instance.geometry.setCoordinates(newGeometry);
+        }
       }
 
-      if (newGeometry.radius !== oldGeometry.radius) {
-        instance.geometry.setRadius(newGeometry.radius);
+      if (typeof newGeometry === 'object') {
+        if (newGeometry.coordinates !== oldGeometry.coordinates) {
+          instance.geometry.setCoordinates(newGeometry.coordinates);
+        }
+
+        if (newGeometry.radius !== oldGeometry.radius) {
+          instance.geometry.setRadius(newGeometry.radius);
+        }
       }
     }
 
@@ -183,7 +198,7 @@ GeoObject.propTypes = {
   // ref prop but for YMaps object instances
   instanceRef: PropTypes.func,
 
-  // Yandex Maps API object
+  // Yandex.Maps API object
   ymaps: PropTypes.object,
 
   // GeoObject parent object (e.g, ymaps.Map or ymaps.Clusterer)

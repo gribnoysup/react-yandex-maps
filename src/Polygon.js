@@ -60,7 +60,7 @@ Polygon.propTypes = {
   // ref prop but for YMaps object instances
   instanceRef: PropTypes.func,
 
-  // Yandex Maps API object
+  // Yandex.Maps API object
   ymaps: PropTypes.object,
 
   // GeoObject parent object (e.g, ymaps.Map or ymaps.Clusterer)
