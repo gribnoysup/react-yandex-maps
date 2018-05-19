@@ -52,7 +52,7 @@ Provider.propTypes = {
 
   children: PropTypes.node,
 
-  // Allows provider to preload Yandex Maps API even if
+  // Allows provider to preload Yandex.Maps API even if
   // there are no map components on the page
   preload: PropTypes.bool,
 };
