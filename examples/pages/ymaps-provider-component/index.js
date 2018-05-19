@@ -11,13 +11,14 @@ const propsTable = (
         name: 'version',
         type: 'string',
         defaultValue: '2.1',
-        description: 'Yandex Maps API version',
+        description: 'Yandex.Maps API version',
       },
       {
         name: 'enterprise',
         type: 'boolean',
         defaultValue: false,
-        description: 'Load commercial versions of the API',
+        description:
+          'Load commercial versions of the API (changes Yandex.Maps API base url)',
       },
       {
         name: 'query',
@@ -27,7 +28,7 @@ const propsTable = (
           load: '',
           ns: '',
         },
-        description: 'Yandex Maps API query parameters',
+        description: 'Yandex.Maps API query parameters',
       },
       {
         name: 'preload',
@@ -39,16 +40,14 @@ const propsTable = (
   />
 );
 
-const Example = () => (
-  <Page>
-    {md`
+const markdown = md`
 # \`YMaps\` Provider Component
 
-This component is used to provide YMaps components with specific context that
-will allow them to access Yandex Maps API. You always need to add this component
-somewhere above your maps in the component tree.
+This component is used to provide YMaps components with Yandex.Maps API context. 
+You always need to add this component somewhere above your maps in the component 
+tree.
 
-As \`<YMaps />\` provides an API to fetch Yandex Maps API, this is the component
+As \`<YMaps />\` provides an API to fetch Yandex.Maps API, this is the component
 you can use to customize your api query:
 
 ~~~react-live
@@ -64,20 +63,20 @@ render(<Application />);
 ${propsTable}
 
 Now you can add map components anywhere in your component tree below
-\`<YMaps />\` and they will have access to anything needed to get Yandex Maps
+\`<YMaps />\` and they will have access to anything needed to get Yandex.Maps
 API.
 
-Don't be afraid to add provider higher in your application tree, Yandex Maps API
+Don't be afraid to add provider higher in your application tree, Yandex.Maps API
 wouldn't be fetched until some map component will request it. If this behavior
 is undesirable, you can use \`preload\` prop to tell provider to fetch Yandex
 Maps API as soon as it mounts in the tree.
 
-Keep in mind that by default provider will fetch only the critical part of
-Yandex Maps API, basically just a bootstrap code with [module fetching API][0].
-After that every map component will handle fetching corresponding part of Yandex
-Maps API automatically.
+> #WARN# Keep in mind that by default provider will fetch only the critical part of
+> Yandex.Maps API, basically just a bootstrap code with [module fetching API][0].
+> After that every map component will handle fetching corresponding part of Yandex
+> Maps API automatically.
 
-If you want to load more parts of the Yandex Maps right away you can use
+If you want to load more parts of the Yandex.Maps right away you can use
 \`load\` parameter in component \`query\` prop to define what exactly you want
 to fetch.
 
@@ -86,8 +85,8 @@ Maps API documentation are supported by \`query\` prop.
 
 [0]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/modules.require-docpage/
 [1]: https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/load-docpage/
-    `}
-  </Page>
-);
+`;
+
+const Example = () => <Page>{markdown}</Page>;
 
 export default Example;

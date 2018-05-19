@@ -1,35 +1,24 @@
 const pages = [
   {
-    title: 'Provider',
-    path: '/provider',
-    pages: [
-      {
-        title: 'YMaps Provider Component',
-        path: '/ymaps-provider-component',
-      },
-      {
-        title: 'Getting Access to Yandex Maps API',
-        path: '/with-ymaps-hoc',
-      },
-    ],
+    title: 'Getting Started',
+    path: '/',
   },
   {
-    title: 'Map',
+    title: 'YMaps Provider Component',
+    path: '/ymaps-provider-component',
+  },
+  {
+    title: 'Map Component',
     path: '/map',
-    pages: [
-      {
-        title: 'Creating and Deleting',
-        path: '/creating-and-deleting',
-      },
-      {
-        title: 'Controlled and Uncontrolled Map',
-        path: '/controlled-and-uncontrolled',
-      },
-    ],
   },
   {
-    title: 'GeoObject',
+    title: 'GeoObject Component',
     path: '/geo-object',
+  },
+  // TODO: Move to advanced
+  {
+    title: 'withYMaps – Higher-Order Component Creator',
+    path: '/with-ymaps-hoc',
   },
 ];
 

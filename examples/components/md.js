@@ -1,8 +1,6 @@
 import React from 'react';
 import { default as markings } from 'react-markings';
-import { Editor } from 'react-live';
-
-import LiveEditor from './LiveEditor';
+import { LiveEditor, Editor } from './LiveEditor';
 
 export default markings.customize({
   renderers: {
@@ -10,9 +8,17 @@ export default markings.customize({
       language = (language || 'clike').toLowerCase().trim();
 
       if (language === 'react-live') {
-        return <LiveEditor code={literal} noInline={true} />;
+        return (
+          <LiveEditor code={literal} language={language} noInline={true} />
+        );
       } else {
-        return <Editor code={literal} language={language} />;
+        return (
+          <Editor
+            code={literal}
+            language={language}
+            className={` language-${language}`}
+          />
+        );
       }
     },
   },
