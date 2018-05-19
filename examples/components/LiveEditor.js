@@ -1,21 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
+import * as ReactLive from 'react-live';
+
+import '../utils/prism';
 
 import * as scope from '../../dist/react-yandex-maps';
-import points from '../pages/points.json';
 
-const Editor = ({ code, noInline }) => (
-  <LiveProvider code={code} scope={{ points, ...scope }} noInline={noInline}>
-    <LiveEditor />
-    <LiveError />
-    <LivePreview />
-  </LiveProvider>
+export const LiveEditor = ({ code, language, noInline }) => (
+  <ReactLive.LiveProvider
+    code={code}
+    scope={{ ...scope }}
+    noInline={noInline}
+    mountStylesheet={false}
+  >
+    <ReactLive.LiveEditor className={` language-${language}`} />
+    <ReactLive.LiveError />
+    <ReactLive.LivePreview />
+  </ReactLive.LiveProvider>
 );
 
-Editor.propTypes = {
+LiveEditor.propTypes = {
   code: PropTypes.string,
   noInline: PropTypes.bool,
+  language: PropTypes.string,
 };
 
-export default Editor;
+export { Editor } from 'react-live';

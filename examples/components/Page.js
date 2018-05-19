@@ -1,3 +1,5 @@
+import 'prismjs/themes/prism-okaidia.css';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 

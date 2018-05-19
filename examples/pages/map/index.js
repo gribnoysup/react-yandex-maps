@@ -2,13 +2,51 @@ import React from 'react';
 
 import md from '../../components/md';
 import Page from '../../components/Page';
+// import PropsTable from '../../components/PropsTable';
 
-const Example = () => (
-  <Page>
-    {md`
+// const propsTable = (
+//   <PropsTable
+//     componentProps={
+//       [
+//         // {
+//         //   name: 'onLoad',
+//         //   type: '(ymaps: YandexMapsApi) => any',
+//         //   description:
+//         //     'Callback that will be called when Yandex.Maps API and requested modules (if any) are finished loading',
+//         // },
+//         // {
+//         //   name: 'onError',
+//         //   type: '(err: Error) => any',
+//         //   description:
+//         //     'Callback that will be called when error happenes during API loading',
+//         // },
+//         // {
+//         //   name: 'modules',
+//         //   type: 'string[]',
+//         //   defaultValue: [],
+//         //   description: (
+//         //     <span>
+//         //       Array of{' '}
+//         //       <a
+//         //         href="https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/modules-docpage/"
+//         //         target="__blank"
+//         //         rel="noopener"
+//         //       >
+//         //         Yandex.Maps API module
+//         //       </a>{' '}
+//         //       names
+//         //     </span>
+//         //   ),
+//         // },
+//       ]
+//     }
+//   />
+// );
+
+const markdown = md`
 # Creating and Deleting
 
-Compared to [the usual way][0] of attaching and detaching Yandex Maps on your
+Compared to [the usual way][0] of attaching and detaching Yandex.Maps on your
 page, you don't need to worry about doing this manually. Just add [\`YMaps\`][1]
 component and \`Map\` component anywhere in your application ad you are good to
 go.
@@ -35,7 +73,7 @@ const getPointOptions = () => {
 
 const ClustererCreate = () =>
   <YMaps>
-    <Map defaultState={mapState} style={{ width: 320, height: 240 }}>
+    <Map defaultState={mapState}>
       <Clusterer
         options={{
           preset: 'islands#invertedVioletClusterIcons',
@@ -62,8 +100,8 @@ render(<ClustererCreate />);
 
 [0]: https://tech.yandex.com/maps/jsbox/2.1/mapbasics
 [1]: /provider/ymaps-provider-component
-    `}
-  </Page>
-);
+`;
+
+const Example = () => <Page>{markdown}</Page>;
 
 export default Example;

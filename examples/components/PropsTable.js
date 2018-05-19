@@ -17,6 +17,13 @@ const Heading = styled.th``;
 
 const Code = styled.pre``;
 
+const prettify = value =>
+  typeof value === 'function'
+    ? '[Function]'
+    : typeof value === 'number' && isNaN(value)
+      ? 'NaN'
+      : JSON.stringify(value, null, 2).replace(/\n\s*/g, ' ');
+
 const PropsTable = ({ heading, componentProps }) => (
   <Table>
     <TableHead>
@@ -33,7 +40,7 @@ const PropsTable = ({ heading, componentProps }) => (
           </Column>
           <Column>
             {defaultValue !== undefined && (
-              <Code>{JSON.stringify(defaultValue)}</Code>
+              <Code>{prettify(defaultValue)}</Code>
             )}
           </Column>
           <Column>{description}</Column>
