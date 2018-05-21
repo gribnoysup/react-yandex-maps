@@ -121,26 +121,24 @@ export class Map extends React.Component {
       const newState = getProp(newProps, 'state');
 
       if (oldState.type !== newState.type) {
-        if (oldState.type !== newState.type) {
-          instance.setType(newState.type);
-        }
+        instance.setType(newState.type);
+      }
 
-        if (oldState.behaviors !== newState.behaviors) {
-          instance.behaviors.disable(oldState.behaviors || []);
-          instance.behaviors.enable(newState.behaviors || []);
-        }
+      if (oldState.behaviors !== newState.behaviors) {
+        instance.behaviors.disable(oldState.behaviors || []);
+        instance.behaviors.enable(newState.behaviors || []);
+      }
 
-        if (oldState.zoom !== newState.zoom) {
-          instance.setZoom(newState.zoom);
-        }
+      if (oldState.zoom !== newState.zoom) {
+        instance.setZoom(newState.zoom);
+      }
 
-        if (oldState.center !== newState.center) {
-          instance.setCenter(newState.center);
-        }
+      if (oldState.center !== newState.center) {
+        instance.setCenter(newState.center);
+      }
 
-        if (newState.bounds && oldState.bounds !== newState.bounds) {
-          instance.setBounds(newState.bounds);
-        }
+      if (newState.bounds && oldState.bounds !== newState.bounds) {
+        instance.setBounds(newState.bounds);
       }
     }
 

@@ -6,13 +6,24 @@ import { getDisplayName as name } from './util/getDisplayName';
 export const YMapsContext = createReactContext(null);
 
 export const withYMapsContext = Component => {
+  const displayName = name(Component);
+
   const WithYMapsContext = props => (
     <YMapsContext.Consumer>
-      {ymaps => <Component ymaps={ymaps} {...props} />}
+      {ymaps => {
+        if (ymaps === null) {
+          const message =
+            "Couldn't find Yandex.Maps API in the context. " +
+            `Make sure that <${displayName} /> is inside <YMaps /> provider`;
+
+          throw new Error(message);
+        }
+        return <Component ymaps={ymaps} {...props} />;
+      }}
     </YMapsContext.Consumer>
   );
 
-  WithYMapsContext.displayName = `withYMapsContext(${name(Component)})`;
+  WithYMapsContext.displayName = `withYMapsContext(${displayName})`;
 
   return WithYMapsContext;
 };
