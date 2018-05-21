@@ -6,6 +6,15 @@ import '../utils/prism';
 
 import * as scope from '../../dist/react-yandex-maps';
 
+scope.YMaps.defaultProps = {
+  ...scope.YMaps.defaultProps,
+  query: {
+    ...scope.YMaps.defaultProps.query,
+    lang: 'en_US',
+    ns: 'react-yandex-maps-sandbox',
+  },
+};
+
 export const LiveEditor = ({ code, language, noInline }) => (
   <ReactLive.LiveProvider
     code={code}

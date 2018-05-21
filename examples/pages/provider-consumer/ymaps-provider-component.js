@@ -43,8 +43,8 @@ const propsTable = (
 const markdown = md`
 # \`YMaps\` Provider Component
 
-This component is used to provide YMaps components with Yandex.Maps API context. 
-You always need to add this component somewhere above your maps in the component 
+This component is used to provide YMaps components with Yandex.Maps API context.
+You always need to add this component somewhere above your maps in the component
 tree.
 
 As \`<YMaps />\` provides an API to fetch Yandex.Maps API, this is the component
@@ -71,17 +71,18 @@ wouldn't be fetched until some map component will request it. If this behavior
 is undesirable, you can use \`preload\` prop to tell provider to fetch Yandex
 Maps API as soon as it mounts in the tree.
 
-> #WARN# Keep in mind that by default provider will fetch only the critical part of
-> Yandex.Maps API, basically just a bootstrap code with [module fetching API][0].
-> After that every map component will handle fetching corresponding part of Yandex
-> Maps API automatically.
+> #WARN# Keep in mind that by default provider will fetch only the critical part
+> of Yandex.Maps API, basically just a bootstrap code with [module fetching
+> API][0]. After that every map component will handle fetching corresponding
+> part of Yandex Maps API automatically.
 
 If you want to load more parts of the Yandex.Maps right away you can use
 \`load\` parameter in component \`query\` prop to define what exactly you want
 to fetch.
 
-[All query parameters][1], except for \`onload\` and \`onerrror\`, from Yandex
-Maps API documentation are supported by \`query\` prop.
+[All query parameters][1], except for \`onload\` and \`onerror\`, from Yandex
+Maps API documentation are supported by \`query\` prop. Don't worry, you still
+can get access to \`onLoad\` and \`onError\` on all connected components
 
 [0]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/modules.require-docpage/
 [1]: https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/load-docpage/
