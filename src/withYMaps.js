@@ -14,15 +14,6 @@ export default function withYMaps(Component, waitForApi = false, modules = []) {
       this._isMounted = false;
     }
 
-    componentWillMount() {
-      if (this.props.ymaps == null) {
-        throw new Error(
-          "Couldn't find YMaps in the context. " +
-            `Make sure that <${name(Component)} /> is inside <YMapsProvider />`
-        );
-      }
-    }
-
     componentDidMount() {
       this._isMounted = true;
 
