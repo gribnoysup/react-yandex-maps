@@ -4,21 +4,34 @@ const pages = [
     path: '/',
   },
   {
-    title: 'YMaps Provider Component',
-    path: '/ymaps-provider-component',
+    link: false,
+    title: 'Components',
+    path: '/components',
+    pages: [
+      {
+        title: 'Map',
+        path: '/map',
+      },
+      {
+        title: 'GeoObject',
+        path: '/geo-object',
+      },
+    ],
   },
   {
-    title: 'Map Component',
-    path: '/map',
-  },
-  {
-    title: 'GeoObject Component',
-    path: '/geo-object',
-  },
-  // TODO: Move to advanced
-  {
-    title: 'withYMaps – Higher-Order Component Creator',
-    path: '/with-ymaps-hoc',
+    link: false,
+    title: 'Context Provider and Consumer',
+    path: '/provider-consumer',
+    pages: [
+      {
+        title: 'Yandex.Maps API Provider Component',
+        path: '/ymaps-provider-component',
+      },
+      {
+        title: 'Yandex.Maps API Consumer HOC',
+        path: '/with-ymaps-hoc',
+      },
+    ],
   },
 ];
 
