@@ -5,9 +5,40 @@ import { separateEvents, addEvent, removeEvent } from './util/events';
 
 const { func, object } = PropTypes;
 
+const TYPE_FEATURE = 'Feature';
+
+const TYPE_FEATURE_COLLECTION = 'FeatureCollection';
+
+// https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#add-param-objects
+const ChildEntityPropType = PropTypes.shape({
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  type: PropTypes.oneOf([TYPE_FEATURE]).isRequired,
+  geometry: PropTypes.object.isRequired,
+  options: PropTypes.object,
+  properties: PropTypes.object,
+});
+
+// INFO: A hack to make recursive
+// prop-type check work properly
+const Entity = {
+  type: PropTypes.oneOf([TYPE_FEATURE_COLLECTION]).isRequired,
+};
+
+Entity.features = PropTypes.arrayOf(
+  PropTypes.oneOfType([PropTypes.shape(Entity), ChildEntityPropType])
+).isRequired;
+
+const EntityPropType = PropTypes.shape(Entity);
+
 export class ObjectManager extends React.Component {
   static propTypes = {
     instanceRef: func,
+    features: PropTypes.oneOfType([
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([EntityPropType, ChildEntityPropType])
+      ),
+      EntityPropType,
+    ]),
   };
 
   static defaultProps = {
@@ -74,34 +105,19 @@ export class ObjectManager extends React.Component {
     }
 
     if (clusters !== prevClusters) {
-      instance.clusters.options.set(clusters || {});
+      instance.clusters.options.set(clusters);
     }
 
     if (objects !== prevObjects) {
-      instance.objects.options.set(objects || {});
+      instance.objects.options.set(objects);
     }
 
     if (features !== prevFeatures) {
-      this.updateFeatures(instance, prevFeatures || [], features || []);
+      instance.remove(prevFeatures);
+      instance.add(features);
     }
 
     this.updateEvents(instance, prevEvents, events);
-  }
-
-  updateFeatures(instance, prevFeatures, features) {
-    const prevIds = prevFeatures.map(feature => feature.id);
-    const newIds = features.map(feature => feature.id);
-
-    const toRemove = prevFeatures.filter(
-      feature => newIds.indexOf(feature.id) === -1
-    );
-
-    const toAdd = features.filter(
-      feature => prevIds.indexOf(feature.id) === -1
-    );
-
-    if (toRemove.length > 0) instance.remove(toRemove);
-    if (toAdd.length > 0) instance.add(toAdd);
   }
 
   updateEvents(instance, prevEvents, newEvents) {
