@@ -38,6 +38,9 @@
   "peerDependencies": {
     "react": "^0.14.9 || ^15.3.0 || ^16.0.0"
   },
+  "dependencies": {
+    "prop-types": "^15.6.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
@@ -69,7 +72,6 @@
     "lodash": "^4.17.4",
     "prettier": "^1.5.2",
     "pretty-bytes": "^4.0.2",
-    "prop-types": "^15.5.10",
     "raw-loader": "^0.5.1",
     "react": "^16.0.0",
     "react-ace": "^5.4.0",
