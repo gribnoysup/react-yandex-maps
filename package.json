@@ -1,6 +1,6 @@
 {
   "name": "react-yandex-maps",
-  "version": "2.1.5",
+  "version": "2.2.0",
   "description": "Yandex Maps API bindings for React",
   "main": "main/index.js",
   "module": "es/index.js",
