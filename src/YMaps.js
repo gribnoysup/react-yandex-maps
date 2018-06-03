@@ -9,30 +9,49 @@ const defaultQuery = {
   mode: process.env.NODE_ENV !== 'production' ? 'debug' : 'release',
 };
 
+const YMapsPromiseMap = {};
+
 export class YMaps {
   constructor(options) {
     this.options = options;
+    this.namespace = options.query.ns;
 
-    this.api =
-      typeof window !== 'undefined' && options.query.ns !== ''
-        ? window[options.query.ns] || null
-        : null;
+    this.onload = YMaps.onloadCallback + '$$' + Date.now().toString(32);
+    this.onerror = YMaps.onerrorCallback + '$$' + Date.now().toString(32);
 
-    this._promise = null;
+    this.api;
+    this.promise;
+  }
+
+  getApi() {
+    return typeof window !== 'undefined' && this.namespace
+      ? window[this.namespace]
+      : this.api;
+  }
+
+  setApi(api) {
+    return (this.api = api);
+  }
+
+  getPromise() {
+    return this.namespace ? YMapsPromiseMap[this.namespace] : this.promise;
+  }
+
+  setPromise(promise) {
+    return this.namespace
+      ? (YMapsPromiseMap[this.namespace] = this.promise = promise)
+      : (this.promise = promise);
   }
 
   load() {
-    if (this.api !== null) return Promise.resolve(this.api);
-    if (this._promise !== null) return this._promise;
-
-    const {
-      onerrorCallback: onload,
-      onloadCallback: onerror,
-      getBaseUrl,
-    } = YMaps;
+    if (this.getApi()) return Promise.resolve((this.api = this.getApi()));
+    if (this.getPromise()) return (this.promise = this.getPromise());
 
     const query = Object.assign(
-      { onload, onerror },
+      {
+        onload: this.onload,
+        onerror: this.onerror,
+      },
       defaultQuery,
       this.options.query
     );
@@ -41,26 +60,26 @@ export class YMaps {
       .map(key => `${key}=${query[key]}`)
       .join('&');
 
-    const baseUrl = getBaseUrl(this.options.enterprise);
+    const baseUrl = YMaps.getBaseUrl(this.options.enterprise);
 
     const url = [baseUrl, this.options.version, '?' + queryString].join('/');
 
-    this._promise = new Promise((resolve, reject) => {
-      window[onload] = ymaps => {
-        window[onload] = null;
+    const promise = new Promise((resolve, reject) => {
+      window[this.onload] = ymaps => {
+        delete window[this.onload];
         ymaps.loadModule = this.loadModule.bind(this);
-        resolve((this.api = ymaps));
+        ymaps.ready(() => resolve(this.setApi(ymaps)));
       };
 
-      window[onerror] = err => {
-        window[onerror] = null;
+      window[this.onerror] = err => {
+        delete window[this.onerror];
         reject(err);
       };
 
-      this.fetchScript(url).catch(window[onerror]);
+      this.fetchScript(url).catch(window[this.onerror]);
     });
 
-    return this._promise;
+    return this.setPromise(promise);
   }
 
   fetchScript(url) {
@@ -79,14 +98,14 @@ export class YMaps {
 
   loadModule(moduleName) {
     return new Promise((resolve, reject) => {
-      this.api.modules.require(
+      this.getApi().modules.require(
         moduleName,
         Module => {
-          set(this.api, moduleName, Module);
+          set(this.api, moduleName, Module, true);
           resolve(Module);
         },
         reject,
-        this.api
+        this.getApi()
       );
     });
   }
