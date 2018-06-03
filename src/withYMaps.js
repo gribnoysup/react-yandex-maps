@@ -44,10 +44,12 @@ export default function withYMaps(Component, waitForApi = false, modules = []) {
     render() {
       const { ymaps } = this.props;
       const { loading } = this.state;
+
       const shouldRender = waitForApi === false || loading === false;
+
       const props = omit(this.props, ['onLoad', 'onError', 'modules', 'ymaps']);
 
-      return shouldRender && <Component ymaps={ymaps.api} {...props} />;
+      return shouldRender && <Component ymaps={ymaps.getApi()} {...props} />;
     }
   }
 

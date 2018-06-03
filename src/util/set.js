@@ -1,4 +1,4 @@
-const set = (object, path, value) => {
+const set = (object, path, value, ifNotExists = false) => {
   path = typeof path === 'string' ? path.split('.') : path.slice();
   let key,
     ref = object;
@@ -7,7 +7,7 @@ const set = (object, path, value) => {
     if (!ref[key]) ref[key] = {};
     ref = ref[key];
   }
-  ref[path[0]] = value;
+  ref[path[0]] = ifNotExists === true ? ref[path[0]] || value : value;
   return object;
 };
 

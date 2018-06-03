@@ -12,9 +12,9 @@
     "lint": "eslint",
     "precommit": "lint-staged",
     "build":
-      "microbundle --jsx React.createElement --target=browser --strict=true",
+      "microbundle --jsx React.createElement --target browser --strict true",
     "dev":
-      "microbundle watch --jsx React.createElement --target=browser --strict=true --compress false"
+      "microbundle watch --jsx React.createElement --target browser --strict=true --compress false"
   },
   "lint-staged": {
     "*.js": ["npm run lint", "npm run prettier", "git add"],
@@ -26,6 +26,10 @@
   },
   "peerDependencies": {
     "react": "^0.14.9 || ^15.3.0 || ^16.0.0"
+  },
+  "dependencies": {
+    "create-react-context": "^0.2.1",
+    "prop-types": "^15.6.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
@@ -39,9 +43,5 @@
   },
   "keywords": ["react", "react-component", "yandex", "maps", "yandex-maps"],
   "author": "Sergey Petushkov <petushkov.sergey@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "create-react-context": "^0.2.1",
-    "prop-types": "^15.6.1"
-  }
+  "license": "MIT"
 }
