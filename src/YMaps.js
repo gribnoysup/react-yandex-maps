@@ -13,11 +13,13 @@ const YMapsPromiseMap = {};
 
 export class YMaps {
   constructor(options) {
+    const hash = Date.now().toString(32);
+
     this.options = options;
     this.namespace = options.query.ns;
 
-    this.onload = YMaps.onloadCallback + '$$' + Date.now().toString(32);
-    this.onerror = YMaps.onerrorCallback + '$$' + Date.now().toString(32);
+    this.onload = YMaps.onloadCallback + '$$' + hash;
+    this.onerror = YMaps.onerrorCallback + '$$' + hash;
 
     this.api;
     this.promise;
@@ -44,8 +46,8 @@ export class YMaps {
   }
 
   load() {
-    if (this.getApi()) return Promise.resolve((this.api = this.getApi()));
-    if (this.getPromise()) return (this.promise = this.getPromise());
+    if (this.getApi()) return Promise.resolve(this.setApi(this.getApi()));
+    if (this.getPromise()) return this.setPromise(this.getPromise());
 
     const query = Object.assign(
       {

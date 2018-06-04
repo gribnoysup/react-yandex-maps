@@ -86,9 +86,12 @@ Here is a list of supported features and objects:
 
 ^ - see the note on controlled props in "not supported section"
 
-### Supported Objects
+### Supported Yandex.Maps Objects
 
 * [x] Map
+
+#### GeoObjects
+
 * [x] GeoObject
 * [x] Placemark
 * [x] Polyline
@@ -97,7 +100,22 @@ Here is a list of supported features and objects:
 * [x] Circle
 * [x] Clusterer
 * [ ] ObjectManager
-* [ ] ObjectManager
+
+#### Controls
+
+* [ ] Button
+* [ ] FullscreenControl
+* [ ] GeolocationControl
+* [ ] ListBox
+* [ ] ListBoxItem
+* [ ] RouteButton
+* [ ] RouteEditor
+* [ ] RoutePanel
+* [ ] RulerControl
+* [ ] SearchControl
+* [ ] TrafficControl
+* [ ] TypeSelector
+* [ ] ZoomControl
 
 ## What Is Not Supported?
 
@@ -342,7 +360,7 @@ const Application = () => (
         defaultGeometry={state.center}
         properties={{
           balloonContentBody:
-            'This is balloon is pre-loaded with initial Yandex.Maps API request',
+            'This balloon is pre-loaded with initial Yandex.Maps API request',
         }}
       />
     </Map>
