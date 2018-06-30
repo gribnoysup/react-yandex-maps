@@ -6,19 +6,29 @@
   "umd:main": "dist/react-yandex-maps.umd.js",
   "module": "dist/react-yandex-maps.m.js",
   "source": "src/index.js",
-  "files": ["README.md", "LICENSE", "dist", "src"],
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist",
+    "src"
+  ],
   "scripts": {
     "prettier": "prettier --write",
     "lint": "eslint",
     "precommit": "lint-staged",
-    "build":
-      "microbundle --jsx React.createElement --target browser --strict true",
-    "dev":
-      "microbundle watch --jsx React.createElement --target browser --strict=true --compress false"
+    "build": "microbundle --jsx React.createElement --target browser --strict true",
+    "dev": "microbundle watch --jsx React.createElement --target browser --strict=true --compress false"
   },
   "lint-staged": {
-    "*.js": ["npm run lint", "npm run prettier", "git add"],
-    "*.{json,css,md}": ["npm run prettier", "git add"]
+    "*.js": [
+      "npm run lint",
+      "npm run prettier",
+      "git add"
+    ],
+    "*.{json,css,md}": [
+      "npm run prettier",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -28,20 +38,26 @@
     "react": "^0.14.9 || ^15.3.0 || ^16.0.0"
   },
   "dependencies": {
-    "create-react-context": "^0.2.1",
-    "prop-types": "^15.6.1"
+    "create-react-context": "^0.2.2",
+    "prop-types": "^15.6.2"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.2",
+    "babel-eslint": "^8.2.5",
     "eslint": "^4.19.1",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react": "^7.10.0",
     "husky": "^0.14.3",
-    "lint-staged": "^7.0.0",
+    "lint-staged": "^7.2.0",
     "microbundle": "^0.4.4",
-    "prettier": "^1.11.1",
-    "react": "^16.2.0"
+    "prettier": "^1.13.7",
+    "react": "^16.4.1"
   },
-  "keywords": ["react", "react-component", "yandex", "maps", "yandex-maps"],
+  "keywords": [
+    "react",
+    "react-component",
+    "yandex",
+    "maps",
+    "yandex-maps"
+  ],
   "author": "Sergey Petushkov <petushkov.sergey@gmail.com>",
   "license": "MIT"
 }
