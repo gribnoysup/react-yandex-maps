@@ -1,0 +1,85 @@
+import { Page } from '../../components/layout/Page'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Controlled and Uncontrolled Components
+
+Important React pattern that you should be aware of when using this library is
+controlled and uncontroled components. This pattern is all about who is
+responsible for handling updates and storing components state.
+
+Applied to this library, that means that based on which props you are using,
+either Yandex.Maps API or your application will be responsible for being the
+source of truth for your map objects.
+
+In the example below, map state (more specifically zoom and coordinates) is
+controlled by application on the first map component, but is not controlled by
+application on the second map component. When you click the button, first map
+zoom and coordinates will be updated, but the second map will preserve its
+state. This happens because instead of `state` prop, we are using `defaultState`
+prop.
+
+```jsx
+// @live
+
+class Application extends React.Component {
+  constructor() {
+    super();
+    this.state = { center: [55.75, 37.57], zoom: 9 };
+  }
+
+  render() {
+    return (
+      <YMaps>
+        <React.Fragment>
+          <button
+            onClick={() =>
+              this.setState(prevState => ({ 
+                zoom: prevState.zoom === 9 ? 12 : 9 
+              }))
+            }
+          >
+            Toggle map zoom
+          </button>
+          <div>
+            <p>Controlled map:</p>
+            <Map state={this.state} />
+            <hr />
+            <p>Uncontrolled map:</p>
+            <Map defaultState={this.state} />
+          </div>
+        </React.Fragment>
+      </YMaps>
+    );
+  }
+}
+
+render(<Application />);
+```
+
+Every prop on every map object is this library supports the `default` version
+(e.g, `state` and `defaultState`, `options` and `defaultOptions`, `properties` and
+`defaultProperties`, `geometry` and `defaultGeometry`). By choosing to use `default`
+version you are opting out of this library updating map objects when the props
+are changed.
+
+> `WARN` As mentioned in the "What Is Supported" section, there is no way to
+> prevent Yandex.Maps from updating maps objects state completely, so it is very
+> easy to go out of sync if you are using these components in a controlled way
+> and not synchronizing the state back to your application state.
+>
+> From the personal experience you would want to use `default` props for most of
+> the cases in your app and maybe even update maps object instances manually in
+> the rare cases where this is actually needed.
+
+If you want to know more about controlled and uncontrolled components, there are
+a few useful links from React documentation:
+
+- [Glossary: Controlled vs. Uncontroled Components][4.2.1]
+- [Uncontroled Components][4.2.2]
+- [Forms: Controlled Components][4.2.3]
+
+[4.2.1]:
+  https://reactjs.org/docs/glossary.html#controlled-vs-uncontrolled-components
+[4.2.2]: https://reactjs.org/docs/uncontrolled-components.html
+[4.2.3]: https://reactjs.org/docs/forms.html#controlled-components

@@ -3,11 +3,21 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   plugins: ['react'],
   parserOptions: {
-    ecmaVersion: 2017,
-    sourceType: 'module',
+    ecmaVersion: 2018,
   },
   env: {
-    browser: true,
+    node: true,
     es6: true,
   },
+  overrides: [
+    {
+      files: ['**/{src,pages,components}/**'],
+      parserOptions: {
+        sourceType: 'module',
+      },
+      env: {
+        browser: true,
+      },
+    },
+  ],
 };
