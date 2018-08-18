@@ -1,0 +1,95 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Map component
+
+Renders Yandex.Maps API [Map][] object
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 9,
+};
+
+const MapObject = () => (
+  <YMaps>
+    <Map defaultState={mapState} />
+  </YMaps>
+);
+
+render(<MapObject />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultState"
+    secondaryName="state"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state">
+        Map parameters
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-options">
+        Map options
+      </Link>
+    }
+  />
+  <PropItem
+    name="width"
+    type="number"
+    defaultValue={320}
+    description="Map width"
+  />
+  <PropItem
+    name="height"
+    type="number"
+    defaultValue={240}
+    description="Map height"
+  />
+  <CommonProps componentName="Map" />
+  <PropItem
+    name="...rest"
+    type="Object"
+    defaultValue={{}}
+    description={
+      <React.Fragment>
+          Any other props on the Map component. Will be passed directly to{' '}
+          <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-parentElement">
+            Map parent element
+          </Link>
+        </React.Fragment>
+    }
+  />
+</Props>
+
+> `WARN` Yandex.Maps Map parent element should have at least some size set to
+> it, otherwise the Map instance is rendered into the container with zero size.
+>
+> To avoid that, this library uses `width` and `height` props as default way of
+> sizing the map element, but then if the library user provides `style` or
+> `className` prop, Map component will assume that the Map instance is sized by
+> those props and will not use `width` and `height` props
+
+<Events 
+  componentName="Map"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#Map__events-summary"
+/>
+
+[Map]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/

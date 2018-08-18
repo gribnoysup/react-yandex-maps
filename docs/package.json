@@ -1,0 +1,30 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "dependencies": {
+    "@mdx-js/mdx": "^0.15.0",
+    "@mdx-js/tag": "^0.15.0-2",
+    "@zeit/next-css": "^0.2.0",
+    "@zeit/next-mdx": "^1.1.0",
+    "emotion": "^9.2.6",
+    "emotion-server": "^9.2.6",
+    "emotion-theming": "^9.2.6",
+    "next": "^6.1.1",
+    "normalize.css": "^8.0.0",
+    "prismjs": "1.6.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-emotion": "^9.2.6",
+    "react-live": "^1.11.0",
+    "rebass": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "license": "MIT",
+  "private": true
+}
