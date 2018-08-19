@@ -13,8 +13,6 @@ As `<YMaps />` provides an API to fetch Yandex.Maps API, this is the component
 you can use to customize your api query:
 
 ~~~jsx
-// @live
-
 const Application = () => (
   <YMaps query={{ lang: 'en_RU' }}>
     Application with YMaps Provider
@@ -62,7 +60,7 @@ wouldn't be fetched until some map component will request it. If this behavior
 is undesirable, you can use `preload` prop to tell provider to fetch Yandex
 Maps API as soon as it mounts in the tree.
 
-> `WARN` Keep in mind that by default provider will fetch only the **critical part**
+> `INFO` Keep in mind that by default provider will fetch only the **critical part**
 > of Yandex.Maps API. After that every map component will handle fetching corresponding
 > part of Yandex Maps API automatically.
 

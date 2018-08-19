@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as events from './util/events';
-import { getProp, isControlledProp } from './util/props';
-import { withParentContext, ParentContext } from './Context';
-import withYMaps from './withYMaps';
+import * as events from '../util/events';
+import { getProp, isControlledProp } from '../util/props';
+import { withParentContext, ParentContext } from '../Context';
+import withYMaps from '../withYMaps';
 
 export class Clusterer extends React.Component {
   constructor() {

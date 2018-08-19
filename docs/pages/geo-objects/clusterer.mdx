@@ -1,0 +1,88 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# GeoObject
+
+Renders Yandex.Maps API [GeoObject][]
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 3
+};
+
+const GeoObjectExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <Placemark geometry={[0, 0]} />
+      <Clusterer
+        options={{
+          preset: 'islands#invertedVioletClusterIcons',
+          groupByCoordinates: false,
+        }}
+      >
+        {points.map((coordinates, index) => <Placemark key={index} geometry={coordinates} />)}
+      </Clusterer>
+    </Map>
+  </YMaps>
+);
+
+render(<GeoObjectExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultGeometry"
+    secondaryName="geometry"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.geometry"
+      >
+        GeoObject geometry
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultProperties"
+    secondaryName="properties"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.properties"
+      >
+        GeoObject properties
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options"
+      >
+        GeoObject options
+      </Link>
+    }
+  />
+  <CommonProps componentName="GeoObject" />
+</Props>
+
+<Events 
+  componentName="GeoObject"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__events-summary"
+/>
+
+[GeoObject]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/

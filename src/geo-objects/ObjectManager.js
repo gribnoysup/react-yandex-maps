@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as events from './util/events';
-import { getProp, isControlledProp } from './util/props';
-import { withParentContext } from './Context';
-import withYMaps from './withYMaps';
+import * as events from '../util/events';
+import { getProp, isControlledProp } from '../util/props';
+import { withParentContext } from '../Context';
+import withYMaps from '../withYMaps';
 
 export class ObjectManager extends React.Component {
   constructor() {

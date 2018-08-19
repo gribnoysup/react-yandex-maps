@@ -8,6 +8,7 @@ import * as ReactLive from 'react-live';
 
 import * as scope from '../../dist/react-yandex-maps';
 import features from '../app-data/features';
+import points from '../app-data/points';
 
 import '../utils/prism';
 
@@ -60,12 +61,11 @@ export class LiveEditor extends React.Component {
     return (
       <ReactLive.LiveProvider
         code={code}
-        scope={{ ...scope, features }}
+        scope={{ ...scope, features, points }}
         noInline={noInline}
         mountStylesheet={false}
       >
         <PreviewContainer flexWrap="wrap">
-          {/* <Toolbar /> */}
           <Flex w={1} bg="black" color="white" p={2}>
             <Label
               htmlFor="editor-switch"

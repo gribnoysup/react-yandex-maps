@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as events from './util/events';
-import { getProp, isControlledProp } from './util/props';
-import { withParentContext } from './Context';
-import withYMaps from './withYMaps';
+import * as events from '../util/events';
+import { getProp, isControlledProp } from '../util/props';
+import { withParentContext } from '../Context';
+import withYMaps from '../withYMaps';
 
 export class GeoObject extends React.Component {
   constructor() {
@@ -15,20 +15,20 @@ export class GeoObject extends React.Component {
   componentDidMount() {
     // The only difference between GeoObject and all the other,
     // more specific GeoObject constructors (like Placemark, Circle,
-    // or Polyline) is the way in which the arguments are passesd to
+    // or Polyline) is the way in which the arguments are passed to
     // the constructor. GeoObject expects `feature` with `geometry` and
-    // `properties` keys and all the other Geojbect constructors
+    // `properties` keys and all the other GeoObject constructors
     // expect `geometry` and `properties` as separate arguments
     //
     // We will hack around this difference with our custom constructor.
     // That way we can completely reuse GeoObject static methods.
-    const YMapsGeoObjectConstructor = this.props.ymaps.GeoObject;
+    const __GeoObject = this.props.ymaps.GeoObject;
 
     function GeoObjectConstructor(geometry, properties, options) {
-      YMapsGeoObjectConstructor.call(this, { geometry, properties }, options);
+      __GeoObject.call(this, { geometry, properties }, options);
     }
 
-    GeoObjectConstructor.prototype = YMapsGeoObjectConstructor.prototype;
+    GeoObjectConstructor.prototype = __GeoObject.prototype;
 
     const instance = GeoObject.mountObject(GeoObjectConstructor, this.props);
 
@@ -67,7 +67,7 @@ export class GeoObject extends React.Component {
     } else if (parent.add && typeof parent.add === 'function') {
       parent.add(instance);
     } else {
-      throw new Error('No parent found to mount GeoObject');
+      throw new Error('No parent found to mount Geo object');
     }
 
     if (typeof instanceRef === 'function') {
