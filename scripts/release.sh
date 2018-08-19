@@ -99,12 +99,14 @@ if [ "$PROCEED" == "y" ] || [ "$PROCEED" == "Y" ]; then
   # Deploy to now
   echo "Deploying docs to now"
   npm run deploy
+  echo
 
-  if [ "$RELEASE_TAG" != "$CANARY_RELEASE_TAG" ]; then
+  if [ "$RELEASE_TAG" == "$CANARY_RELEASE_TAG" ]; then
     echo "Canary release: skipping now aliasing"
     echo
   else
     now alias
+    echo
   fi
   
   echo
