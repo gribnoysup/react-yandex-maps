@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, Heading } from 'rebass/emotion';
+// import slug from 'slug';
 
 export const Paragraph = props => <Text is="p" my={3} {...props} />;
 
@@ -17,4 +18,8 @@ export const H3 = props => (
 
 export const H4 = props => (
   <Heading is="h4" my={3} fontSize={[2, 3]} {...props} />
+);
+
+export const H5 = props => (
+  <Heading is="h5" my={3} fontSize={[1, 2]} {...props} />
 );

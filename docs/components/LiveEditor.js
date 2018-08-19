@@ -7,6 +7,7 @@ import { Flex, Box, Switch, Label } from 'rebass/emotion';
 import * as ReactLive from 'react-live';
 
 import * as scope from '../../dist/react-yandex-maps';
+import features from '../app-data/features';
 
 import '../utils/prism';
 
@@ -59,7 +60,7 @@ export class LiveEditor extends React.Component {
     return (
       <ReactLive.LiveProvider
         code={code}
-        scope={{ ...scope }}
+        scope={{ ...scope, features }}
         noInline={noInline}
         mountStylesheet={false}
       >
@@ -67,7 +68,7 @@ export class LiveEditor extends React.Component {
           {/* <Toolbar /> */}
           <Flex w={1} bg="black" color="white" p={2}>
             <Label
-              for="editor-switch"
+              htmlFor="editor-switch"
               mb={0}
               onClick={() =>
                 this.setState(prevState => ({ editor: !prevState.editor }))
@@ -77,7 +78,7 @@ export class LiveEditor extends React.Component {
               <Switch id="editor-switch" color="white" checked={editor} />
             </Label>
             <Label
-              for="peview-switch"
+              htmlFor="peview-switch"
               ml={2}
               mb={0}
               onClick={() =>

@@ -2,7 +2,14 @@ import React from 'react';
 import { Text, Box, Flex, Link } from 'rebass/emotion';
 
 export const Footer = () => (
-  <Flex is="footer" p={3} flexDirection="column" alignItems="center" bg="gray">
+  <Flex
+    is="footer"
+    p={3}
+    flexDirection="column"
+    alignItems="center"
+    bg="gray"
+    w={1}
+  >
     <Box m={2}>
       <Text textAlign="center">
         License MIT. Copyright © 2016-present,{' '}

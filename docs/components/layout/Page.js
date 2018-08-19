@@ -10,6 +10,8 @@ import { Provider as MDXProvider } from '../markdown/Provider';
 import { Header } from './Header';
 import { Footer } from './Footer';
 
+import { DrawerContextProvider, DrawerContextConsumer, Drawer } from './Drawer';
+
 if (typeof window !== 'undefined') {
   hydrate(window.__NEXT_DATA__.ids);
 }
@@ -33,13 +35,20 @@ const StyledMain = styled(Container)`
 export const Page = ({ children }) => (
   <ThemeProvider>
     <MDXProvider>
-      <StyledContainer flexDirection="column">
-        <Header />
-        <StyledMain maxWidth={896} is="main" my={[3, 4]}>
-          {children}
-        </StyledMain>
-        <Footer />
-      </StyledContainer>
+      <DrawerContextProvider>
+        <StyledContainer flexDirection="column">
+          <DrawerContextConsumer>
+            {({ toggleDrawer, isOpen }) => (
+              <Header isDrawerOpen={isOpen} onMenuClick={toggleDrawer} />
+            )}
+          </DrawerContextConsumer>
+          <Drawer />
+          <StyledMain is="main" my={2}>
+            {children}
+          </StyledMain>
+          <Footer />
+        </StyledContainer>
+      </DrawerContextProvider>
     </MDXProvider>
   </ThemeProvider>
 );

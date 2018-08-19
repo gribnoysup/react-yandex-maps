@@ -88,7 +88,7 @@ export class GeoObject extends React.Component {
       const newGeometry = getProp(newProps, 'geometry');
 
       if (Array.isArray(newGeometry) && newGeometry !== oldGeometry) {
-        // Circle geoemtry is a special case
+        // Circle geometry is a special case
         if (
           Array.isArray(newGeometry[0]) &&
           typeof newGeometry[1] === 'number'
@@ -180,28 +180,34 @@ const GeoObjectGeometryPropTypes = PropTypes.shape({
 const GeoObjectOptionsPropTypes = PropTypes.shape({});
 
 GeoObject.propTypes = {
-  // GeoObject feature.geometry
-  // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.geometry
+  /**
+   * GeoObject feature.geometry
+   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.geometry
+   */
   geometry: GeoObjectGeometryPropTypes,
   defaultGeometry: GeoObjectGeometryPropTypes,
 
-  // GeoObject feature.properties
-  // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.properties
+  /**
+   * GeoObject feature.properties
+   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.properties
+   */
   properties: PropTypes.object,
   defaultProperties: PropTypes.object,
 
-  // GeoObject options
-  // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-options
+  /**
+   * GeoObject options
+   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-options
+   */
   options: GeoObjectOptionsPropTypes,
   defaultOptions: GeoObjectOptionsPropTypes,
 
-  // ref prop but for YMaps object instances
+  /** ref prop but for Yandex.Maps object instances */
   instanceRef: PropTypes.func,
 
-  // Yandex.Maps API object
+  /** Yandex.Maps API object */
   ymaps: PropTypes.object,
 
-  // GeoObject parent object (e.g, ymaps.Map or ymaps.Clusterer)
+  /** Parent object (e.g, ymaps.Map or ymaps.Clusterer) */
   parent: PropTypes.object,
 };
 

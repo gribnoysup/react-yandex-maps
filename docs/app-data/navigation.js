@@ -35,6 +35,10 @@ export default [
             title: 'GeoObject',
             uid: 'geo-object',
           },
+          {
+            title: 'ObjectManager',
+            uid: 'object-manager',
+          },
         ],
       },
       {

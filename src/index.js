@@ -17,3 +17,5 @@ export { default as Polygon } from './Polygon';
 export { default as Circle } from './Circle';
 
 export { default as Clusterer } from './Clusterer';
+
+export { default as ObjectManager } from './ObjectManager';

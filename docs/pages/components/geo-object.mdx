@@ -1,5 +1,6 @@
 import { Page } from '../../components/layout/Page'
 import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
 
 import Events from '../../fragments/events.mdx'
 import { CommonProps } from '../../fragments/CommonProps'
@@ -8,7 +9,7 @@ export default ({ children }) => <Page>{children}</Page>
 
 # GeoObject
 
-Renders Yandex.Maps API [Geo][geoobject] object
+Renders Yandex.Maps API [GeoObject][]
 
 ```jsx
 // @live
@@ -53,7 +54,11 @@ render(<GeoObjectExample />);
     secondaryName="geometry"
     type="Object"
     description={
-      '<a href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state">Map parameters</a>'
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.geometry"
+      >
+        GeoObject geometry
+      </Link>
     }
   />
   <PropItem
@@ -61,7 +66,11 @@ render(<GeoObjectExample />);
     secondaryName="properties"
     type="Object"
     description={
-      '<a href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-options">Map options</a>'
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.properties"
+      >
+        GeoObject properties
+      </Link>
     }
   />
   <PropItem
@@ -69,7 +78,11 @@ render(<GeoObjectExample />);
     secondaryName="options"
     type="Object"
     description={
-      '<a href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-options">Map options</a>'
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options"
+      >
+        GeoObject options
+      </Link>
     }
   />
   <CommonProps componentName="GeoObject" />
@@ -80,4 +93,4 @@ render(<GeoObjectExample />);
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__events-summary"
 />
 
-[geoobject]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/
+[GeoObject]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/

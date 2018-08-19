@@ -25,8 +25,8 @@ const Styles = {
     bg: 'orange',
   },
   [Types.Info]: {
-    color: 'white',
-    bg: 'blue',
+    color: 'black',
+    bg: 'cyan',
   },
   [Types.Default]: {},
 };

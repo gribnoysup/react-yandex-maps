@@ -21,6 +21,6 @@ export const InlineCode = props => {
     case 'WARN':
       return null;
     default:
-      return <StyledCode fontSize="inherit" {...props} />;
+      return <StyledCode is="code" fontSize="inherit" {...props} />;
   }
 };
