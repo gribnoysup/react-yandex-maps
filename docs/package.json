@@ -17,7 +17,8 @@
     "react-dom": "^16.4.2",
     "react-emotion": "^9.2.6",
     "react-live": "^1.11.0",
-    "rebass": "^2.1.0"
+    "rebass": "^2.1.0",
+    "slug": "^0.9.1"
   },
   "devDependencies": {
     "now": "^11.3.10"

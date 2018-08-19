@@ -57,5 +57,5 @@ export const CommonProps = ({
 
 CommonProps.propTypes = {
   componentName: PropTypes.string,
-  hideInstanceRef: PropTypes.boolean,
+  hideInstanceRef: PropTypes.bool,
 };
