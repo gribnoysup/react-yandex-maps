@@ -1,6 +1,6 @@
 {
   "name": "react-yandex-maps",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.1-canary.10fae15",
   "description": "Yandex.Maps API bindings for React",
   "main": "dist/react-yandex-maps.js",
   "umd:main": "dist/react-yandex-maps.umd.js",
@@ -9,15 +9,16 @@
   "files": [
     "README.md",
     "LICENSE",
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
+    "clear": "rm -rf dist",
     "prettier": "prettier --write",
     "lint": "eslint",
     "precommit": "lint-staged",
-    "build": "microbundle --jsx React.createElement --target web --strict true",
-    "dev": "microbundle watch --jsx React.createElement --target web --strict true --compress false"
+    "build": "npm run clear && microbundle --jsx React.createElement --target web --strict true",
+    "dev": "microbundle watch --jsx React.createElement --target web --strict true --compress false",
+    "publish:all": "./scripts/publish.sh"
   },
   "lint-staged": {
     "*.js": [
@@ -32,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gribnoysup/react-yandex-maps.git"
+    "url": "git+https://github.com/gribnoysup/react-yandex-maps.git"
   },
   "peerDependencies": {
     "react": "^0.14.9 || ^15.3.0 || ^16.0.0"
@@ -60,5 +61,12 @@
   ],
   "author": "Sergey Petushkov <petushkov.sergey@gmail.com>",
   "license": "MIT",
-  "sideEffects": false
+  "sideEffects": false,
+  "bugs": {
+    "url": "https://github.com/gribnoysup/react-yandex-maps/issues"
+  },
+  "homepage": "https://github.com/gribnoysup/react-yandex-maps#readme",
+  "directories": {
+    "doc": "docs"
+  }
 }

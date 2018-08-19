@@ -3,7 +3,7 @@ import 'prismjs/themes/prism-okaidia.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'react-emotion';
-import { Flex, Box } from 'rebass/emotion';
+import { Flex, Box, Switch, Label } from 'rebass/emotion';
 import * as ReactLive from 'react-live';
 
 import * as scope from '../../dist/react-yandex-maps';
@@ -46,24 +46,69 @@ const StyledError = styled(ReactLive.LiveError)`
   overflow: auto;
 `;
 
-export const LiveEditor = ({ code, language, noInline }) => (
-  <ReactLive.LiveProvider
-    code={code}
-    scope={{ ...scope }}
-    noInline={noInline}
-    mountStylesheet={false}
-  >
-    <PreviewContainer flexWrap="wrap">
-      <Box
-        w={[1, 1, 1 / 2]}
-        is={StyledEditor}
-        className={` language-${language}`}
-      />
-      <Box w={[1, 1, 1 / 2]} p={3} is={StyledPreview} bg="gray" />
-    </PreviewContainer>
-    <Box w={1} mt={3} p={3} color="white" bg="red" is={StyledError} />
-  </ReactLive.LiveProvider>
-);
+export class LiveEditor extends React.Component {
+  constructor() {
+    super();
+    this.state = { editor: true, preview: true };
+  }
+
+  render() {
+    const { code, language, noInline } = this.props;
+    const { editor, preview } = this.state;
+
+    return (
+      <ReactLive.LiveProvider
+        code={code}
+        scope={{ ...scope }}
+        noInline={noInline}
+        mountStylesheet={false}
+      >
+        <PreviewContainer flexWrap="wrap">
+          {/* <Toolbar /> */}
+          <Flex w={1} bg="black" color="white" p={2}>
+            <Label
+              for="editor-switch"
+              mb={0}
+              onClick={() =>
+                this.setState(prevState => ({ editor: !prevState.editor }))
+              }
+            >
+              Editor:{' '}
+              <Switch id="editor-switch" color="white" checked={editor} />
+            </Label>
+            <Label
+              for="peview-switch"
+              ml={2}
+              mb={0}
+              onClick={() =>
+                this.setState(prevState => ({ preview: !prevState.preview }))
+              }
+            >
+              Preview:{' '}
+              <Switch id="preview-switch" color="white" checked={preview} />
+            </Label>
+          </Flex>
+          {editor && (
+            <Box
+              w={editor && !preview ? 1 : [1, 1, 1 / 2]}
+              is={StyledEditor}
+              className={` language-${language}`}
+            />
+          )}
+          {preview && (
+            <Box
+              w={preview && !editor ? 1 : [1, 1, 1 / 2]}
+              p={3}
+              is={StyledPreview}
+              bg="gray"
+            />
+          )}
+        </PreviewContainer>
+        <Box w={1} mt={3} p={3} color="white" bg="red" is={StyledError} />
+      </ReactLive.LiveProvider>
+    );
+  }
+}
 
 LiveEditor.propTypes = {
   code: PropTypes.string,

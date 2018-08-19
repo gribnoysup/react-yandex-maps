@@ -20,6 +20,7 @@ const Table = styled('table')`
   min-width: 100%;
   border-collapse: separate;
   border-spacing: 0px;
+  padding: 4px;
 `;
 
 const Tr = styled(Box)`
@@ -40,7 +41,7 @@ const Th = styled(Subhead)`
 
 Th.defaultProps = {
   is: 'th',
-  fontSize: [3, 4],
+  fontSize: [2, 3],
   pr: 3,
   pt: 2,
   pb: [2, 3],
@@ -53,13 +54,14 @@ const Td = styled(Box)`
 
 Td.defaultProps = {
   is: 'td',
+  pl: 0,
   pr: 3,
   pt: 2,
   pb: [2, 3],
 };
 
 export const Props = ({ children }) => (
-  <TableContainer bg="gray" p={1}>
+  <TableContainer bg="gray">
     <Table>
       <thead>
         <Tr>

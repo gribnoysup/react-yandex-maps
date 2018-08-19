@@ -22,7 +22,7 @@ export const CommonProps = ({
     {!hideInstanceRef && (
       <PropItem
         name="instanceRef"
-        type={`(ref: ObjectInstance<${componentName}> | null) => void`}
+        type={`(ref: Ref<${componentName}> | null) => void`}
         description={
           <React.Fragment>
             Behaves similarly to{' '}
@@ -38,7 +38,7 @@ export const CommonProps = ({
     )}
     <PropItem
       name="onLoad"
-      type="(ymaps: YandexMapsApi) => void"
+      type="(ymaps: YMapsAPI) => void"
       description="Callback that will be called when Yandex.Maps API and requested modules (if any) are finished loading"
     />
     <PropItem

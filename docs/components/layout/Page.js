@@ -26,6 +26,7 @@ const StyledContainer = styled(Flex)`
 `;
 
 const StyledMain = styled(Container)`
+  width: 100%;
   flex: 1 0 auto;
 `;
 
@@ -34,7 +35,7 @@ export const Page = ({ children }) => (
     <MDXProvider>
       <StyledContainer flexDirection="column">
         <Header />
-        <StyledMain is="main" my={[3, 4]}>
+        <StyledMain maxWidth={896} is="main" my={[3, 4]}>
           {children}
         </StyledMain>
         <Footer />

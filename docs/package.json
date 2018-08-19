@@ -19,12 +19,29 @@
     "react-live": "^1.11.0",
     "rebass": "^2.1.0"
   },
-  "devDependencies": {},
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+  "devDependencies": {
+    "now": "^11.3.10"
   },
-  "license": "MIT",
+  "scripts": {
+    "clear": "rm -rf .next",
+    "dev": "next",
+    "build": "npm run clear && NODE_ENV=production next build",
+    "start": "next start -p 8000",
+    "now-install": "npm ci",
+    "now-build": "echo 'skip'",
+    "deploy": "now --public"
+  },
+  "now": {
+    "name": "react-yandex-maps",
+    "alias": "react-yandex-maps",
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "files": [
+      ".next",
+      "package.json",
+      "package-lock.json"
+    ]
+  },
   "private": true
 }
