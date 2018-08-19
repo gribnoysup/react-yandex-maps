@@ -23,8 +23,23 @@ export default [
         ],
       },
       {
-        uid: 'components',
-        title: 'Components',
+        uid: 'provider-consumer',
+        title: 'Context Provider and Consumer',
+        group: true,
+        children: [
+          {
+            title: 'Yandex.Maps API Provider Component',
+            uid: 'ymaps-provider-component',
+          },
+          {
+            title: 'Yandex.Maps API Consumer HOC',
+            uid: 'with-ymaps-hoc',
+          },
+        ],
+      },
+      {
+        uid: 'geo-objects',
+        title: 'Geo Objects',
         group: true,
         children: [
           {
@@ -42,17 +57,13 @@ export default [
         ],
       },
       {
-        uid: 'provider-consumer',
-        title: 'Context Provider and Consumer',
+        uid: 'controls',
+        title: 'Controls',
         group: true,
         children: [
           {
-            title: 'Yandex.Maps API Provider Component',
-            uid: 'ymaps-provider-component',
-          },
-          {
-            title: 'Yandex.Maps API Consumer HOC',
-            uid: 'with-ymaps-hoc',
+            title: 'Button',
+            uid: 'button',
           },
         ],
       },

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { GeoObject } from './GeoObject';
-import { withParentContext } from './Context';
-import withYMaps from './withYMaps';
+import { withParentContext } from '../Context';
+import withYMaps from '../withYMaps';
 
 export class Rectangle extends React.Component {
   constructor() {

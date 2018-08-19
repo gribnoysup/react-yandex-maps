@@ -1,0 +1,59 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Button
+
+Renders Yandex.Maps API [Button][] control
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 3
+};
+
+const ButtonExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <Button 
+        data={{ content: 'Button' }}
+        onClick={() => console.log('Click!')}
+      />
+    </Map>
+  </YMaps>
+)
+
+render(<ButtonExample />);
+```
+
+## Props
+
+<Props>
+  {/* <PropItem
+    name="defaultGeometry"
+    secondaryName="geometry"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.geometry"
+      >
+        GeoObject geometry
+      </Link>
+    }
+  /> */}
+  <CommonProps componentName="Button" />
+</Props>
+
+<Events 
+  componentName="Button"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/#control.Button__events-summary"
+/>
+
+[Button]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/

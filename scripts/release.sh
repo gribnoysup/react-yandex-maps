@@ -76,7 +76,7 @@ if [ "$PROCEED" == "y" ] || [ "$PROCEED" == "Y" ]; then
     # If canary, skip commit and revert package.json (we will create tag though)
     cp $TMP_PACKAGE_JSON $PACKAGE_JSON
   else 
-    git commit -am "Release: $RELEASE_TYPE v$RELEASE_VERSION"
+    git commit -am "Release: $RELEASE_TYPE $RELEASE_VERSION"
   fi
 
   git tag $RELEASE_VERSION
@@ -99,6 +99,13 @@ if [ "$PROCEED" == "y" ] || [ "$PROCEED" == "Y" ]; then
   # Deploy to now
   echo "Deploying docs to now"
   npm run deploy
+
+  if [ "$RELEASE_TAG" != "$CANARY_RELEASE_TAG" ]; then
+    echo "Canary release: skipping now aliasing"
+    echo
+  else
+    now alias
+  fi
   
   echo
   echo "Done"
