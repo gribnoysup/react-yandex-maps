@@ -18,7 +18,7 @@
     "precommit": "lint-staged",
     "build": "npm run clear && microbundle --jsx React.createElement --target web --strict true",
     "dev": "microbundle watch --jsx React.createElement --target web --strict true --compress false",
-    "publish:all": "./scripts/publish.sh"
+    "release": "./scripts/release.sh"
   },
   "lint-staged": {
     "*.js": [
