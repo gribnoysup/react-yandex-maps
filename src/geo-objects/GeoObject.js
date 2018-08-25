@@ -83,7 +83,7 @@ export class GeoObject extends React.Component {
       oldProps
     );
 
-    if (isControlledProp(oldProps, 'geometry')) {
+    if (isControlledProp(newProps, 'geometry')) {
       const oldGeometry = getProp(oldProps, 'geometry');
       const newGeometry = getProp(newProps, 'geometry');
 
@@ -111,7 +111,7 @@ export class GeoObject extends React.Component {
       }
     }
 
-    if (isControlledProp(oldProps, 'properties')) {
+    if (isControlledProp(newProps, 'properties')) {
       const oldProperties = getProp(oldProps, 'properties');
       const newProperties = getProp(newProps, 'properties');
 
@@ -120,7 +120,7 @@ export class GeoObject extends React.Component {
       }
     }
 
-    if (isControlledProp(oldProps, 'options')) {
+    if (isControlledProp(newProps, 'options')) {
       const oldOptions = getProp(oldProps, 'options');
       const newOptions = getProp(newProps, 'options');
 

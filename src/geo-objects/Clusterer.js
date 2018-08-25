@@ -71,7 +71,7 @@ export class Clusterer extends React.Component {
       oldProps
     );
 
-    if (isControlledProp(oldProps, 'options')) {
+    if (isControlledProp(newProps, 'options')) {
       const oldOptions = getProp(oldProps, 'options');
       const newOptions = getProp(newProps, 'options');
 

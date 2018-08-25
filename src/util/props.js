@@ -1,3 +1,6 @@
+const defaultName = name =>
+  'default' + name.charAt(0).toUpperCase() + name.slice(1);
+
 /**
  * Checks if key exists on an object
  *
@@ -6,7 +9,7 @@
  * @returns {boolean} Check result
  */
 export function isControlledProp(props, key) {
-  return props[key] !== undefined;
+  return props[key] !== undefined || props[defaultName(key)] === undefined;
 }
 
 /**
@@ -18,7 +21,5 @@ export function isControlledProp(props, key) {
  * @return {any} Prop value
  */
 export function getProp(props, key) {
-  return isControlledProp(props, key)
-    ? props[key]
-    : props['default' + key.charAt(0).toUpperCase() + key.slice(1)];
+  return isControlledProp(props, key) ? props[key] : props[defaultName(key)];
 }

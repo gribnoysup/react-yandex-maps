@@ -100,7 +100,7 @@ export class Map extends React.Component {
       oldProps
     );
 
-    if (isControlledProp(oldProps, 'state')) {
+    if (isControlledProp(newProps, 'state')) {
       const oldState = getProp(oldProps, 'state');
       const newState = getProp(newProps, 'state');
 
@@ -126,7 +126,7 @@ export class Map extends React.Component {
       }
     }
 
-    if (isControlledProp(oldProps, 'options')) {
+    if (isControlledProp(newProps, 'options')) {
       const oldOptions = getProp(oldProps, 'options');
       const newOptions = getProp(newProps, 'options');
 
