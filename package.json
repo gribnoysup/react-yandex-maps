@@ -15,10 +15,16 @@
     "clear": "rm -rf dist",
     "prettier": "prettier --write",
     "lint": "eslint",
-    "precommit": "lint-staged",
     "build": "npm run clear && microbundle --jsx React.createElement --target web --strict true",
     "dev": "microbundle watch --jsx React.createElement --target web --strict true --compress false",
-    "release": "./scripts/release.sh"
+    "release": "./scripts/release.sh",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test -- --coverage"
+    }
   },
   "lint-staged": {
     "*.js": [
@@ -40,13 +46,20 @@
   },
   "dependencies": {
     "create-react-context": "^0.2.2",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "react-display-name": "^0.2.4"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "eslint": "^4.19.1",
+    "eslint-plugin-jest": "^21.22.0",
     "eslint-plugin-react": "^7.11.1",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0-rc.13",
+    "jest": "^23.5.0",
     "lint-staged": "^7.2.2",
     "microbundle": "^0.4.4",
     "prettier": "^1.14.2",
@@ -68,5 +81,14 @@
   "homepage": "https://github.com/gribnoysup/react-yandex-maps#readme",
   "directories": {
     "doc": "docs"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.js",
+      "!**/*.test.js"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
   }
 }

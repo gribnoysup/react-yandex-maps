@@ -1,16 +1,16 @@
-const eventsRegExp = /^on(?=[A-Z])/;
+const EVENTS_REGEX = /^on(?=[A-Z])/;
 
 /**
  * Separates YMaps events from other component props based on prop name
  *
  * @param {Object} props Component props
- * @returns {{ _events: Object, ...props }} Separated event props and other component props
+ * @returns {Object} Separated _event props and other component props
  */
 export function separateEvents(props) {
   return Object.keys(props).reduce(
     (acc, key) => {
-      if (eventsRegExp.test(key)) {
-        const eventName = key.replace(eventsRegExp, '').toLowerCase();
+      if (EVENTS_REGEX.test(key)) {
+        const eventName = key.replace(EVENTS_REGEX, '').toLowerCase();
         acc._events[eventName] = props[key];
       } else {
         acc[key] = props[key];
@@ -61,9 +61,7 @@ export function updateEvents(instance, oldEvents, newEvents) {
   Object.keys(Object.assign({}, oldEvents, newEvents)).forEach(eventName => {
     if (oldEvents[eventName] !== newEvents[eventName]) {
       removeEvent(instance, eventName, oldEvents[eventName]);
-      if (typeof newEvents[eventName] === 'function') {
-        addEvent(instance, eventName, newEvents[eventName]);
-      }
+      addEvent(instance, eventName, newEvents[eventName]);
     }
   });
 }

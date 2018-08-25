@@ -1,3 +1,7 @@
+const {
+  configs: { recommended: jestRecommendedConfig },
+} = require('eslint-plugin-jest');
+
 module.exports = {
   parser: 'babel-eslint',
   extends: ['eslint:recommended', 'plugin:react/recommended'],
@@ -17,6 +21,13 @@ module.exports = {
       },
       env: {
         browser: true,
+      },
+    },
+    {
+      files: ['**/*.test.js', '**/__mocks__/**'],
+      ...jestRecommendedConfig,
+      env: {
+        jest: true,
       },
     },
   ],
