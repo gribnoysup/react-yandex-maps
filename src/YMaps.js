@@ -1,5 +1,3 @@
-/* global process */
-
 import set from './util/set';
 
 const defaultQuery = {
