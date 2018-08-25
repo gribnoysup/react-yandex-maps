@@ -20,23 +20,6 @@
     "release": "./scripts/release.sh",
     "test": "jest"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run test -- --coverage"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "npm run lint",
-      "npm run prettier",
-      "git add"
-    ],
-    "*.{json,css,md}": [
-      "npm run prettier",
-      "git add"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gribnoysup/react-yandex-maps.git"
@@ -78,17 +61,36 @@
   "bugs": {
     "url": "https://github.com/gribnoysup/react-yandex-maps/issues"
   },
-  "homepage": "https://github.com/gribnoysup/react-yandex-maps#readme",
+  "homepage": "https://react-yandex-maps.now.sh",
   "directories": {
     "doc": "docs"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test -- --coverage"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "npm run prettier",
+      "git add"
+    ],
+    "*.{json,css,md}": [
+      "npm run prettier",
+      "git add"
+    ]
+  },
   "jest": {
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost",
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.js",
       "!**/*.test.js"
     ],
     "transform": {
-      "^.+\\.js$": "babel-jest"
+      "^.+\\.js$": "./jest.transform.js"
     }
   }
 }

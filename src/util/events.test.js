@@ -1,6 +1,5 @@
 import { separateEvents, addEvent, removeEvent, updateEvents } from './events';
-
-import { MockGeoObject } from '../__mocks__/MockInstances';
+import MockGeoObject from '../__mocks__/MockGeoObject';
 
 describe('Event utils', () => {
   describe('separateEvents', () => {

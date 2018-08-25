@@ -1,3 +1,11 @@
+/**
+ * Set value in object by path
+ *
+ * @param {Object} object Object to set value to
+ * @param {string|Array<string>} path Path to value
+ * @param {any} value Value
+ * @param {boolean} [ifNotExists] Will skip setting value if value exists
+ */
 const set = (object, path, value, ifNotExists = false) => {
   path = typeof path === 'string' ? path.split('.') : path.slice();
   let key,

@@ -78,7 +78,7 @@ export class ObjectManager extends React.Component {
       oldProps
     );
 
-    if (isControlledProp(oldProps, 'options')) {
+    if (isControlledProp(newProps, 'options')) {
       const oldOptions = getProp(oldProps, 'options');
       const newOptions = getProp(newProps, 'options');
 
@@ -87,7 +87,7 @@ export class ObjectManager extends React.Component {
       }
     }
 
-    if (isControlledProp(oldProps, 'objects')) {
+    if (isControlledProp(newProps, 'objects')) {
       const oldObjectsOptions = getProp(oldProps, 'objects');
       const newObjectsOptions = getProp(newProps, 'objects');
 
@@ -96,7 +96,7 @@ export class ObjectManager extends React.Component {
       }
     }
 
-    if (isControlledProp(oldProps, 'clusters')) {
+    if (isControlledProp(newProps, 'clusters')) {
       const oldClustersOptions = getProp(oldProps, 'clusters');
       const newClustersOptions = getProp(newProps, 'clusters');
 
@@ -105,7 +105,7 @@ export class ObjectManager extends React.Component {
       }
     }
 
-    if (isControlledProp(oldProps, 'filter')) {
+    if (isControlledProp(newProps, 'filter')) {
       const oldFilter = getProp(oldProps, 'filter');
       const newFilter = getProp(newProps, 'filter');
 
@@ -114,7 +114,7 @@ export class ObjectManager extends React.Component {
       }
     }
 
-    if (isControlledProp(oldProps, 'features')) {
+    if (isControlledProp(newProps, 'features')) {
       const oldFeatures = getProp(oldProps, 'features');
       const newFeatures = getProp(newProps, 'features');
 
