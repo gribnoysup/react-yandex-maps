@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactContext from 'create-react-context';
-
-import { getDisplayName as name } from './util/getDisplayName';
+import name from 'react-display-name';
 
 export const YMapsContext = createReactContext(null);
 

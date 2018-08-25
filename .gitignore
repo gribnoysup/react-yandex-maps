@@ -11,3 +11,4 @@ dist
 !.npmrc
 
 package-lock.json
+coverage
