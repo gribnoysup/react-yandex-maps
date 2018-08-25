@@ -1,11 +1,73 @@
 import PropTypes from 'prop-types';
 import { createGeoObject } from './createGeoObject';
 
+const GeoObjectGeometryPropTypes = PropTypes.shape({
+  type: PropTypes.oneOf([
+    'Point',
+    'LineString',
+    'Rectangle',
+    'Polygon',
+    'Circle',
+  ]).isRequired,
+  coordinates: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number),
+    PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))),
+  ]).isRequired,
+  radius: PropTypes.number,
+});
+
+export const GeoObject = createGeoObject(
+  'GeoObject',
+  process.env.NODE_ENV !== 'production' && {
+    /**
+     * GeoObject feature.geometry
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.geometry
+     */
+    geometry: GeoObjectGeometryPropTypes,
+    defaultGeometry: GeoObjectGeometryPropTypes,
+
+    /**
+     * GeoObject feature.properties
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.properties
+     */
+    properties: PropTypes.shape({}),
+    defaultProperties: PropTypes.shape({}),
+
+    /**
+     * GeoObject options
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-options
+     */
+    options: PropTypes.shape({}),
+    defaultOptions: PropTypes.shape({}),
+  },
+  Constructor => {
+    /**
+     * The only difference between GeoObject and all the other,
+     * more specific GeoObject constructors (like Placemark, Circle,
+     * or Polyline) is the way in which the arguments are passed to
+     * the constructor. GeoObject expects `feature` with `geometry` and
+     * `properties` keys and all the other GeoObject constructors
+     * expect `geometry` and `properties` as separate arguments
+     *
+     * We will hack around this difference with our custom constructor.
+     * That way we can completely reuse GeoObject static methods.
+     */
+    const __Constructor = Constructor;
+
+    function GeoObjectConstructor(geometry, properties, options) {
+      __Constructor.call(this, { geometry, properties }, options);
+    }
+
+    GeoObjectConstructor.prototype = Constructor.prototype;
+
+    return GeoObjectConstructor;
+  }
+);
+
 const CircleGeometryPropTypes = PropTypes.arrayOf(
   PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
 );
-
-const CircleOptionsPropTypes = PropTypes.shape({});
 
 export const Circle = createGeoObject('Circle', {
   /**
@@ -19,20 +81,18 @@ export const Circle = createGeoObject('Circle', {
    * Circle properties
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#param-properties
    */
-  properties: PropTypes.object,
-  defaultProperties: PropTypes.object,
+  properties: PropTypes.shape({}),
+  defaultProperties: PropTypes.shape({}),
 
   /**
    * Circle options
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#param-options
    */
-  options: CircleOptionsPropTypes,
-  defaultOptions: CircleOptionsPropTypes,
+  options: PropTypes.shape({}),
+  defaultOptions: PropTypes.shape({}),
 });
 
 const PlacemarkGeometryPropTypes = PropTypes.arrayOf(PropTypes.number);
-
-const PlacemarkOptionsPropTypes = PropTypes.shape({});
 
 export const Placemark = createGeoObject('Placemark', {
   /**
@@ -46,22 +106,20 @@ export const Placemark = createGeoObject('Placemark', {
    * Placemark properties
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#param-properties
    */
-  properties: PropTypes.object,
-  defaultProperties: PropTypes.object,
+  properties: PropTypes.shape({}),
+  defaultProperties: PropTypes.shape({}),
 
   /**
    * Placemark options
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#param-options
    */
-  options: PlacemarkOptionsPropTypes,
-  defaultOptions: PlacemarkOptionsPropTypes,
+  options: PropTypes.shape({}),
+  defaultOptions: PropTypes.shape({}),
 });
 
 const PolygonGeometryPropTypes = PropTypes.arrayOf(
   PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))
 );
-
-const PolygonOptionsPropTypes = PropTypes.shape({});
 
 export const Polygon = createGeoObject('Polygon', {
   /**
@@ -75,22 +133,20 @@ export const Polygon = createGeoObject('Polygon', {
    * Polygon properties
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#param-properties
    */
-  properties: PropTypes.object,
-  defaultProperties: PropTypes.object,
+  properties: PropTypes.shape({}),
+  defaultProperties: PropTypes.shape({}),
 
   /**
    * Polygon options
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#param-options
    */
-  options: PolygonOptionsPropTypes,
-  defaultOptions: PolygonOptionsPropTypes,
+  options: PropTypes.shape({}),
+  defaultOptions: PropTypes.shape({}),
 });
 
 const PolylineGeometryPropTypes = PropTypes.arrayOf(
   PropTypes.arrayOf(PropTypes.number)
 );
-
-const PolylineOptionsPropTypes = PropTypes.shape({});
 
 export const Polyline = createGeoObject('Polyline', {
   /**
@@ -104,22 +160,20 @@ export const Polyline = createGeoObject('Polyline', {
    * Polyline properties
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#param-properties
    */
-  properties: PropTypes.object,
-  defaultProperties: PropTypes.object,
+  properties: PropTypes.shape({}),
+  defaultProperties: PropTypes.shape({}),
 
   /**
    * Polyline options
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#param-options
    */
-  options: PolylineOptionsPropTypes,
-  defaultOptions: PolylineOptionsPropTypes,
+  options: PropTypes.shape({}),
+  defaultOptions: PropTypes.shape({}),
 });
 
 const RectangleGeometryPropTypes = PropTypes.arrayOf(
   PropTypes.arrayOf(PropTypes.number)
 );
-
-const RectangleOptionsPropTypes = PropTypes.shape({});
 
 export const Rectangle = createGeoObject('Rectangle', {
   /**
@@ -133,13 +187,13 @@ export const Rectangle = createGeoObject('Rectangle', {
    * Rectangle properties
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#param-properties
    */
-  properties: PropTypes.object,
-  defaultProperties: PropTypes.object,
+  properties: PropTypes.shape({}),
+  defaultProperties: PropTypes.shape({}),
 
   /**
    * Rectangle options
    * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#param-options
    */
-  options: RectangleOptionsPropTypes,
-  defaultOptions: RectangleOptionsPropTypes,
+  options: PropTypes.shape({}),
+  defaultOptions: PropTypes.shape({}),
 });
