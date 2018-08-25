@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as events from '../util/events';
-import { omit } from '../util/omit';
-import { getProp, isControlledProp } from '../util/props';
-import withYMaps from '../withYMaps';
-import { ParentContext } from '../Context';
+import * as events from './util/events';
+import { omit } from './util/omit';
+import { getProp, isControlledProp } from './util/props';
+import withYMaps from './withYMaps';
+import { ParentContext } from './Context';
 
 export class Map extends React.Component {
   constructor() {

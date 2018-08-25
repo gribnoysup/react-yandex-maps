@@ -2,15 +2,14 @@ export { default as YMaps } from './Provider';
 
 export { default as withYMaps } from './withYMaps';
 
-export { default as Map } from './geo-objects/Map';
-
-export { default as GeoObject } from './geo-objects/GeoObject';
+export { default as Map } from './Map';
 
 export { default as Clusterer } from './geo-objects/Clusterer';
 
 export { default as ObjectManager } from './geo-objects/ObjectManager';
 
 export {
+  GeoObject,
   Placemark,
   Polyline,
   Rectangle,

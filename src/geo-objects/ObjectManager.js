@@ -135,7 +135,7 @@ export class ObjectManager extends React.Component {
   }
 
   static unmountObject(instance, props) {
-    const { instanceRef, _events } = events.separateEvents(props);
+    const { instanceRef, parent, _events } = events.separateEvents(props);
 
     if (instance !== null) {
       Object.keys(_events).forEach(key =>
