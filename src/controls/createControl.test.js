@@ -1,12 +1,12 @@
 import MockControl from '../__mocks__/MockControl';
-import MockGeoObject from '../__mocks__/MockGeoObject';
+import MockMapObject from '../__mocks__/MockMapObject';
 
 import { BaseControl } from './createControl';
 
 describe('BaseControl', () => {
   const baseProps = {
     name: 'Control',
-    parent: new MockGeoObject(),
+    parent: new MockMapObject(),
     instanceRef: jest.fn(),
     onClick: jest.fn(),
   };

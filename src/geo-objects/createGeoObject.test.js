@@ -1,3 +1,4 @@
+import MockMapObject from '../__mocks__/MockMapObject';
 import MockGeoObject from '../__mocks__/MockGeoObject';
 
 import { BaseGeoObject } from './createGeoObject';
@@ -5,7 +6,7 @@ import { BaseGeoObject } from './createGeoObject';
 describe('BaseGeoObject', () => {
   const baseProps = {
     name: 'GeoObject',
-    parent: new MockGeoObject(),
+    parent: new MockMapObject(),
     instanceRef: jest.fn(),
     onClick: jest.fn(),
   };
