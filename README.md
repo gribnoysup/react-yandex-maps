@@ -10,7 +10,7 @@
 
 ## Documentation
 
-https://react-yandex-maps.now.sh
+You can find the documentation at https://react-yandex-maps.now.sh
 
 ## Contributing
 
