@@ -1,0 +1,32 @@
+import { Page } from '../components/layout/Page'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Sandbox
+
+```jsx
+// @live
+
+class Sandbox extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      center: [55.751574, 37.573856],
+      zoom: 9
+    };
+  }
+
+  render() {
+    return (
+      <YMaps>
+        <Map defaultState={this.state}>
+          <Placemark geometry={this.state.center} />
+        </Map>
+      </YMaps>
+    );
+  }
+}
+
+render(<Sandbox />);
+```

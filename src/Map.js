@@ -211,8 +211,8 @@ if (process.env.NODE_ENV !== 'production') {
      * we will assume that the Map is sized by those and will
      * not use these
      */
-    width: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
-    height: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     style: PropTypes.object,
     className: PropTypes.string,
   };

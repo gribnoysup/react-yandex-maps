@@ -82,6 +82,10 @@ if [ "$PROCEED" == "y" ] || [ "$PROCEED" == "Y" ]; then
   git tag $RELEASE_VERSION
   git push --tags
 
+  echo
+  echo "============================="
+  echo
+
   # After the release is done, let's release the docs
   echo "Releasing new documentation"
   echo
