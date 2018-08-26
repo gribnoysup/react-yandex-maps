@@ -52,7 +52,7 @@ if [ "$PROCEED" == "y" ] || [ "$PROCEED" == "Y" ]; then
   npm install
 
   # Run tests
-  # npm run test
+  npm run test
 
   # Build lib
   echo "Building distribution assets"
