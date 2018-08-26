@@ -78,8 +78,8 @@ export class BaseGeoObject extends React.Component {
     );
 
     if (isControlledProp(newProps, 'geometry')) {
-      const oldGeometry = getProp(oldProps, 'geometry') || {};
-      const newGeometry = getProp(newProps, 'geometry');
+      const oldGeometry = getProp(oldProps, 'geometry', {});
+      const newGeometry = getProp(newProps, 'geometry', {});
 
       if (Array.isArray(newGeometry) && newGeometry !== oldGeometry) {
         if (

@@ -69,10 +69,13 @@ export class Map extends React.Component {
     const { width, height, style, className } = props;
 
     if (typeof style !== 'undefined' || typeof className !== 'undefined') {
-      return { style, className };
+      return Object.assign({}, style && { style }, className && { className });
     }
 
-    return { style: Object.assign({ width, height }, style), className };
+    return Object.assign(
+      { style: Object.assign({ width, height }, style) },
+      className && { className }
+    );
   }
 
   static mountObject(parentElement, Map, props) {
@@ -101,16 +104,16 @@ export class Map extends React.Component {
     );
 
     if (isControlledProp(newProps, 'state')) {
-      const oldState = getProp(oldProps, 'state');
-      const newState = getProp(newProps, 'state');
+      const oldState = getProp(oldProps, 'state', {});
+      const newState = getProp(newProps, 'state', {});
 
       if (oldState.type !== newState.type) {
         instance.setType(newState.type);
       }
 
       if (oldState.behaviors !== newState.behaviors) {
-        instance.behaviors.disable(oldState.behaviors || []);
-        instance.behaviors.enable(newState.behaviors || []);
+        if (oldState.behaviors) instance.behaviors.disable(oldState.behaviors);
+        if (newState.behaviors) instance.behaviors.enable(newState.behaviors);
       }
 
       if (oldState.zoom !== newState.zoom) {
@@ -128,7 +131,7 @@ export class Map extends React.Component {
 
     if (isControlledProp(newProps, 'options')) {
       const oldOptions = getProp(oldProps, 'options');
-      const newOptions = getProp(newProps, 'options');
+      const newOptions = getProp(newProps, 'options', {});
 
       if (oldOptions !== newOptions) {
         instance.options.set(newOptions);
@@ -150,7 +153,7 @@ export class Map extends React.Component {
 
     if (instance !== null) {
       Object.keys(_events).forEach(key =>
-        events.removeEvent(this.state.instance, key, _events[key])
+        events.removeEvent(instance, key, _events[key])
       );
 
       instance.destroy();
@@ -178,40 +181,42 @@ const MapStatePropTypes = {
 // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
 const MapOptionsPropTypes = {};
 
-Map.propTypes = {
-  // Map state parameters
-  // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state
-  state: PropTypes.shape(MapStatePropTypes),
-  defaultState: PropTypes.shape(MapStatePropTypes),
+if (process.env.NODE_ENV !== 'production') {
+  Map.propTypes = {
+    // Map state parameters
+    // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state
+    state: PropTypes.shape(MapStatePropTypes),
+    defaultState: PropTypes.shape(MapStatePropTypes),
 
-  // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
-  options: PropTypes.shape(MapOptionsPropTypes),
-  defaultOptions: PropTypes.shape(MapOptionsPropTypes),
+    // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
+    options: PropTypes.shape(MapOptionsPropTypes),
+    defaultOptions: PropTypes.shape(MapOptionsPropTypes),
 
-  // ref prop but for YMaps object instances
-  instanceRef: PropTypes.func,
+    // ref prop but for YMaps object instances
+    instanceRef: PropTypes.func,
 
-  // Yandex.Maps API object
-  ymaps: PropTypes.object,
+    // Yandex.Maps API object
+    ymaps: PropTypes.object,
 
-  children: PropTypes.node,
+    children: PropTypes.node,
 
-  /**
-   * Yandex.Maps Map parent element should have at least
-   * some size set to it, otherwise the map is rendered
-   * into the container with size 0
-   *
-   * To avoid this we will use `width` and `height` props as default
-   * way of sizing the map element, but then if we see that
-   * the library user also provides `style` or `className` prop,
-   * we will assume that the Map is sized by those and will
-   * not use these
-   */
-  width: PropTypes.number,
-  height: PropTypes.number,
-  style: PropTypes.object,
-  className: PropTypes.string,
-};
+    /**
+     * Yandex.Maps Map parent element should have at least
+     * some size set to it, otherwise the map is rendered
+     * into the container with size 0
+     *
+     * To avoid this we will use `width` and `height` props as default
+     * way of sizing the map element, but then if we see that
+     * the library user also provides `style` or `className` prop,
+     * we will assume that the Map is sized by those and will
+     * not use these
+     */
+    width: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
+    height: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
+    style: PropTypes.object,
+    className: PropTypes.string,
+  };
+}
 
 Map.defaultProps = {
   width: 320,

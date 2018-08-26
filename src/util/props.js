@@ -20,6 +20,9 @@ export function isControlledProp(props, key) {
  * @param {string} key Prop key
  * @return {any} Prop value
  */
-export function getProp(props, key) {
-  return isControlledProp(props, key) ? props[key] : props[defaultName(key)];
+export function getProp(props, key, defaultValue) {
+  return (
+    (isControlledProp(props, key) ? props[key] : props[defaultName(key)]) ||
+    defaultValue
+  );
 }
