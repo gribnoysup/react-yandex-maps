@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import name from 'react-display-name';
 
-import { getDisplayName as name } from './util/getDisplayName';
 import { omit } from './util/omit';
 import { withYMapsContext } from './Context';
 
