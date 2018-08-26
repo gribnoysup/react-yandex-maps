@@ -155,87 +155,92 @@ export class ObjectManager extends React.Component {
   }
 }
 
-const TYPE_FEATURE = 'Feature';
+if (process.env.NODE_ENV !== 'production') {
+  const TYPE_FEATURE = 'Feature';
 
-const TYPE_FEATURE_COLLECTION = 'FeatureCollection';
+  const TYPE_FEATURE_COLLECTION = 'FeatureCollection';
 
-// https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#add-param-objects
-const FeaturePropType = PropTypes.shape({
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  type: PropTypes.oneOf([TYPE_FEATURE]).isRequired,
-  geometry: PropTypes.object.isRequired,
-  options: PropTypes.object,
-  properties: PropTypes.object,
-});
+  // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#add-param-objects
+  const FeaturePropType = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    type: PropTypes.oneOf([TYPE_FEATURE]).isRequired,
+    geometry: PropTypes.object.isRequired,
+    options: PropTypes.object,
+    properties: PropTypes.object,
+  });
 
-// INFO: A hack to make recursive prop-type check work properly
-const FeatureCollection = {
-  type: PropTypes.oneOf([TYPE_FEATURE_COLLECTION]).isRequired,
-};
+  // INFO: A hack to make recursive prop-type check work properly
+  const FeatureCollection = {
+    type: PropTypes.oneOf([TYPE_FEATURE_COLLECTION]).isRequired,
+  };
 
-FeatureCollection.features = PropTypes.arrayOf(
-  PropTypes.oneOfType([PropTypes.shape(FeatureCollection), FeaturePropType])
-).isRequired;
+  FeatureCollection.features = PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.shape(FeatureCollection), FeaturePropType])
+  ).isRequired;
 
-const FeatureCollectionPropType = PropTypes.shape(FeatureCollection);
+  const FeatureCollectionPropType = PropTypes.shape(FeatureCollection);
 
-const FeaturesPropType = PropTypes.oneOfType([
-  PropTypes.arrayOf(
-    PropTypes.oneOfType([FeatureCollectionPropType, FeaturePropType])
-  ),
-  FeatureCollectionPropType,
-]);
+  const FeaturesPropType = PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([FeatureCollectionPropType, FeaturePropType])
+    ),
+    FeatureCollectionPropType,
+  ]);
 
-const FilterPropType = PropTypes.oneOfType([PropTypes.string, PropTypes.func]);
+  const FilterPropType = PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]);
 
-// TODO
-const ObjectManagerOptionsPropType = PropTypes.shape({});
+  // TODO
+  const ObjectManagerOptionsPropType = PropTypes.shape({});
 
-// TODO
-const ObjectManagerObjectsOptionsPropType = PropTypes.shape({});
+  // TODO
+  const ObjectManagerObjectsOptionsPropType = PropTypes.shape({});
 
-// TODO
-const ObjectManagerClustersOptionsPropType = PropTypes.shape({});
+  // TODO
+  const ObjectManagerClustersOptionsPropType = PropTypes.shape({});
 
-ObjectManager.propTypes = {
-  /**
-   * ObjectManager features
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__add-param-objects
-   */
-  features: FeaturesPropType,
-  defaultFeatures: FeaturesPropType,
+  ObjectManager.propTypes = {
+    /**
+     * ObjectManager features
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__add-param-objects
+     */
+    features: FeaturesPropType,
+    defaultFeatures: FeaturesPropType,
 
-  /**
-   * ObjectManager features filter
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__setFilter-param-filterFunction
-   */
-  filter: FilterPropType,
-  defaultFilter: FilterPropType,
+    /**
+     * ObjectManager features filter
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__setFilter-param-filterFunction
+     */
+    filter: FilterPropType,
+    defaultFilter: FilterPropType,
 
-  /**
-   * ObjectManager options
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__param-options
-   */
-  options: ObjectManagerOptionsPropType,
-  defaultOptions: ObjectManagerOptionsPropType,
+    /**
+     * ObjectManager options
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__param-options
+     */
+    options: ObjectManagerOptionsPropType,
+    defaultOptions: ObjectManagerOptionsPropType,
 
-  /** ObjectManager object options */
-  objects: ObjectManagerObjectsOptionsPropType,
-  defaultObjects: ObjectManagerObjectsOptionsPropType,
+    /** ObjectManager object options */
+    objects: ObjectManagerObjectsOptionsPropType,
+    defaultObjects: ObjectManagerObjectsOptionsPropType,
 
-  /** ObjectManager clusters options */
-  clusters: ObjectManagerClustersOptionsPropType,
-  defaultClusters: ObjectManagerClustersOptionsPropType,
+    /** ObjectManager clusters options */
+    clusters: ObjectManagerClustersOptionsPropType,
+    defaultClusters: ObjectManagerClustersOptionsPropType,
 
-  /** ref prop but for Yandex.Maps object instances */
-  instanceRef: PropTypes.func,
+    /** ref prop but for Yandex.Maps object instances */
+    instanceRef: PropTypes.func,
 
-  /** Yandex.Maps API object */
-  ymaps: PropTypes.object,
+    /** Yandex.Maps API object */
+    ymaps: PropTypes.object,
 
-  /** Parent object (e.g, ymaps.Map or ymaps.Clusterer) */
-  parent: PropTypes.object,
-};
+    /** Parent object (e.g, ymaps.Map or ymaps.Clusterer) */
+    parent: PropTypes.object,
+  };
+}
 
 export default withParentContext(
   withYMaps(ObjectManager, true, ['ObjectManager'])

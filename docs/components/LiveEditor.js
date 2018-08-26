@@ -23,7 +23,8 @@ scope.YMaps.defaultProps = {
 
 scope.Map.defaultProps = {
   ...scope.Map.defaultProps,
-  style: { width: '100%', height: 240 },
+  width: '100%',
+  height: 240,
 };
 
 const PreviewContainer = styled(Flex)`

@@ -53,14 +53,16 @@ export default function withYMaps(Component, waitForApi = false, modules = []) {
     }
   }
 
-  WithYMaps.displayName = `withYMaps(${name(Component)})`;
+  if (process.env.NODE_ENV !== 'production') {
+    WithYMaps.displayName = `withYMaps(${name(Component)})`;
 
-  WithYMaps.propTypes = {
-    onLoad: PropTypes.func,
-    onError: PropTypes.func,
-    modules: PropTypes.arrayOf(PropTypes.string),
-    ymaps: PropTypes.object,
-  };
+    WithYMaps.propTypes = {
+      onLoad: PropTypes.func,
+      onError: PropTypes.func,
+      modules: PropTypes.arrayOf(PropTypes.string),
+      ymaps: PropTypes.object,
+    };
+  }
 
   WithYMaps.defaultProps = {
     onLoad: Function.prototype,

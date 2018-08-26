@@ -69,131 +69,146 @@ const CircleGeometryPropTypes = PropTypes.arrayOf(
   PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
 );
 
-export const Circle = createGeoObject('Circle', {
-  /**
-   * Circle geometry
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#param-geometry
-   */
-  geometry: CircleGeometryPropTypes,
-  defaultGeometry: CircleGeometryPropTypes,
+export const Circle = createGeoObject(
+  'Circle',
+  process.env.NODE_ENV !== 'production' && {
+    /**
+     * Circle geometry
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#param-geometry
+     */
+    geometry: CircleGeometryPropTypes,
+    defaultGeometry: CircleGeometryPropTypes,
 
-  /**
-   * Circle properties
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#param-properties
-   */
-  properties: PropTypes.shape({}),
-  defaultProperties: PropTypes.shape({}),
+    /**
+     * Circle properties
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#param-properties
+     */
+    properties: PropTypes.shape({}),
+    defaultProperties: PropTypes.shape({}),
 
-  /**
-   * Circle options
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#param-options
-   */
-  options: PropTypes.shape({}),
-  defaultOptions: PropTypes.shape({}),
-});
+    /**
+     * Circle options
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#param-options
+     */
+    options: PropTypes.shape({}),
+    defaultOptions: PropTypes.shape({}),
+  }
+);
 
 const PlacemarkGeometryPropTypes = PropTypes.arrayOf(PropTypes.number);
 
-export const Placemark = createGeoObject('Placemark', {
-  /**
-   * Placemark geometry
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#param-geometry
-   */
-  geometry: PlacemarkGeometryPropTypes,
-  defaultGeometry: PlacemarkGeometryPropTypes,
+export const Placemark = createGeoObject(
+  'Placemark',
+  process.env.NODE_ENV !== 'production' && {
+    /**
+     * Placemark geometry
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#param-geometry
+     */
+    geometry: PlacemarkGeometryPropTypes,
+    defaultGeometry: PlacemarkGeometryPropTypes,
 
-  /**
-   * Placemark properties
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#param-properties
-   */
-  properties: PropTypes.shape({}),
-  defaultProperties: PropTypes.shape({}),
+    /**
+     * Placemark properties
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#param-properties
+     */
+    properties: PropTypes.shape({}),
+    defaultProperties: PropTypes.shape({}),
 
-  /**
-   * Placemark options
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#param-options
-   */
-  options: PropTypes.shape({}),
-  defaultOptions: PropTypes.shape({}),
-});
+    /**
+     * Placemark options
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#param-options
+     */
+    options: PropTypes.shape({}),
+    defaultOptions: PropTypes.shape({}),
+  }
+);
 
 const PolygonGeometryPropTypes = PropTypes.arrayOf(
   PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))
 );
 
-export const Polygon = createGeoObject('Polygon', {
-  /**
-   * Polygon geometry
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#param-geometry
-   */
-  geometry: PolygonGeometryPropTypes,
-  defaultGeometry: PolygonGeometryPropTypes,
+export const Polygon = createGeoObject(
+  'Polygon',
+  process.env.NODE_ENV !== 'production' && {
+    /**
+     * Polygon geometry
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#param-geometry
+     */
+    geometry: PolygonGeometryPropTypes,
+    defaultGeometry: PolygonGeometryPropTypes,
 
-  /**
-   * Polygon properties
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#param-properties
-   */
-  properties: PropTypes.shape({}),
-  defaultProperties: PropTypes.shape({}),
+    /**
+     * Polygon properties
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#param-properties
+     */
+    properties: PropTypes.shape({}),
+    defaultProperties: PropTypes.shape({}),
 
-  /**
-   * Polygon options
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#param-options
-   */
-  options: PropTypes.shape({}),
-  defaultOptions: PropTypes.shape({}),
-});
+    /**
+     * Polygon options
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#param-options
+     */
+    options: PropTypes.shape({}),
+    defaultOptions: PropTypes.shape({}),
+  }
+);
 
 const PolylineGeometryPropTypes = PropTypes.arrayOf(
   PropTypes.arrayOf(PropTypes.number)
 );
 
-export const Polyline = createGeoObject('Polyline', {
-  /**
-   * Polyline geometry
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#param-geometry
-   */
-  geometry: PolylineGeometryPropTypes,
-  defaultGeometry: PolylineGeometryPropTypes,
+export const Polyline = createGeoObject(
+  'Polyline',
+  process.env.NODE_ENV !== 'production' && {
+    /**
+     * Polyline geometry
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#param-geometry
+     */
+    geometry: PolylineGeometryPropTypes,
+    defaultGeometry: PolylineGeometryPropTypes,
 
-  /**
-   * Polyline properties
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#param-properties
-   */
-  properties: PropTypes.shape({}),
-  defaultProperties: PropTypes.shape({}),
+    /**
+     * Polyline properties
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#param-properties
+     */
+    properties: PropTypes.shape({}),
+    defaultProperties: PropTypes.shape({}),
 
-  /**
-   * Polyline options
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#param-options
-   */
-  options: PropTypes.shape({}),
-  defaultOptions: PropTypes.shape({}),
-});
+    /**
+     * Polyline options
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#param-options
+     */
+    options: PropTypes.shape({}),
+    defaultOptions: PropTypes.shape({}),
+  }
+);
 
 const RectangleGeometryPropTypes = PropTypes.arrayOf(
   PropTypes.arrayOf(PropTypes.number)
 );
 
-export const Rectangle = createGeoObject('Rectangle', {
-  /**
-   * Rectangle geometry
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#param-geometry
-   */
-  geometry: RectangleGeometryPropTypes,
-  defaultGeometry: RectangleGeometryPropTypes,
+export const Rectangle = createGeoObject(
+  'Rectangle',
+  process.env.NODE_ENV !== 'production' && {
+    /**
+     * Rectangle geometry
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#param-geometry
+     */
+    geometry: RectangleGeometryPropTypes,
+    defaultGeometry: RectangleGeometryPropTypes,
 
-  /**
-   * Rectangle properties
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#param-properties
-   */
-  properties: PropTypes.shape({}),
-  defaultProperties: PropTypes.shape({}),
+    /**
+     * Rectangle properties
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#param-properties
+     */
+    properties: PropTypes.shape({}),
+    defaultProperties: PropTypes.shape({}),
 
-  /**
-   * Rectangle options
-   * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#param-options
-   */
-  options: PropTypes.shape({}),
-  defaultOptions: PropTypes.shape({}),
-});
+    /**
+     * Rectangle options
+     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#param-options
+     */
+    options: PropTypes.shape({}),
+    defaultOptions: PropTypes.shape({}),
+  }
+);

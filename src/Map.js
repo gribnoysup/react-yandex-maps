@@ -165,23 +165,23 @@ export class Map extends React.Component {
   }
 }
 
-const MapStatePropTypes = {
-  bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-  center: PropTypes.arrayOf(PropTypes.number),
-  controls: PropTypes.arrayOf(PropTypes.string),
-  behaviors: PropTypes.arrayOf(PropTypes.string),
-  margin: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.number),
-    PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-  ]),
-  type: PropTypes.oneOf(['yandex#map', 'yandex#satellite', 'yandex#hybrid']),
-  zoom: PropTypes.number,
-};
-
-// TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
-const MapOptionsPropTypes = {};
-
 if (process.env.NODE_ENV !== 'production') {
+  const MapStatePropTypes = {
+    bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    center: PropTypes.arrayOf(PropTypes.number),
+    controls: PropTypes.arrayOf(PropTypes.string),
+    behaviors: PropTypes.arrayOf(PropTypes.string),
+    margin: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.number),
+      PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    ]),
+    type: PropTypes.oneOf(['yandex#map', 'yandex#satellite', 'yandex#hybrid']),
+    zoom: PropTypes.number,
+  };
+
+  // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
+  const MapOptionsPropTypes = {};
+
   Map.propTypes = {
     // Map state parameters
     // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state

@@ -22,7 +22,9 @@ export const withYMapsContext = Component => {
     </YMapsContext.Consumer>
   );
 
-  WithYMapsContext.displayName = `withYMapsContext(${displayName})`;
+  if (process.env.NODE_ENV !== 'production') {
+    WithYMapsContext.displayName = `withYMapsContext(${displayName})`;
+  }
 
   return WithYMapsContext;
 };
@@ -36,7 +38,9 @@ export const withParentContext = Component => {
     </ParentContext.Consumer>
   );
 
-  WithParentContext.displayName = `withParentContext(${name(Component)})`;
+  if (process.env.NODE_ENV !== 'production') {
+    WithParentContext.displayName = `withParentContext(${name(Component)})`;
+  }
 
   return WithParentContext;
 };
