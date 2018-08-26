@@ -1,5 +1,6 @@
 import MockMap from './MockMap';
 import MockCollection from './MockCollection';
+import MockEvents from './MockEvents';
 
 class MockBehaviors extends MockCollection {
   constructor(behaviors) {
@@ -10,26 +11,29 @@ class MockBehaviors extends MockCollection {
   }
 
   enable(behaviors) {
-    behaviors.forEach(this.collection.add);
+    behaviors.forEach(this.add);
   }
 
   disable(behaviors) {
-    behaviors.forEach(this.collection.remove);
+    behaviors.forEach(this.remove);
   }
 }
 
 export default class MockMapObject {
-  constructor(state = {}, options = {}) {
+  constructor(parentElement, state = {}, options = {}) {
+    this.parentElement = parentElement;
     this.state = state;
     this.behaviors = new MockBehaviors(state.behaviors);
     this.options = new MockMap(options);
     this.geoObjects = new MockCollection();
     this.controls = new MockCollection();
+    this.events = new MockEvents();
 
     this.setType = jest.fn(this.setType.bind(this));
     this.setZoom = jest.fn(this.setZoom.bind(this));
     this.setCenter = jest.fn(this.setCenter.bind(this));
     this.setBounds = jest.fn(this.setBounds.bind(this));
+    this.destroy = jest.fn(this.destroy.bind(this));
   }
 
   setType(value) {
@@ -47,4 +51,6 @@ export default class MockMapObject {
   setBounds(value) {
     this.state.bounds = value;
   }
+
+  destroy() {}
 }
