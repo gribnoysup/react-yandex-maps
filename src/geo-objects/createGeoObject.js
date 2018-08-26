@@ -16,7 +16,7 @@ export class BaseGeoObject extends React.Component {
     const { name, dangerZone, ymaps } = this.props;
 
     const instance = BaseGeoObject.mountObject(
-      dangerZone.modifyConstructor
+      dangerZone && dangerZone.modifyConstructor
         ? dangerZone.modifyConstructor(ymaps[name])
         : ymaps[name],
       this.props
@@ -166,8 +166,8 @@ if (process.env.NODE_ENV !== 'production') {
     /** GeoObject name */
     name: PropTypes.oneOf([
       'GeoObject',
-      'Point',
-      'LineString',
+      'Placemark',
+      'Polyline',
       'Rectangle',
       'Polygon',
       'Circle',
