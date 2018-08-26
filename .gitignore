@@ -9,6 +9,7 @@ dist
 !.eslintrc.js
 !.eslintrc
 !.npmrc
+!.travis.yml
 
 package-lock.json
 coverage
