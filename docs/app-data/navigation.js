@@ -51,6 +51,10 @@ export default [
             uid: 'geo-object',
           },
           {
+            title: 'Placemark',
+            uid: 'placemark',
+          },
+          {
             title: 'ObjectManager',
             uid: 'object-manager',
           },
