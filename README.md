@@ -18,7 +18,7 @@ Feel free to submit issues and/or PRs if you found bugs 🐞 or have some featur
 in mind! The documentation improvements will be super appreciated, if you feel
 that docs are lacking in some places 📝👩‍🔬
 
-### Developing locally
+### Developing locally (Quick Start)
 
 If you want to work on the library locally:
 
@@ -29,7 +29,7 @@ If you want to work on the library locally:
 npm install
 ```
 
-3. Start library build in the watch mode
+3. Start library build in the watch mode. This command will start microbundle in watch mode, meaning that everytime you make changes to the source of the library it will be compiled to `dist` folder
 
 ```sh
 npm run dev
