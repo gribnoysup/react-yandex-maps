@@ -55,6 +55,10 @@ export default [
             uid: 'placemark',
           },
           {
+            title: 'Polyline',
+            uid: 'polyline',
+          },
+          {
             title: 'ObjectManager',
             uid: 'object-manager',
           },
