@@ -1,0 +1,91 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Polygon
+
+Renders Yandex.Maps API [Polygon][]
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.73, 37.90],
+  zoom: 10
+};
+
+const PolygonExample = () => (
+      <YMaps>
+        <Map defaultState={mapState}>
+          <Polygon
+            geometry={[
+              [[55.75, 37.8], [55.8, 37.9], [55.75, 38.0], [55.7, 38.0], [55.7, 37.8]],
+              [[55.75, 37.82], [55.75, 37.98], [55.65, 37.9]]
+            ]}
+            options={{
+              fillColor: '#00FF00',
+              strokeColor: '#0000FF',
+              opacity: 0.5,
+              strokeWidth: 5,
+              strokeStyle: 'shortdash'
+            }}
+          />
+        </Map>
+      </YMaps>
+    );
+
+render(<PolygonExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultGeometry"
+    secondaryName="geometry"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-geometry"
+      >
+        Polygon geometry
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultProperties"
+    secondaryName="properties"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-properties"
+      >
+        Polygon properties
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-options"
+      >
+        Polygon options
+      </Link>
+    }
+  />
+</Props>
+
+<Events
+  componentName="Polygon"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__events-summary"
+/>
+
+[Polygon]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/

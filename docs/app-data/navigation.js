@@ -55,6 +55,10 @@ export default [
             uid: 'placemark',
           },
           {
+            title: 'Polygon',
+            uid: 'polygon',
+          },
+          {
             title: 'Polyline',
             uid: 'polyline',
           },
