@@ -1,0 +1,92 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Polyline
+
+Renders Yandex.Maps API [Polyline][]
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.72, 37.44],
+  zoom: 10
+};
+
+const PolylineExample = () => (
+      <YMaps>
+        <Map defaultState={mapState}>
+          <Polyline
+            geometry={[
+              [55.8, 37.5],
+              [55.8, 37.4],
+              [55.7, 37.5],
+              [55.7, 37.4],
+            ]}
+            options={{
+              balloonCloseButton: false,
+              strokeColor: "#000",
+              strokeWidth: 4,
+              strokeOpacity: 0.5
+            }}
+          />
+        </Map>
+      </YMaps>
+    );
+
+render(<PolylineExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultGeometry"
+    secondaryName="geometry"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-geometry"
+      >
+        Polyline geometry
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultProperties"
+    secondaryName="properties"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-properties"
+      >
+        Polyline properties
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-options"
+      >
+        Polyline options
+      </Link>
+    }
+  />
+</Props>
+
+<Events
+  componentName="Polyline"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__events-summary"
+/>
+
+[Polyline]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/
