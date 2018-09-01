@@ -1,0 +1,90 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Rectangle
+
+Renders Yandex.Maps API [Rectangle][]
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.674, 37.601],
+  zoom: 11
+};
+
+const RectangleExample = () => (
+      <YMaps>
+        <Map defaultState={mapState}>
+          <Rectangle
+            geometry={[
+              [55.66, 37.60],
+              [55.71, 37.69]
+            ]}
+            options={{
+              draggable: true,
+              fillColor: '#ffff0022',
+              strokeColor: '#3caa3c88',
+              strokeWidth: 7
+            }}
+          />
+        </Map>
+      </YMaps>
+    );
+
+render(<RectangleExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultGeometry"
+    secondaryName="geometry"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-geometry"
+      >
+        Rectangle geometry
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultProperties"
+    secondaryName="properties"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-properties"
+      >
+        Rectangle properties
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-options"
+      >
+        Rectangle options
+      </Link>
+    }
+  />
+</Props>
+
+<Events
+  componentName="Rectangle"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__events-summary"
+/>
+
+[Rectangle]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/

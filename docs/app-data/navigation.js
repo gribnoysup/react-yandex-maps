@@ -59,6 +59,10 @@ export default [
             uid: 'polyline',
           },
           {
+            title: 'Rectangle',
+            uid: 'rectangle',
+          },
+          {
             title: 'ObjectManager',
             uid: 'object-manager',
           },
