@@ -7,7 +7,7 @@ import { CommonProps } from '../../fragments/CommonProps'
 
 export default ({ children }) => <Page>{children}</Page>
 
-# GeoObject
+# Clusterer
 
 Renders Yandex.Maps API [GeoObject][]
 
@@ -16,13 +16,12 @@ Renders Yandex.Maps API [GeoObject][]
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 3
+  zoom: 5
 };
 
-const GeoObjectExample = () => (
+const ClustererExample = () => (
   <YMaps>
     <Map defaultState={mapState}>
-      <Placemark geometry={[0, 0]} />
       <Clusterer
         options={{
           preset: 'islands#invertedVioletClusterIcons',
@@ -35,7 +34,7 @@ const GeoObjectExample = () => (
   </YMaps>
 );
 
-render(<GeoObjectExample />);
+render(<ClustererExample />);
 ```
 
 ## Props
@@ -47,9 +46,9 @@ render(<GeoObjectExample />);
     type="Object"
     description={
       <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.geometry"
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__param-feature.geometry"
       >
-        GeoObject geometry
+        Clusterer geometry
       </Link>
     }
   />
@@ -59,9 +58,9 @@ render(<GeoObjectExample />);
     type="Object"
     description={
       <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.properties"
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__param-feature.properties"
       >
-        GeoObject properties
+        Clusterer properties
       </Link>
     }
   />
@@ -71,18 +70,18 @@ render(<GeoObjectExample />);
     type="Object"
     description={
       <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options"
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__param-options"
       >
-        GeoObject options
+        Clusterer options
       </Link>
     }
   />
-  <CommonProps componentName="GeoObject" />
+  <CommonProps componentName="Clusterer" />
 </Props>
 
 <Events 
-  componentName="GeoObject"
-  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__events-summary"
+  componentName="Clusterer"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__events-summary"
 />
 
-[GeoObject]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/
+[Clusterer]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/

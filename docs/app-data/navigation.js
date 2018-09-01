@@ -51,6 +51,10 @@ export default [
             uid: 'geo-object',
           },
           {
+            title: 'Clusterer',
+            uid: 'clusterer',
+          },
+          {
             title: 'Placemark',
             uid: 'placemark',
           },
