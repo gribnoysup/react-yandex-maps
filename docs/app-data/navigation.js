@@ -51,6 +51,10 @@ export default [
             uid: 'geo-object',
           },
           {
+            title: 'Circle',
+            uid: 'circle',
+          },
+          {
             title: 'Placemark',
             uid: 'placemark',
           },
