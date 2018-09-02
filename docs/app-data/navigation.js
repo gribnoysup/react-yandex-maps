@@ -55,6 +55,10 @@ export default [
             uid: 'circle',
           },
           {
+            title: 'Clusterer',
+            uid: 'clusterer',
+          },
+          {
             title: 'Placemark',
             uid: 'placemark',
           },
