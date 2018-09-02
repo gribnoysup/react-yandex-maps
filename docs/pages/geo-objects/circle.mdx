@@ -20,21 +20,21 @@ const mapState = {
 };
 
 const CircleExample = () => (
-      <YMaps>
-        <Map defaultState={mapState}>
-          <Circle
-            geometry={[[55.76, 37.60], 10000]}
-            options={{
-              draggable: true,
-              fillColor: "#DB709377",
-              strokeColor: "#990066",
-              strokeOpacity: 0.8,
-              strokeWidth: 5
-            }}
-          />
-        </Map>
-      </YMaps>
-    );
+  <YMaps>
+    <Map defaultState={mapState}>
+      <Circle
+        geometry={[[55.76, 37.60], 10000]}
+        options={{
+          draggable: true,
+          fillColor: "#DB709377",
+          strokeColor: "#990066",
+          strokeOpacity: 0.8,
+          strokeWidth: 5
+        }}
+      />
+    </Map>
+  </YMaps>
+);
 
 render(<CircleExample />);
 ```
@@ -45,7 +45,7 @@ render(<CircleExample />);
   <PropItem
     name="defaultGeometry"
     secondaryName="geometry"
-    type="Array<Array<number>>"
+    type="Array<number[] | number>"
     description={
       <Link
         href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#Circle__param-geometry"
