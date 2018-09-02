@@ -4,6 +4,10 @@ export default [
     title: 'React Yandex Maps',
     children: [
       {
+        uid: '',
+        title: 'Getting Started',
+      },
+      {
         uid: 'basic-principles',
         title: 'Basic Principles',
         group: true,
@@ -19,21 +23,6 @@ export default [
           {
             title: 'React Context. Provider and Consumer Components',
             uid: 'react-context-provider-consumer',
-          },
-        ],
-      },
-      {
-        uid: 'provider-consumer',
-        title: 'Context Provider and Consumer',
-        group: true,
-        children: [
-          {
-            title: 'Yandex.Maps API Provider Component',
-            uid: 'ymaps-provider-component',
-          },
-          {
-            title: 'Yandex.Maps API Consumer HOC',
-            uid: 'with-ymaps-hoc',
           },
         ],
       },
@@ -90,6 +79,25 @@ export default [
             uid: 'button',
           },
         ],
+      },
+      {
+        uid: 'provider-consumer',
+        title: 'YMaps Context',
+        group: true,
+        children: [
+          {
+            title: 'Yandex.Maps API Provider Component',
+            uid: 'ymaps-provider-component',
+          },
+          {
+            title: 'Yandex.Maps API Consumer HOC',
+            uid: 'with-ymaps-hoc',
+          },
+        ],
+      },
+      {
+        uid: 'migration-guide',
+        title: 'Migration Guide',
       },
     ],
   },
