@@ -1,0 +1,80 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# TypeSelector
+
+Renders Yandex.Maps API [TypeSelector][control] control
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 9
+};
+
+const TypeSelectorExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <TypeSelector defaultState={{ expanded: true }} />
+    </Map>
+  </YMaps>
+)
+
+render(<TypeSelectorExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultMapTypes"
+    secondaryName="mapTypes"
+    type="string[]"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.mapTypes"
+      >
+        Array of strings for map types
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.options"
+      >
+        TypeSelector options
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultState"
+    secondaryName="state"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.state"
+      >
+        Object describing the state of the TypeSelector
+      </Link>
+    }
+  />
+  <CommonProps componentName="TypeSelector" />
+</Props>
+
+<Events 
+  componentName="TypeSelector"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__events-summary"
+/>
+
+[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/
