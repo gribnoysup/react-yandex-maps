@@ -8,6 +8,10 @@ export default [
         title: 'Getting Started',
       },
       {
+        uid: 'migration-guide',
+        title: 'Migration Guide',
+      },
+      {
         uid: 'basic-principles',
         title: 'Basic Principles',
         group: true,
@@ -78,6 +82,34 @@ export default [
             title: 'Button',
             uid: 'button',
           },
+          {
+            title: 'RouteEditor',
+            uid: 'route-editor',
+          },
+          {
+            title: 'RoutePanel',
+            uid: 'route-panel',
+          },
+          {
+            title: 'RulerControl',
+            uid: 'ruler-control',
+          },
+          {
+            title: 'SearchControl',
+            uid: 'search-control',
+          },
+          {
+            title: 'TrafficControl',
+            uid: 'traffic-control',
+          },
+          {
+            title: 'TypeSelector',
+            uid: 'type-selector',
+          },
+          {
+            title: 'ZoomControl',
+            uid: 'zoom-control',
+          },
         ],
       },
       {
@@ -94,10 +126,6 @@ export default [
             uid: 'with-ymaps-hoc',
           },
         ],
-      },
-      {
-        uid: 'migration-guide',
-        title: 'Migration Guide',
       },
     ],
   },
