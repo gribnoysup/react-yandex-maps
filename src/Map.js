@@ -137,8 +137,9 @@ export class Map extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (
-      prevProps.width !== this.props.width ||
-      prevProps.height !== this.props.height
+      this.state.instance !== null &&
+      (prevProps.width !== this.props.width ||
+        prevProps.height !== this.props.height)
     ) {
       // fitToViewport on with/height update should happen after
       // component width/height update happened
