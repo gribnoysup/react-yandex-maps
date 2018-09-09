@@ -2,7 +2,7 @@
  * Set value in object by path
  *
  * @param {Object} object Object to set value to
- * @param {string|Array<string>} path Path to value
+ * @param {string | string[]} path Path to value
  * @param {any} value Value
  * @param {boolean} [ifNotExists] Will skip setting value if value exists
  */

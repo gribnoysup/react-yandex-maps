@@ -4,6 +4,14 @@ export default [
     title: 'React Yandex Maps',
     children: [
       {
+        uid: '',
+        title: 'Getting Started',
+      },
+      {
+        uid: 'migration-guide',
+        title: 'Migration Guide',
+      },
+      {
         uid: 'basic-principles',
         title: 'Basic Principles',
         group: true,
@@ -23,21 +31,6 @@ export default [
         ],
       },
       {
-        uid: 'provider-consumer',
-        title: 'Context Provider and Consumer',
-        group: true,
-        children: [
-          {
-            title: 'Yandex.Maps API Provider Component',
-            uid: 'ymaps-provider-component',
-          },
-          {
-            title: 'Yandex.Maps API Consumer HOC',
-            uid: 'with-ymaps-hoc',
-          },
-        ],
-      },
-      {
         uid: 'geo-objects',
         title: 'Geo Objects',
         group: true,
@@ -49,6 +42,14 @@ export default [
           {
             title: 'GeoObject',
             uid: 'geo-object',
+          },
+          {
+            title: 'Circle',
+            uid: 'circle',
+          },
+          {
+            title: 'Clusterer',
+            uid: 'clusterer',
           },
           {
             title: 'Placemark',
@@ -80,6 +81,49 @@ export default [
           {
             title: 'Button',
             uid: 'button',
+          },
+          {
+            title: 'RouteEditor',
+            uid: 'route-editor',
+          },
+          {
+            title: 'RoutePanel',
+            uid: 'route-panel',
+          },
+          {
+            title: 'RulerControl',
+            uid: 'ruler-control',
+          },
+          {
+            title: 'SearchControl',
+            uid: 'search-control',
+          },
+          {
+            title: 'TrafficControl',
+            uid: 'traffic-control',
+          },
+          {
+            title: 'TypeSelector',
+            uid: 'type-selector',
+          },
+          {
+            title: 'ZoomControl',
+            uid: 'zoom-control',
+          },
+        ],
+      },
+      {
+        uid: 'provider-consumer',
+        title: 'YMaps Context',
+        group: true,
+        children: [
+          {
+            title: 'Yandex.Maps API Provider Component',
+            uid: 'ymaps-provider-component',
+          },
+          {
+            title: 'Yandex.Maps API Consumer HOC',
+            uid: 'with-ymaps-hoc',
           },
         ],
       },

@@ -1,0 +1,314 @@
+import { Page } from '../components/layout/Page'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Migration Guide
+
+## Migrating from `v2` to `v3`
+
+When migrating from version 2 of this library to version 3, there are a couple
+of breaking changes that you need to keep in mind. We will go through all of
+them and we will also look at how to refactor your code for migration in
+different cases
+
+### Yandex.Maps Modules Strict Defaults
+
+This library heavily utilizes Yandex.Maps module system, as covered in
+["Basic Principles: Modular Approach"](/basic-principles/modular-approach). That
+means that you don't get any control elements, balloons, hints or additional
+Yandex.Maps APIs right away. Instead, you need to specify what additional
+modules you need when you are working with Yandex.Maps.
+
+Let's look at examples. This is how you would get zoom control on a Map element
+in `v2`.
+
+```jsx
+<Map
+  state={{
+    zoom: 9,
+    center: [55.76, 37.64],
+    controls: ['zoomControl'],
+  }}
+/>
+```
+
+Good thing about this example is that you just specify zoom control in controls
+section and boom, you have it on your map. Bad thing is that this is possible
+just because by default Yandex.Maps API will download a lot of separate parts of
+itself, disregarding if they are used or not. You might be using only zoom
+control, but the library will download all the other controls also.
+
+So how to enable zoom control on your map in this case? There are a couple of
+options here:
+
+1. Use ZoomControl component:
+
+```jsx
+<Map
+  state={{
+    zoom: 9,
+    center: [55.76, 37.64],
+  }}
+>
+  <ZoomControl />
+</Map>
+```
+
+2. Specify zoom control in special modules property:
+
+```jsx
+<Map
+  state={{
+    zoom: 9,
+    center: [55.76, 37.64],
+    controls: ['zoomControl'],
+  }}
+  modules={['control.ZoomControl']}
+/>
+```
+
+3. Use Yandex.Maps `query.load` parameter in YMaps provider component:
+
+```jsx
+<YMaps query={{ load: 'control.ZoomControl' }}>
+  <Map
+    state={{
+      zoom: 9,
+      center: [55.76, 37.64],
+      controls: ['zoomControl'],
+    }}
+  />
+</YMaps>
+```
+
+> `INFO` Yandex.Maps API default value for this option is `package.full`.
+> Setting `query.load` to `'package.full'` will set this library to the mode
+> that is completely matching the default Yandex.Maps API behavior and will opt
+> you out of using modular approach
+
+Keep in mind that "use component" approach is not possible for everything, for
+example hints and balloons are a special case in Yandex.Maps API in general, so
+if you need hint or balloon on the screen, please use the second option:
+
+```jsx
+<Placemark
+  geometry={[55.684758, 37.738521]}
+  modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
+/>
+```
+
+Or create a new component so you don't need to repeat yourself:
+
+```jsx
+const PlacemarkWithAddons = props => (
+  <Placemark
+    {...props}
+    modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
+  />
+);
+```
+
+### `onApiAvaliable` is removed from the library
+
+`onApiAvaliable` is an event callback, that was available on the `YMaps`
+provider component to give you access to ymaps api client instance. That event
+callback is removed from the library. Instead of using it, you can use `onLoad`
+event callback on any Yandex.Map object, that is rendered on the screen.
+
+Below is an example of using `onApiAvaliable` in `v2`.
+
+```jsx
+<YMaps onApiAvaliable={ymaps => console.log(ymaps)}>
+  <Map />
+</YMaps>
+```
+
+Now you can use `onLoad` event callback on components to get access to `ymaps`
+instance
+
+```jsx
+<YMaps>
+  <Map onLoad={ymaps => console.log(ymaps)} />
+</YMaps>
+```
+
+Why no `onLoad` event on the `Provider` itself? Reason is that starting from
+`v3` this library wouldn't start loading yandex maps api unless there is at
+least one maps related component is rendered on the screen. That means that
+providing onLoad event would be a little bit confusing, as YMaps provider is not
+the one responsible for this anymore.
+
+Another way of getting to ymaps instance is to use `withYMaps` higher-order
+component.
+
+Let's try to do the same task: using ymaps to create custom template layout
+factory the old way and with two new approaches.
+
+First, with `v2`:
+
+```jsx
+class CustomTemplate extends React.Component {
+  constructor() {
+    super();
+
+    this.state = { template: null };
+
+    this.createTemplateLayoutFactory = ymaps => {
+      if (ymaps && !this.state.template) {
+        this.setState({
+          template: ymaps.templateLayoutFactory.createClass(
+            '<h3>Hello from custom template!</h3>'
+          ),
+        });
+      }
+    };
+  }
+
+  render() {
+    return (
+      <YMaps onApiAvaliable={this.createTemplateLayoutFactory}>
+        <Map state={{ center: [0, 0], zoom: 9 }}>
+          {this.state.template && (
+            <Placemark
+              geometry={[0, 0]}
+              options={{ balloonContentLayout: this.state.template }}
+            />
+          )}
+        </Map>
+      </YMaps>
+    );
+  }
+}
+```
+
+It will be almost the same thing with `v3` and `onLoad` event callback. Move
+event handler to Map component and don't forget to load additional required
+modules (`templateLayoutFactory` and `geoObject.addon.balloon` in this case):
+
+```jsx
+class CustomTemplate extends React.Component {
+  constructor() {
+    super();
+
+    this.state = { template: null };
+
+    this.createTemplateLayoutFactory = ymaps => {
+      if (ymaps && !this.state.template) {
+        this.setState({
+          template: ymaps.templateLayoutFactory.createClass(
+            '<h3>Hello from custom template!</h3>'
+          ),
+        });
+      }
+    };
+  }
+
+  render() {
+    return (
+      <YMaps>
+        <Map
+          // Event handler was moved from onApiAvaliable on YMaps to onLoad on Map
+          onLoad={this.createTemplateLayoutFactory}
+          state={{ center: [0, 0], zoom: 9 }}
+          // We are also loading `templateLayoutFactory` additionally to Map
+          modules={['templateLayoutFactory']}
+        >
+          {this.state.template && (
+            <Placemark
+              geometry={[0, 0]}
+              options={{ balloonContentLayout: this.state.template }}
+              // And balloon addon for all geo objects
+              modules={['geoObject.addon.balloon']}
+            />
+          )}
+        </Map>
+      </YMaps>
+    );
+  }
+}
+```
+
+Let's try a little bit more fancy approach with `withYMaps` HOC. We will create
+a component that loads `templateLayoutFactory`, creates templates and passes
+them to its children with render prop (children as a function) React pattern.
+
+```jsx
+// @live
+class TemplateProvider extends React.Component {
+  constructor() {
+    super();
+    this.state = { template: null };
+  }
+
+  componentDidMount() {
+    this.setState({
+      template: this.props.ymaps.templateLayoutFactory.createClass(
+        '<h3>Hello from custom template!</h3>'
+      ),
+    });
+  }
+
+  render() {
+    return this.props.children({ template: this.state.template });
+  }
+}
+
+const ConnectedTemplateProvider = withYMaps(TemplateProvider, true, [
+  'templateLayoutFactory',
+]);
+
+const CustomTemplate = () => (
+  <YMaps>
+    <ConnectedTemplateProvider>
+      {({ template }) => (
+        <Map state={{ center: [0, 0], zoom: 9 }}>
+          <Placemark
+            geometry={[0, 0]}
+            options={{ balloonContentLayout: template }}
+            // Load balloon addon for all geo objects
+            modules={['geoObject.addon.balloon']}
+          />
+        </Map>
+      )}
+    </ConnectedTemplateProvider>
+  </YMaps>
+);
+
+render(CustomTemplate);
+```
+
+Now we have reusable component that we can compose with any geo object on any
+map we have and give it easy access to custom Yandex.Maps templates. You can
+also notice that we don't need to manually check if ymaps is available or if
+template is ready, all this logic is either handled by HOC or our
+`TemplateProvider` method
+
+### Geometry Prop
+
+Starting from `v3` this library follows Yandex.Maps API more closely. For
+multiple geo objects that are derived from GeoObject that means changing how
+geometry is passed to the Yandex.Maps API instance. Instead of providing an
+object with geometry and coordinates, you should use arrays of numbers as per
+Yandex.Maps documentation.
+
+```jsx
+// v2
+<Placemark geometry={{ coordinates: [0, 0] }}>
+
+// v3
+<Placemark geometry={[0, 0]}>
+```
+
+### Control component
+
+Control component is removed from the library as it is not part of Yandex.Maps
+API. All supported Yandex.Maps controls are exported from the library in v3, use
+them instead.
+
+```jsx
+// v2
+<Control type="RouteButton" />
+
+// v3
+<RouteButton />
+```
