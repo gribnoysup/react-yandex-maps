@@ -91,6 +91,10 @@ export default [
             uid: 'geolocation-control',
           },
           {
+            title: 'ListBox and ListBoxItem',
+            uid: 'list-control',
+          },
+          {
             title: 'RouteEditor',
             uid: 'route-editor',
           },
