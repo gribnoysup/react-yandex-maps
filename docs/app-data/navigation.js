@@ -87,6 +87,10 @@ export default [
             uid: 'fullscreen-control',
           },
           {
+            title: 'GeolocationControl',
+            uid: 'geolocation-control',
+          },
+          {
             title: 'RouteEditor',
             uid: 'route-editor',
           },
