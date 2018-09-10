@@ -95,6 +95,10 @@ export default [
             uid: 'list-control',
           },
           {
+            title: 'RouteButton',
+            uid: 'route-button',
+          },
+          {
             title: 'RouteEditor',
             uid: 'route-editor',
           },
