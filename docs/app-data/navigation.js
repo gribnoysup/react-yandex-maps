@@ -83,6 +83,10 @@ export default [
             uid: 'button',
           },
           {
+            title: 'GeolocationControl',
+            uid: 'geolocation-control',
+          },
+          {
             title: 'RouteEditor',
             uid: 'route-editor',
           },
