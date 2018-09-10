@@ -1,0 +1,80 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# FullscreenControl
+
+Renders Yandex.Maps API [FullscreenControl][control] control
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 3
+};
+
+const FullscreenControlExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <FullscreenControl />
+    </Map>
+  </YMaps>
+)
+
+render(<FullscreenControlExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultData"
+    secondaryName="data"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.FullscreenControl-docpage/#control.FullscreenControl__param-parameters.data"
+      >
+        FullscreenControl data
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.FullscreenControl-docpage/#control.FullscreenControl__param-parameters.options"
+      >
+        FullscreenControl options
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultState"
+    secondaryName="state"
+    type="Object"
+    description={
+      <Link
+        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.FullscreenControl-docpage/#control.FullscreenControl__param-parameters.state"
+      >
+        Object describing the state of the FullscreenControl
+      </Link>
+    }
+  />
+  <CommonProps componentName="FullscreenControl" />
+</Props>
+
+<Events
+  componentName="FullscreenControl"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.FullscreenControl-docpage/#control.FullscreenControl__events-summary"
+/>
+
+[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.FullscreenControl-docpage/

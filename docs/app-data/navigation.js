@@ -83,8 +83,8 @@ export default [
             uid: 'button',
           },
           {
-            title: 'GeolocationControl',
-            uid: 'geolocation-control',
+            title: 'FullscreenControl',
+            uid: 'fullscreen-control',
           },
           {
             title: 'RouteEditor',
