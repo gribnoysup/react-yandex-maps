@@ -91,8 +91,12 @@ export default [
             uid: 'geolocation-control',
           },
           {
-            title: 'ListBox and ListBoxItem',
-            uid: 'list-control',
+            title: 'ListBox',
+            uid: 'listbox-control',
+          },
+          {
+            title: 'ListBoxItem',
+            uid: 'listboxitem-control',
           },
           {
             title: 'RouteButton',
