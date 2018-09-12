@@ -115,9 +115,9 @@ export class Clusterer extends React.Component {
     const { instance } = this.state;
 
     return (
-      <noscript>
+      <div>
         {instance && children}
-      </noscript>
+      </div>
     );
   }
 }
