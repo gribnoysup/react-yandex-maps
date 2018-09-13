@@ -83,6 +83,26 @@ export default [
             uid: 'button',
           },
           {
+            title: 'FullscreenControl',
+            uid: 'fullscreen-control',
+          },
+          {
+            title: 'GeolocationControl',
+            uid: 'geolocation-control',
+          },
+          {
+            title: 'ListBox',
+            uid: 'listbox-control',
+          },
+          {
+            title: 'ListBoxItem',
+            uid: 'listboxitem-control',
+          },
+          {
+            title: 'RouteButton',
+            uid: 'route-button',
+          },
+          {
             title: 'RouteEditor',
             uid: 'route-editor',
           },
