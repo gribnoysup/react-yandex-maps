@@ -72,5 +72,3 @@ export function ListBox(props) {
 export function ListBoxItem(props) {
   return <Control type="ListBoxItem" {...props} />;
 }
-
-export const Fragment = React.Fragment || 'div';
