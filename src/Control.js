@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
+import { Fragment } from './Helpers';
+
 const { func, object } = PropTypes;
 
 export class Control extends React.Component {
@@ -126,9 +128,9 @@ export class Control extends React.Component {
     const { instance } = this.state;
 
     return (
-      <div>
+      <Fragment>
         {instance && children}
-      </div>
+      </Fragment>
     );
   }
 }
