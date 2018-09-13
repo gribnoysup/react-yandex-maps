@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { separateEvents, addEvent, removeEvent } from './util/events';
 
+import { Fragment } from './Helpers';
+
 const { func, object } = PropTypes;
 
 export class Clusterer extends React.Component {
@@ -115,9 +117,9 @@ export class Clusterer extends React.Component {
     const { instance } = this.state;
 
     return (
-      <noscript>
+      <Fragment>
         {instance && children}
-      </noscript>
+      </Fragment>
     );
   }
 }
