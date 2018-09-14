@@ -1,10 +1,11 @@
-const webpack = require('webpack')
+const webpack = require('webpack');
 
 module.exports = {
+  mode: 'production',
 
   output: {
     library: 'ReactYandexMaps',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
 
   externals: {
@@ -12,8 +13,8 @@ module.exports = {
       root: 'React',
       commonjs2: 'react',
       commonjs: 'react',
-      amd: 'react'
-    }
+      amd: 'react',
+    },
   },
 
   module: {
@@ -21,15 +22,16 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }]
-      }
-    ]
+        use: [{ loader: 'babel-loader' }],
+      },
+    ],
   },
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    })
-  ]
-  
-}
+      'process.env.NODE_ENV': JSON.stringify(
+        process.env.NODE_ENV || 'development'
+      ),
+    }),
+  ],
+};

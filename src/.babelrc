@@ -1,18 +1,8 @@
 {
-  "presets": [
-    "../tools/es2015-preset",
-    "stage-1",
-    "react"
-  ],
+  "presets": ["../tools/es2015-preset", "@babel/react"],
   "plugins": [
-    "transform-object-assign"
-  ],
-  "env": {
-    "production": {
-      "plugins": [
-        "dev-expression",
-        "transform-react-remove-prop-types"
-      ]
-    }
-  }
+    "@babel/plugin-proposal-class-properties",
+    "dev-expression",
+    ["transform-react-remove-prop-types", { "removeImport": true }]
+  ]
 }
