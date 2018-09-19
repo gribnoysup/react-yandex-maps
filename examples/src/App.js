@@ -11,7 +11,9 @@ const AppContainer = styled.div`
   display: flex;
 `;
 
-const NavContainer = styled.div`border-right: 1px solid rgba(0, 0, 0, .1);`;
+const NavContainer = styled.div`
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+`;
 
 class App extends React.Component {
   state = { active: [] };

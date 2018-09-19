@@ -63,6 +63,8 @@ export class YMaps extends React.Component {
 
     return typeof children === 'function'
       ? children(ymaps)
-      : children ? React.Children.only(children) : null;
+      : children
+        ? React.Children.only(children)
+        : null;
   }
 }

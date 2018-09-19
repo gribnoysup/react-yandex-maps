@@ -28,21 +28,22 @@ class ListBoxDemo extends React.Component {
     this.setState({ center: coords });
   };
 
-  render = () =>
+  render = () => (
     <YMaps>
       <Map state={this.state}>
         <ListBox data={{ content: 'Choose city' }} options={{ float: 'right' }}>
-          {cities.map(city =>
+          {cities.map(city => (
             <ListBoxItem
               data={city.data}
               options={city.options}
               onClick={() => this.onItemClick(city.coords)}
               key={city.data.content}
             />
-          )}
+          ))}
         </ListBox>
       </Map>
-    </YMaps>;
+    </YMaps>
+  );
 }
 
 export default ListBoxDemo;

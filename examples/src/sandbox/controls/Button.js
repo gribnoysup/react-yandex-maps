@@ -33,7 +33,7 @@ const onInstanceRef = ref => {
   }
 };
 
-const ButtonDemo = () =>
+const ButtonDemo = () => (
   <YMaps>
     <Map state={mapState}>
       <Button data={{ content: 'Button' }} options={{ float: 'right' }} />
@@ -52,6 +52,7 @@ const ButtonDemo = () =>
         instanceRef={onInstanceRef}
       />
     </Map>
-  </YMaps>;
+  </YMaps>
+);
 
 export default ButtonDemo;
