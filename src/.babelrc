@@ -1,5 +1,5 @@
 {
-  "presets": ["../tools/es2015-preset", "@babel/react"],
+  "presets": ["../tools/env-preset", "@babel/react"],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
     "dev-expression",
