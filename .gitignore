@@ -4,6 +4,9 @@ node_modules
 umd
 examples/build
 
+npm-shrinkwrap.json
+package-lock.json
+
 .*
 !.gitignore
 !.babelrc
