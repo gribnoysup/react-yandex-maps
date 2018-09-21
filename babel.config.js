@@ -6,7 +6,7 @@ module.exports = function(api) {
         '@babel/preset-env',
         {
           loose: true,
-          modules: api.env === 'es' ? false : 'commonjs',
+          modules: process.env.BABEL_ENV === 'es' ? false : 'commonjs',
         },
       ],
       '@babel/react',
