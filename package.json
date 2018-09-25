@@ -63,7 +63,7 @@
     "gh-pages": "^2.0.0",
     "gzip-size": "^5.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0-rc.15",
     "in-publish": "^2.0.0",
     "invariant": "^2.2.4",
     "lint-staged": "^7.3.0",
@@ -71,15 +71,15 @@
     "pretty-bytes": "^5.1.0",
     "raw-loader": "^0.5.1",
     "react": "^16.5.2",
-    "react-ace": "^6.1.4",
+    "react-ace": "^6.2.0",
     "react-dom": "^16.5.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "source-map-loader": "^0.2.4",
     "styled-components": "^3.4.9",
-    "webpack": "^4.19.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.8"
+    "webpack": "^4.20.0",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.9"
   },
   "keywords": [
     "react",
