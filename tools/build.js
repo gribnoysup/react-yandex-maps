@@ -29,13 +29,13 @@ exec('babel src -d es --ignore __tests__', {
 
 console.log('\nBuilding react-yandex-maps.js ...');
 
-exec('webpack src/index.js umd/react-yandex-maps.js', {
+exec('webpack src/index.js --output umd/react-yandex-maps.js', {
   NODE_ENV: 'production',
 });
 
 console.log('\nBuilding react-yandex-maps.min.js ...');
 
-exec('webpack -p src/index.js umd/react-yandex-maps.min.js', {
+exec('webpack -p src/index.js --output umd/react-yandex-maps.min.js', {
   NODE_ENV: 'production',
 });
 
