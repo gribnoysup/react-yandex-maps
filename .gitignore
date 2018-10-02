@@ -12,4 +12,5 @@ dist
 !.travis.yml
 
 package-lock.json
+npm-shrinkwrap.json
 coverage
