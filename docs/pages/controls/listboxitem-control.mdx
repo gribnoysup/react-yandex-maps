@@ -16,7 +16,7 @@ Renders Yandex.Maps API [ListBoxItem][control]
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 9
+  zoom: 9,
 };
 
 const ListBoxExample = () => (
@@ -24,13 +24,15 @@ const ListBoxExample = () => (
     <Map defaultState={mapState}>
       <ListBox data={{ content: 'Select city' }}>
         <ListBoxItem data={{ content: 'Moscow' }} />
-        <ListBoxItem data={{
-          content: 'Saint Petersburg'
-        }} />
+        <ListBoxItem
+          data={{
+            content: 'Saint Petersburg',
+          }}
+        />
       </ListBox>
     </Map>
   </YMaps>
-)
+);
 
 render(<ListBoxExample />);
 ```
@@ -43,9 +45,7 @@ render(<ListBoxExample />);
     secondaryName="data"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/#control.ListBoxItem__param-parameters.data"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/#control.ListBoxItem__param-parameters.data">
         ListBoxItem data
       </Link>
     }
@@ -55,9 +55,7 @@ render(<ListBoxExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/#control.ListBoxItem__param-parameters.options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/#control.ListBoxItem__param-parameters.options">
         ListBoxItem options
       </Link>
     }
@@ -67,9 +65,7 @@ render(<ListBoxExample />);
     secondaryName="state"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/#control.ListBoxItem__param-parameters.state"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/#control.ListBoxItem__param-parameters.state">
         Object describing the state of the ListBoxItem
       </Link>
     }
@@ -82,4 +78,5 @@ render(<ListBoxExample />);
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/#control.ListBoxItem__events-summary"
 />
 
-[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBoxItem-docpage/

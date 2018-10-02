@@ -72,10 +72,7 @@ export class Map extends React.Component {
       return Object.assign({}, style && { style }, className && { className });
     }
 
-    return Object.assign(
-      { style: Object.assign({ width, height }, style) },
-      className && { className }
-    );
+    return { style: { width, height } };
   }
 
   static mountObject(parentElement, Map, props) {
@@ -136,6 +133,13 @@ export class Map extends React.Component {
       if (oldOptions !== newOptions) {
         instance.options.set(newOptions);
       }
+    }
+
+    if (
+      getProp(oldProps, 'width') !== getProp(newProps, 'width') ||
+      getProp(oldProps, 'height') !== getProp(newProps, 'height')
+    ) {
+      instance.container.fitToViewport();
     }
 
     events.updateEvents(instance, oldEvents, newEvents);

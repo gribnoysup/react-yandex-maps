@@ -16,20 +16,20 @@ Renders Yandex.Maps API [Circle][]
 
 const mapState = {
   center: [55.76, 37.64],
-  zoom: 10
+  zoom: 10,
 };
 
 const CircleExample = () => (
   <YMaps>
     <Map defaultState={mapState}>
       <Circle
-        geometry={[[55.76, 37.60], 10000]}
+        geometry={[[55.76, 37.6], 10000]}
         options={{
           draggable: true,
-          fillColor: "#DB709377",
-          strokeColor: "#990066",
+          fillColor: '#DB709377',
+          strokeColor: '#990066',
           strokeOpacity: 0.8,
-          strokeWidth: 5
+          strokeWidth: 5,
         }}
       />
     </Map>
@@ -47,9 +47,7 @@ render(<CircleExample />);
     secondaryName="geometry"
     type="Array<number[] | number>"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#Circle__param-geometry"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#Circle__param-geometry">
         Circle geometry
       </Link>
     }
@@ -59,9 +57,7 @@ render(<CircleExample />);
     secondaryName="properties"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#Circle__param-properties"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#Circle__param-properties">
         Circle properties
       </Link>
     }
@@ -71,9 +67,7 @@ render(<CircleExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#Circle__param-options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#Circle__param-options">
         Circle options
       </Link>
     }
@@ -85,4 +79,5 @@ render(<CircleExample />);
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/#Circle__events-summary"
 />
 
-[Circle]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/
+[circle]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/

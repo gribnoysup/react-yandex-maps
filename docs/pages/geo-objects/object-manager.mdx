@@ -16,7 +16,7 @@ Renders Yandex.Maps API [ObjectManager][] object
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 10
+  zoom: 10,
 };
 
 const ObjectManagerExample = () => (
@@ -34,7 +34,7 @@ const ObjectManagerExample = () => (
         clusters={{
           preset: 'islands#redClusterIcons',
         }}
-        filter={(object) => object.id % 2 === 0}
+        filter={object => object.id % 2 === 0}
         defaultFeatures={features}
         modules={[
           'objectManager.addon.objectsBalloon',
@@ -56,9 +56,7 @@ render(<ObjectManagerExample />);
     secondaryName="features"
     type="Feature | FeatureCollection | Array<Feature | FeatureCollection>"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__add-param-objects"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__add-param-objects">
         ObjectManager features (object collections)
       </Link>
     }
@@ -68,9 +66,7 @@ render(<ObjectManagerExample />);
     secondaryName="filter"
     type="string | (f: Feature) => boolean"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__setFilter-param-filterFunction"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__setFilter-param-filterFunction">
         Filter function or string for objects
       </Link>
     }
@@ -80,9 +76,7 @@ render(<ObjectManagerExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__param-options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__param-options">
         ObjectManager options
       </Link>
     }
@@ -91,24 +85,21 @@ render(<ObjectManagerExample />);
     name="defaultObjects"
     secondaryName="objects"
     type="Object"
-    description={
-      "ObjectManager objects options"
-    }
+    description={'ObjectManager objects options'}
   />
   <PropItem
     name="defaultClusters"
     secondaryName="clusters"
     type="Object"
-    description={
-      "ObjectManager clusters options"
-    }
+    description={'ObjectManager clusters options'}
   />
   <CommonProps componentName="ObjectManager" />
 </Props>
 
-<Events 
+<Events
   componentName="ObjectManager"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__events-summary"
 />
 
-[ObjectManager]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/
+[objectmanager]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/

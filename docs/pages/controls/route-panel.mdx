@@ -16,24 +16,21 @@ Renders Yandex.Maps API [RoutePanel][control] control
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 9
+  zoom: 9,
 };
 
 const RoutePanelExample = () => (
   <YMaps>
-    <Map 
-      defaultState={mapState} 
-      height={320}
-    >
-      <RoutePanel 
-        options={{ 
-          showHeader: true, 
-          title: 'Build a route!' 
+    <Map defaultState={mapState} height={320}>
+      <RoutePanel
+        options={{
+          showHeader: true,
+          title: 'Build a route!',
         }}
       />
     </Map>
   </YMaps>
-)
+);
 
 render(<RoutePanelExample />);
 ```
@@ -46,9 +43,7 @@ render(<RoutePanelExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RoutePanel-docpage/#control.RoutePanel__param-parameters.options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RoutePanel-docpage/#control.RoutePanel__param-parameters.options">
         RoutePanel options
       </Link>
     }
@@ -58,9 +53,7 @@ render(<RoutePanelExample />);
     secondaryName="state"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RoutePanel-docpage/#control.RoutePanel__param-parameters.state"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RoutePanel-docpage/#control.RoutePanel__param-parameters.state">
         Object describing the state of the RoutePanel
       </Link>
     }
@@ -68,9 +61,10 @@ render(<RoutePanelExample />);
   <CommonProps componentName="RoutePanel" />
 </Props>
 
-<Events 
+<Events
   componentName="RoutePanel"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RoutePanel-docpage/#control.RoutePanel__events-summary"
 />
 
-[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RoutePanel-docpage/
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RoutePanel-docpage/

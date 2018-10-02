@@ -16,27 +16,24 @@ Renders Yandex.Maps API [Rectangle][]
 
 const mapState = {
   center: [55.674, 37.601],
-  zoom: 11
+  zoom: 11,
 };
 
 const RectangleExample = () => (
-      <YMaps>
-        <Map defaultState={mapState}>
-          <Rectangle
-            geometry={[
-              [55.66, 37.60],
-              [55.71, 37.69]
-            ]}
-            options={{
-              draggable: true,
-              fillColor: '#ffff0022',
-              strokeColor: '#3caa3c88',
-              strokeWidth: 7
-            }}
-          />
-        </Map>
-      </YMaps>
-    );
+  <YMaps>
+    <Map defaultState={mapState}>
+      <Rectangle
+        geometry={[[55.66, 37.6], [55.71, 37.69]]}
+        options={{
+          draggable: true,
+          fillColor: '#ffff0022',
+          strokeColor: '#3caa3c88',
+          strokeWidth: 7,
+        }}
+      />
+    </Map>
+  </YMaps>
+);
 
 render(<RectangleExample />);
 ```
@@ -49,9 +46,7 @@ render(<RectangleExample />);
     secondaryName="geometry"
     type="number[][]"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-geometry"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-geometry">
         Rectangle geometry
       </Link>
     }
@@ -61,9 +56,7 @@ render(<RectangleExample />);
     secondaryName="properties"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-properties"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-properties">
         Rectangle properties
       </Link>
     }
@@ -73,9 +66,7 @@ render(<RectangleExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__param-options">
         Rectangle options
       </Link>
     }
@@ -87,4 +78,5 @@ render(<RectangleExample />);
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/#Rectangle__events-summary"
 />
 
-[Rectangle]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/
+[rectangle]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Rectangle-docpage/
