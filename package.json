@@ -4,7 +4,7 @@
   "description": "Yandex.Maps API bindings for React",
   "main": "dist/react-yandex-maps.js",
   "umd:main": "dist/react-yandex-maps.umd.js",
-  "module": "dist/react-yandex-maps.m.js",
+  "module": "dist/react-yandex-maps.mjs",
   "source": "src/index.js",
   "files": [
     "README.md",
@@ -15,7 +15,10 @@
     "clear": "rm -rf dist",
     "prettier": "prettier --write",
     "lint": "eslint",
-    "build": "npm run clear && microbundle --jsx React.createElement --target web --strict true",
+    "microbundle": "microbundle --jsx React.createElement --name ReactYandexMaps --target web --strict true --external react",
+    "build": "npm run clear && npm run microbundle && npm run umd:globals && npm run umd:prod",
+    "umd:globals": "sed -i'.tmp' 's/\\.react/\\.React/g' \"dist/react-yandex-maps.umd.js\"",
+    "umd:prod": "terser --source-map --compress --define process.env.NODE_ENV='\"production\"' --output dist/react-yandex-maps.umd.js -- dist/react-yandex-maps.umd.js ",
     "dev": "microbundle watch --jsx React.createElement --target web --strict true --compress false",
     "release": "./scripts/release.sh",
     "test": "jest"
@@ -44,9 +47,10 @@
     "husky": "^1.0.0-rc.13",
     "jest": "^23.5.0",
     "lint-staged": "^7.2.2",
-    "microbundle": "^0.4.4",
+    "microbundle": "^0.6.0",
     "prettier": "^1.14.2",
-    "react": "^16.4.2"
+    "react": "^16.4.2",
+    "terser": "^3.9.2"
   },
   "keywords": [
     "react",
