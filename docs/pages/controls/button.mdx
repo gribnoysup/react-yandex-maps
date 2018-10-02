@@ -16,20 +16,20 @@ Renders Yandex.Maps API [Button][control] control
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 3
+  zoom: 3,
 };
 
 const ButtonExample = () => (
   <YMaps>
     <Map defaultState={mapState}>
-      <Button 
+      <Button
         data={{ content: 'Unpress me!' }}
         options={{ maxWidth: 128 }}
         defaultState={{ selected: true }}
       />
     </Map>
   </YMaps>
-)
+);
 
 render(<ButtonExample />);
 ```
@@ -42,9 +42,7 @@ render(<ButtonExample />);
     secondaryName="data"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/#control.Button__param-parameters.data"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/#control.Button__param-parameters.data">
         Button data
       </Link>
     }
@@ -54,9 +52,7 @@ render(<ButtonExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/#control.Button__param-parameters.options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/#control.Button__param-parameters.options">
         Button options
       </Link>
     }
@@ -66,9 +62,7 @@ render(<ButtonExample />);
     secondaryName="state"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/#control.Button__param-parameters.state"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/#control.Button__param-parameters.state">
         Object describing the state of the Button
       </Link>
     }
@@ -76,9 +70,10 @@ render(<ButtonExample />);
   <CommonProps componentName="Button" />
 </Props>
 
-<Events 
+<Events
   componentName="Button"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/#control.Button__events-summary"
 />
 
-[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/

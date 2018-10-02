@@ -37,16 +37,16 @@ API object. You can use this API in your components in various ways.
 > `INFO` Keep in mind that by default `react-yandex-maps` loads only the small
 > core of Yandex.Maps API, so if you need access to something that is not
 > included in the core of Yandex.Maps, you need to explicitly specify this.
-> There are several ways to do this: with the third argument of the
-> `withYMaps` HOC (as shown in the example above), with the `modules` prop
-> of connected component, or by providing required module in `query.load` prop
-> of `<YMaps />` component
+> There are several ways to do this: with the third argument of the `withYMaps`
+> HOC (as shown in the example above), with the `modules` prop of connected
+> component, or by providing required module in `query.load` prop of `<YMaps />`
+> component
 
 In the example below we are creating a HOC that will load Yandex.Maps Route API,
 and them we are using this API inside our `LengthPrinter` component to display
 route length on the screen
 
-~~~jsx
+```jsx
 // @live
 
 class LengthPrinter extends React.Component {
@@ -86,7 +86,7 @@ render(
     <ConnectedLengthPrinter route={['Moscow, Russia', 'Berlin, Germany']} />
   </YMaps>
 );
-~~~
+```
 
 ## Higher Order Component Props
 

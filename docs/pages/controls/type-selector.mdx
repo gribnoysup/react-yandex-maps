@@ -16,7 +16,7 @@ Renders Yandex.Maps API [TypeSelector][control] control
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 9
+  zoom: 9,
 };
 
 const TypeSelectorExample = () => (
@@ -25,7 +25,7 @@ const TypeSelectorExample = () => (
       <TypeSelector defaultState={{ expanded: true }} />
     </Map>
   </YMaps>
-)
+);
 
 render(<TypeSelectorExample />);
 ```
@@ -38,9 +38,7 @@ render(<TypeSelectorExample />);
     secondaryName="mapTypes"
     type="string[]"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.mapTypes"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.mapTypes">
         Array of strings for map types
       </Link>
     }
@@ -50,9 +48,7 @@ render(<TypeSelectorExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.options">
         TypeSelector options
       </Link>
     }
@@ -62,9 +58,7 @@ render(<TypeSelectorExample />);
     secondaryName="state"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.state"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__param-parameters.state">
         Object describing the state of the TypeSelector
       </Link>
     }
@@ -72,9 +66,10 @@ render(<TypeSelectorExample />);
   <CommonProps componentName="TypeSelector" />
 </Props>
 
-<Events 
+<Events
   componentName="TypeSelector"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/#control.TypeSelector__events-summary"
 />
 
-[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/

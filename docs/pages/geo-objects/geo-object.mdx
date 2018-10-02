@@ -16,7 +16,7 @@ Renders Yandex.Maps API [GeoObject][]
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 3
+  zoom: 3,
 };
 
 const GeoObjectExample = () => (
@@ -24,19 +24,19 @@ const GeoObjectExample = () => (
     <Map defaultState={mapState}>
       <GeoObject
         geometry={{
-          type: "Point",
-          coordinates: mapState.center
+          type: 'Point',
+          coordinates: mapState.center,
         }}
       />
       <GeoObject
         geometry={{
-          type: "LineString",
-          coordinates: [mapState.center, [52.51, 13.38]]
+          type: 'LineString',
+          coordinates: [mapState.center, [52.51, 13.38]],
         }}
         options={{
           geodesic: true,
           strokeWidth: 5,
-          strokeColor: "#F008"
+          strokeColor: '#F008',
         }}
       />
     </Map>
@@ -54,9 +54,7 @@ render(<GeoObjectExample />);
     secondaryName="geometry"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.geometry"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.geometry">
         GeoObject geometry
       </Link>
     }
@@ -66,9 +64,7 @@ render(<GeoObjectExample />);
     secondaryName="properties"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.properties"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature.properties">
         GeoObject properties
       </Link>
     }
@@ -78,9 +74,7 @@ render(<GeoObjectExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options">
         GeoObject options
       </Link>
     }
@@ -88,9 +82,10 @@ render(<GeoObjectExample />);
   <CommonProps componentName="GeoObject" />
 </Props>
 
-<Events 
+<Events
   componentName="GeoObject"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#GeoObject__events-summary"
 />
 
-[GeoObject]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/
+[geoobject]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/

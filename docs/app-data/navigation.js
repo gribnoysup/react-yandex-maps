@@ -31,6 +31,10 @@ export default [
         ],
       },
       {
+        uid: 'frequently-asked-questions',
+        title: 'Frequently Asked Questions',
+      },
+      {
         uid: 'geo-objects',
         title: 'Geo Objects',
         group: true,

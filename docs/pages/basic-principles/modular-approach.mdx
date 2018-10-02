@@ -10,8 +10,8 @@ some pros and cons to this system and there are also a way to opt out of this
 completely.
 
 By default this library will download only the modules that are actually
-rendered on the page. If `<Placemark />` or `<ObjectManager />` is not
-mounted in the page, corresponding would not be downloaded.
+rendered on the page. If `<Placemark />` or `<ObjectManager />` is not mounted
+in the page, corresponding would not be downloaded.
 
 That means that the amount of code your clients will download and execute will
 be as minimal as possible. On the other hand that means that instead of getting
@@ -20,7 +20,7 @@ think about what you are using on the page.
 
 In the example below, we are mounting Map with a Placemark on the page:
 
-~~~jsx
+```jsx
 // @live
 
 const state = { center: [55.75, 37.57], zoom: 9 };
@@ -34,7 +34,7 @@ const Application = () => (
 );
 
 render(<Application />);
-~~~
+```
 
 You can notice that all map controls that are usually provided on the map by
 default are missing here. This is happening because they are not part of the
@@ -45,7 +45,7 @@ default are missing here. This is happening because they are not part of the
 Let's fix this by specifying which controls we want exactly in the map `state`
 and then let's use the `modules` prop to load the ones we need:
 
-~~~jsx
+```jsx
 const state = {
   center: [55.75, 37.57],
   zoom: 9,
@@ -64,7 +64,7 @@ const Application = () => (
 );
 
 render(<Application />);
-~~~
+```
 
 Nice! Now we have controls on the map and we also avoided downloading the full
 package of Yandex.Maps API.
@@ -77,7 +77,7 @@ placemark. Balloon module is not downloaded with the base minimum bundle of
 Yandex.Maps API, so to actually see ballon we need to specify balloon addon as a
 module on the Placemark component.
 
-~~~jsx
+```jsx
 // @live
 
 const state = {
@@ -105,7 +105,7 @@ const Application = () => (
 );
 
 render(<Application />);
-~~~
+```
 
 ## Loading Modules With YMaps Provider `query` Prop
 
@@ -118,7 +118,7 @@ modules you want to load right away with the Yandex.Maps API.
 
 Lets see how the previous example could be changed to use this option:
 
-~~~jsx
+```jsx
 // @live
 
 const state = {
@@ -148,18 +148,19 @@ const Application = () => (
 );
 
 render(<Application />);
-~~~
+```
 
 Notice how we removed all `modules` props from all components and used
 `query.load` prop instead to specify all modules that are required.
 
 > `INFO` Yandex.Maps API default value for this option is `package.full`.
-> Setting `query.load` to `'package.full'` will set this library
-> to the mode that is completely matching the default Yandex.Maps
-> API behavior
+> Setting `query.load` to `'package.full'` will set this library to the mode
+> that is completely matching the default Yandex.Maps API behavior
 
 You can learn more about [Yandex.Maps API on-demand module system][5.3.1] and
 [API loading parameters][5.3.2] in Yandex.Maps documentation.
 
-[5.3.1]: https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/modules-docpage/#require
-[5.3.2]: https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/load-docpage/#param
+[5.3.1]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/modules-docpage/#require
+[5.3.2]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/load-docpage/#param

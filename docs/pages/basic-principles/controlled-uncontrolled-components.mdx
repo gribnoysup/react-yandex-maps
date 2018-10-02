@@ -34,8 +34,8 @@ class Application extends React.Component {
         <React.Fragment>
           <button
             onClick={() =>
-              this.setState(prevState => ({ 
-                zoom: prevState.zoom === 9 ? 12 : 9 
+              this.setState(prevState => ({
+                zoom: prevState.zoom === 9 ? 12 : 9,
               }))
             }
           >
@@ -58,10 +58,10 @@ render(<Application />);
 ```
 
 Every prop on every map object is this library supports the `default` version
-(e.g, `state` and `defaultState`, `options` and `defaultOptions`, `properties` and
-`defaultProperties`, `geometry` and `defaultGeometry`). By choosing to use `default`
-version you are opting out of this library updating map objects when the props
-are changed.
+(e.g, `state` and `defaultState`, `options` and `defaultOptions`, `properties`
+and `defaultProperties`, `geometry` and `defaultGeometry`). By choosing to use
+`default` version you are opting out of this library updating map objects when
+the props are changed.
 
 > `WARN` As mentioned in the "What Is Supported" section, there is no way to
 > prevent Yandex.Maps from updating maps objects state completely, so it is very

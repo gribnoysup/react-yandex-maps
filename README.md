@@ -29,7 +29,9 @@ If you want to work on the library locally:
 npm install
 ```
 
-3. Start library build in the watch mode. This command will start microbundle in watch mode, meaning that everytime you make changes to the source of the library it will be compiled to `dist` folder
+3. Start library build in the watch mode. This command will start microbundle in
+   watch mode, meaning that everytime you make changes to the source of the
+   library it will be compiled to `dist` folder
 
 ```sh
 npm run dev

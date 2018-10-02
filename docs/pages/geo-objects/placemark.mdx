@@ -16,15 +16,13 @@ Renders Yandex.Maps API [Placemark][]
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 5
+  zoom: 5,
 };
 
 const PlacemarkExample = () => (
   <YMaps>
     <Map defaultState={mapState}>
-      <Placemark
-        geometry={[55.684758, 37.738521]}
-      />
+      <Placemark geometry={[55.684758, 37.738521]} />
     </Map>
   </YMaps>
 );
@@ -40,9 +38,7 @@ render(<PlacemarkExample />);
     secondaryName="geometry"
     type="number[]"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-geometry"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-geometry">
         Placemark geometry
       </Link>
     }
@@ -52,9 +48,7 @@ render(<PlacemarkExample />);
     secondaryName="properties"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties">
         Placemark properties
       </Link>
     }
@@ -64,9 +58,7 @@ render(<PlacemarkExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-options">
         Placemark options
       </Link>
     }
@@ -78,4 +70,5 @@ render(<PlacemarkExample />);
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__events-summary"
 />
 
-[Placemark]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/
+[placemark]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/

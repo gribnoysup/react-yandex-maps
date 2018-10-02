@@ -16,29 +16,24 @@ Renders Yandex.Maps API [Polyline][]
 
 const mapState = {
   center: [55.72, 37.44],
-  zoom: 10
+  zoom: 10,
 };
 
 const PolylineExample = () => (
-      <YMaps>
-        <Map defaultState={mapState}>
-          <Polyline
-            geometry={[
-              [55.8, 37.5],
-              [55.8, 37.4],
-              [55.7, 37.5],
-              [55.7, 37.4],
-            ]}
-            options={{
-              balloonCloseButton: false,
-              strokeColor: "#000",
-              strokeWidth: 4,
-              strokeOpacity: 0.5
-            }}
-          />
-        </Map>
-      </YMaps>
-    );
+  <YMaps>
+    <Map defaultState={mapState}>
+      <Polyline
+        geometry={[[55.8, 37.5], [55.8, 37.4], [55.7, 37.5], [55.7, 37.4]]}
+        options={{
+          balloonCloseButton: false,
+          strokeColor: '#000',
+          strokeWidth: 4,
+          strokeOpacity: 0.5,
+        }}
+      />
+    </Map>
+  </YMaps>
+);
 
 render(<PolylineExample />);
 ```
@@ -51,9 +46,7 @@ render(<PolylineExample />);
     secondaryName="geometry"
     type="number[][]"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-geometry"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-geometry">
         Polyline geometry
       </Link>
     }
@@ -63,9 +56,7 @@ render(<PolylineExample />);
     secondaryName="properties"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-properties"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-properties">
         Polyline properties
       </Link>
     }
@@ -75,9 +66,7 @@ render(<PolylineExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__param-options">
         Polyline options
       </Link>
     }
@@ -89,4 +78,5 @@ render(<PolylineExample />);
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/#Polyline__events-summary"
 />
 
-[Polyline]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/
+[polyline]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polyline-docpage/

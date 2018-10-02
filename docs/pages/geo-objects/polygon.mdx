@@ -15,29 +15,35 @@ Renders Yandex.Maps API [Polygon][]
 // @live
 
 const mapState = {
-  center: [55.73, 37.90],
-  zoom: 10
+  center: [55.73, 37.9],
+  zoom: 10,
 };
 
 const PolygonExample = () => (
-      <YMaps>
-        <Map defaultState={mapState}>
-          <Polygon
-            geometry={[
-              [[55.75, 37.8], [55.8, 37.9], [55.75, 38.0], [55.7, 38.0], [55.7, 37.8]],
-              [[55.75, 37.82], [55.75, 37.98], [55.65, 37.9]]
-            ]}
-            options={{
-              fillColor: '#00FF00',
-              strokeColor: '#0000FF',
-              opacity: 0.5,
-              strokeWidth: 5,
-              strokeStyle: 'shortdash'
-            }}
-          />
-        </Map>
-      </YMaps>
-    );
+  <YMaps>
+    <Map defaultState={mapState}>
+      <Polygon
+        geometry={[
+          [
+            [55.75, 37.8],
+            [55.8, 37.9],
+            [55.75, 38.0],
+            [55.7, 38.0],
+            [55.7, 37.8],
+          ],
+          [[55.75, 37.82], [55.75, 37.98], [55.65, 37.9]],
+        ]}
+        options={{
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          opacity: 0.5,
+          strokeWidth: 5,
+          strokeStyle: 'shortdash',
+        }}
+      />
+    </Map>
+  </YMaps>
+);
 
 render(<PolygonExample />);
 ```
@@ -50,9 +56,7 @@ render(<PolygonExample />);
     secondaryName="geometry"
     type="number[][][]"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-geometry"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-geometry">
         Polygon geometry
       </Link>
     }
@@ -62,9 +66,7 @@ render(<PolygonExample />);
     secondaryName="properties"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-properties"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-properties">
         Polygon properties
       </Link>
     }
@@ -74,9 +76,7 @@ render(<PolygonExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__param-options">
         Polygon options
       </Link>
     }
@@ -88,4 +88,5 @@ render(<PolygonExample />);
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/#Polygon__events-summary"
 />
 
-[Polygon]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/
+[polygon]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/

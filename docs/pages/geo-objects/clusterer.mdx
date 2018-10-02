@@ -16,7 +16,7 @@ Renders Yandex.Maps API [GeoObject][]
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 5
+  zoom: 5,
 };
 
 const ClustererExample = () => (
@@ -28,7 +28,9 @@ const ClustererExample = () => (
           groupByCoordinates: false,
         }}
       >
-        {points.map((coordinates, index) => <Placemark key={index} geometry={coordinates} />)}
+        {points.map((coordinates, index) => (
+          <Placemark key={index} geometry={coordinates} />
+        ))}
       </Clusterer>
     </Map>
   </YMaps>
@@ -45,9 +47,7 @@ render(<ClustererExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__param-options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__param-options">
         Clusterer options
       </Link>
     }
@@ -55,9 +55,10 @@ render(<ClustererExample />);
   <CommonProps componentName="Clusterer" />
 </Props>
 
-<Events 
+<Events
   componentName="Clusterer"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__events-summary"
 />
 
-[Clusterer]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/
+[clusterer]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/

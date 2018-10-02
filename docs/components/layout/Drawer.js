@@ -144,7 +144,7 @@ export class Drawer extends React.Component {
 
                   return (
                     <StyledNavSection key={uid} p={3}>
-                      <H3 my={2} mt={0}>
+                      <H3 my={2} mt={0} withAnchor={false}>
                         {title}
                       </H3>
                       {children.map(({ title, uid: childUid }) => (

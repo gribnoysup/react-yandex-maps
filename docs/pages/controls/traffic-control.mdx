@@ -16,21 +16,21 @@ Renders Yandex.Maps API [TrafficControl][control] control
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 9
+  zoom: 9,
 };
 
 const TrafficControlExample = () => (
   <YMaps>
     <Map defaultState={mapState}>
-      <TrafficControl 
-        defaultState={{ 
+      <TrafficControl
+        defaultState={{
           trafficShown: true,
-          providerKey: 'traffic#archive'
+          providerKey: 'traffic#archive',
         }}
       />
     </Map>
   </YMaps>
-)
+);
 
 render(<TrafficControlExample />);
 ```
@@ -43,9 +43,7 @@ render(<TrafficControlExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/#control.TrafficControl__param-parameters.options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/#control.TrafficControl__param-parameters.options">
         TrafficControl options
       </Link>
     }
@@ -55,9 +53,7 @@ render(<TrafficControlExample />);
     secondaryName="state"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/#control.TrafficControl__param-parameters.state"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/#control.TrafficControl__param-parameters.state">
         Object describing the state of the TrafficControl
       </Link>
     }
@@ -65,9 +61,10 @@ render(<TrafficControlExample />);
   <CommonProps componentName="TrafficControl" />
 </Props>
 
-<Events 
+<Events
   componentName="TrafficControl"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/#control.TrafficControl__events-summary"
 />
 
-[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/

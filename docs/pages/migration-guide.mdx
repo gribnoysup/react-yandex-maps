@@ -29,7 +29,7 @@ in `v2`.
     center: [55.76, 37.64],
     controls: ['zoomControl'],
   }}
-/>
+/>;
 ```
 
 Good thing about this example is that you just specify zoom control in controls
@@ -51,7 +51,7 @@ options here:
   }}
 >
   <ZoomControl />
-</Map>
+</Map>;
 ```
 
 2. Specify zoom control in special modules property:
@@ -64,7 +64,7 @@ options here:
     controls: ['zoomControl'],
   }}
   modules={['control.ZoomControl']}
-/>
+/>;
 ```
 
 3. Use Yandex.Maps `query.load` parameter in YMaps provider component:
@@ -78,7 +78,7 @@ options here:
       controls: ['zoomControl'],
     }}
   />
-</YMaps>
+</YMaps>;
 ```
 
 > `INFO` Yandex.Maps API default value for this option is `package.full`.
@@ -94,7 +94,7 @@ if you need hint or balloon on the screen, please use the second option:
 <Placemark
   geometry={[55.684758, 37.738521]}
   modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
-/>
+/>;
 ```
 
 Or create a new component so you don't need to repeat yourself:
@@ -120,7 +120,7 @@ Below is an example of using `onApiAvaliable` in `v2`.
 ```jsx
 <YMaps onApiAvaliable={ymaps => console.log(ymaps)}>
   <Map />
-</YMaps>
+</YMaps>;
 ```
 
 Now you can use `onLoad` event callback on components to get access to `ymaps`
@@ -129,7 +129,7 @@ instance
 ```jsx
 <YMaps>
   <Map onLoad={ymaps => console.log(ymaps)} />
-</YMaps>
+</YMaps>;
 ```
 
 Why no `onLoad` event on the `Provider` itself? Reason is that starting from

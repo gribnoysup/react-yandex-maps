@@ -16,18 +16,16 @@ Renders Yandex.Maps API [RulerControl][control] control
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 3
+  zoom: 3,
 };
 
 const RulerControlExample = () => (
   <YMaps>
     <Map defaultState={mapState}>
-      <RulerControl 
-        options={{ scaleLine: false }}
-      />
+      <RulerControl options={{ scaleLine: false }} />
     </Map>
   </YMaps>
-)
+);
 
 render(<RulerControlExample />);
 ```
@@ -40,9 +38,7 @@ render(<RulerControlExample />);
     secondaryName="data"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.data"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.data">
         RulerControl data
       </Link>
     }
@@ -52,9 +48,7 @@ render(<RulerControlExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.options">
         RulerControl options
       </Link>
     }
@@ -64,9 +58,7 @@ render(<RulerControlExample />);
     secondaryName="state"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.state"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.state">
         Object describing the state of the RulerControl
       </Link>
     }
@@ -74,9 +66,10 @@ render(<RulerControlExample />);
   <CommonProps componentName="RulerControl" />
 </Props>
 
-<Events 
+<Events
   componentName="RulerControl"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__events-summary"
 />
 
-[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/

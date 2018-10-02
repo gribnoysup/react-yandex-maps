@@ -16,21 +16,21 @@ Renders Yandex.Maps API [ZoomControl][control] control
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 3
+  zoom: 3,
 };
 
 const ZoomControlExample = () => (
   <YMaps>
     <Map defaultState={mapState}>
-      <ZoomControl 
-        options={{ 
+      <ZoomControl
+        options={{
           size: 'small',
           zoomDuration: 1000,
         }}
       />
     </Map>
   </YMaps>
-)
+);
 
 render(<ZoomControlExample />);
 ```
@@ -43,9 +43,7 @@ render(<ZoomControlExample />);
     secondaryName="data"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/#control.ZoomControl__param-parameters.data"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/#control.ZoomControl__param-parameters.data">
         ZoomControl data
       </Link>
     }
@@ -55,9 +53,7 @@ render(<ZoomControlExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/#control.ZoomControl__param-parameters.options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/#control.ZoomControl__param-parameters.options">
         ZoomControl options
       </Link>
     }
@@ -67,9 +63,7 @@ render(<ZoomControlExample />);
     secondaryName="state"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/#control.ZoomControl__param-parameters.state"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/#control.ZoomControl__param-parameters.state">
         Object describing the state of the ZoomControl
       </Link>
     }
@@ -77,9 +71,10 @@ render(<ZoomControlExample />);
   <CommonProps componentName="ZoomControl" />
 </Props>
 
-<Events 
+<Events
   componentName="ZoomControl"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/#control.ZoomControl__events-summary"
 />
 
-[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ZoomControl-docpage/

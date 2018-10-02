@@ -16,19 +16,19 @@ Renders Yandex.Maps API [RouteEditor][control] control
 
 const mapState = {
   center: [55.751574, 37.573856],
-  zoom: 9
+  zoom: 9,
 };
 
 const RouteEditorExample = () => (
   <YMaps>
     <Map defaultState={mapState}>
-      <RouteEditor 
+      <RouteEditor
         data={{ title: 'Click this to create a route' }}
         options={{ float: 'right' }}
       />
     </Map>
   </YMaps>
-)
+);
 
 render(<RouteEditorExample />);
 ```
@@ -41,9 +41,7 @@ render(<RouteEditorExample />);
     secondaryName="data"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.data"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.data">
         RouteEditor data
       </Link>
     }
@@ -53,9 +51,7 @@ render(<RouteEditorExample />);
     secondaryName="options"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.options"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.options">
         RouteEditor options
       </Link>
     }
@@ -65,9 +61,7 @@ render(<RouteEditorExample />);
     secondaryName="state"
     type="Object"
     description={
-      <Link
-        href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.state"
-      >
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.state">
         Object describing the state of the RouteEditor
       </Link>
     }
@@ -75,9 +69,10 @@ render(<RouteEditorExample />);
   <CommonProps componentName="RouteEditor" />
 </Props>
 
-<Events 
+<Events
   componentName="RouteEditor"
   url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__events-summary"
 />
 
-[control]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/
