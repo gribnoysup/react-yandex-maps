@@ -1,90 +1,67 @@
-export const events = {
-  onBallonClose: 'balloonclose',
-  onBalloonOpen: 'balloonopen',
-  onBeforeDrag: 'beforedrag',
-  onBeforeDragStart: 'beforedragstart',
-  onClick: 'click',
-  onContextMenu: 'contextmenu',
-  onDblClick: 'dblclick',
-  onDrag: 'drag',
-  onDragEnd: 'dragend',
-  onDragStart: 'dragstart',
-  onEditorStateChange: 'editorstatechange',
-  onGeometryChange: 'geometrychange',
-  onHintClose: 'hintclose',
-  onHintOpen: 'hintopen',
-  onMapChange: 'mapchange',
-  onMouseDown: 'mousedown',
-  onMouseEnter: 'mouseenter',
-  onMouseLeave: 'mouseleave',
-  onMouseMove: 'mousemove',
-  onMouseUp: 'mouseup',
-  onMultiTouchEnd: 'multitouchend',
-  onMultiTouchMove: 'multitouchmove',
-  onMultiTouchStart: 'multitouchstart',
-  onOptionsChange: 'optionschange',
-  onOverlayChange: 'overlaychange',
-  onParentChange: 'parentchange',
-  onPropertiesChange: 'propertieschange',
-  onWheel: 'wheel',
-  onBalloonClose: 'balloonclose',
-  onActionBegin: 'actionbegin',
-  onActionBreak: 'actionbreak',
-  onActionEnd: 'actionend',
-  onActionTick: 'actiontick',
-  onActionTickComplete: 'actiontickcomplete',
-  onBoundsChange: 'boundschange',
-  onDestroy: 'destroy',
-  onMarginChange: 'marginchange',
-  onSizeChange: 'sizechange',
-  onTypeChange: 'typechange',
-  onDeselect: 'deselect',
-  onDisable: 'disable',
-  onEnable: 'enable',
-  onPress: 'press',
-  onSelect: 'select',
-  onFullscreenEnter: 'fullscreenenter',
-  onFullscreenExit: 'fullscreenexit',
-  onLocationChange: 'locationchange',
-  onClear: 'clear',
-  onError: 'error',
-  onLoad: 'load',
-  onResultSelect: 'resultselect',
-  onResultShow: 'resultshow',
-  onSubmit: 'submit',
-  onCollapse: 'collapse',
-  onExpand: 'expand',
-  onHideTraffic: 'hidetraffic',
-  onProviderKeyChange: 'providerkeychange',
-  onShowTraffic: 'showtraffic',
-  onAdd: 'add',
-  onRemove: 'remove',
-};
+const EVENTS_REGEX = /^on(?=[A-Z])/;
 
+/**
+ * Separates YMaps events from other component props based on prop name
+ *
+ * @param {Object} props Component props
+ * @returns {Object} Separated _event props and other component props
+ */
 export function separateEvents(props) {
-  const eventsRegExp = /^on[A-Z]/;
-  const events = {};
-  const rest = {};
+  return Object.keys(props).reduce(
+    (acc, key) => {
+      if (EVENTS_REGEX.test(key)) {
+        const eventName = key.replace(EVENTS_REGEX, '').toLowerCase();
+        acc._events[eventName] = props[key];
+      } else {
+        acc[key] = props[key];
+      }
 
-  Object.keys(props).forEach(key => {
-    if (eventsRegExp.test(key)) {
-      events[key] = props[key];
-    } else {
-      rest[key] = props[key];
+      return acc;
+    },
+    { _events: {} }
+  );
+}
+
+/**
+ * Adds event to YMaps object
+ *
+ * @param {Object} instance YMaps object instance
+ * @param {string} eventName Event name (e.g., "onclick", "ontouchstart")
+ * @param {Function} handler Event handler method
+ */
+export function addEvent(instance, eventName, handler) {
+  if (typeof handler === 'function') {
+    instance.events.add(eventName, handler);
+  }
+}
+
+/**
+ * Removes event from YMaps object
+ *
+ * @param {Object} instance YMaps object instance
+ * @param {string} eventName Event name (e.g., "onclick", "ontouchstart")
+ * @param {Function} handler Event handler method
+ */
+export function removeEvent(instance, eventName, handler) {
+  if (typeof handler === 'function') {
+    instance.events.remove(eventName, handler);
+  }
+}
+
+/**
+ * Given two objects with new and old events, checks if event was
+ * changed and updates it by removing the old one and adding the
+ * new one
+ *
+ * @param {Object} instance YMaps object instance
+ * @param {Object} oldEvents Map of old events
+ * @param {Object} newEvents Map of new events
+ */
+export function updateEvents(instance, oldEvents, newEvents) {
+  Object.keys(Object.assign({}, oldEvents, newEvents)).forEach(eventName => {
+    if (oldEvents[eventName] !== newEvents[eventName]) {
+      removeEvent(instance, eventName, oldEvents[eventName]);
+      addEvent(instance, eventName, newEvents[eventName]);
     }
   });
-
-  return { events, ...rest };
-}
-
-export function addEvent(event, key, instance) {
-  if (events[key] && typeof event === 'function') {
-    instance.events.add(events[key], event);
-  }
-}
-
-export function removeEvent(event, key, instance) {
-  if (events[key] && typeof event === 'function') {
-    instance.events.remove(events[key], event);
-  }
 }

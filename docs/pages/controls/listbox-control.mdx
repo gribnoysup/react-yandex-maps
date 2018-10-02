@@ -1,0 +1,82 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# ListBox
+
+Renders Yandex.Maps API [ListBox][control]
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 9,
+};
+
+const ListBoxExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <ListBox data={{ content: 'Select city' }}>
+        <ListBoxItem data={{ content: 'Moscow' }} />
+        <ListBoxItem
+          data={{
+            content: 'Saint Petersburg',
+          }}
+        />
+      </ListBox>
+    </Map>
+  </YMaps>
+);
+
+render(<ListBoxExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultData"
+    secondaryName="data"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBox-docpage/#control.ListBox__param-parameters.data">
+        ListBox data
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBox-docpage/#control.ListBox__param-parameters.options">
+        ListBox options
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultState"
+    secondaryName="state"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBox-docpage/#control.ListBox__param-parameters.state">
+        Object describing the state of the ListBox
+      </Link>
+    }
+  />
+  <CommonProps componentName="ListBox" />
+</Props>
+
+<Events
+  componentName="ListBox"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBox-docpage/#control.ListBox__events-summary"
+/>
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBox-docpage/

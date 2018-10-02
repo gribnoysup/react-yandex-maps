@@ -1,181 +1,75 @@
-# react-yandex-maps
+# react-yandex-maps v3.0.1-canary
 
-[Yandex Maps API](https://tech.yandex.ru/maps/doc/jsapi/2.1/quick-start/tasks/quick-start-docpage/)
-bindings for React
+> For latest stable version see [`v2.2.0`][latest]
 
-## Install
+[Yandex.Maps JS API][ymaps-api] bindings for React
 
-```shell
-npm install --save react-yandex-maps
+[ymaps-api]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/quick-start/index-docpage/
+[latest]: https://github.com/gribnoysup/react-yandex-maps/tree/v2.2.0
+
+## Documentation
+
+You can find the documentation at https://react-yandex-maps.now.sh
+
+## Contributing
+
+Feel free to submit issues and/or PRs if you found bugs 🐞 or have some features
+in mind! The documentation improvements will be super appreciated, if you feel
+that docs are lacking in some places 📝👩‍🔬
+
+### Developing locally (Quick Start)
+
+If you want to work on the library locally:
+
+1. Fork this repository and clone your version of the repo
+2. Install npm dependencies
+
+```sh
+npm install
 ```
 
-## Components
+3. Start library build in the watch mode. This command will start microbundle in
+   watch mode, meaning that everytime you make changes to the source of the
+   library it will be compiled to `dist` folder
 
-### Basic components
-
-- `<YMaps />` - provides child components with yandex maps api via context
-- `<Map />` - Map instance
-- `<Clusterer />` - Clusterer instance
-- `<ObjectManager />` - ObjectManager instance
-- `<GeoObject />` - generic GeoObject instance
-- `<Control />` - generic Control instance
-
-### GeoObject shorthands
-
-- `<Placemark />`
-- `<Polyline />`
-- `<Rectangle />`
-- `<Polygon />`
-- `<Circle />`
-
-### Control shorthands
-
-- `<Button />`
-- `<FullscreenControl />`
-- `<GeolocationControl />`
-- `<RouteEditor />`
-- `<RulerControl />`
-- `<SearchControl />`
-- `<TrafficControl />`
-- `<TypeSelector />`
-- `<ZoomControl />`
-- `<ListBox />`
-- `<ListBoxItem />`
-
-## Basic Usage (compared to [yandex maps quick start guide](https://tech.yandex.com/maps/doc/jsapi/2.1/quick-start/tasks/quick-start-docpage/))
-
-### With Yandex Maps API
-
-```js
-window.ymaps.ready(function () {
-  const myMap = new window.ymaps.Map('map', {
-    center: [55.751574, 37.573856],
-    zoom: 9
-  }, {
-    searchControlProvider: 'yandex#search'
-  })
-
-  const myPlacemark = new window.ymaps.Placemark([55.751574, 37.573856], {
-    hintContent: 'Собственный значок метки',
-    balloonContent: 'Это красивая метка'
-  }, {
-    iconLayout: 'default#image',
-    iconImageHref: 'images/myIcon.gif',
-    iconImageSize: [30, 42],
-    iconImageOffset: [-3, -42]
-  })
-
-  myMap.geoObjects.add(myPlacemark)
-})
+```sh
+npm run dev
 ```
 
-### With react-yandex-maps
+4. Install documentation dependencies
 
-```js
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
-
-const mapState = { center: [55.76, 37.64], zoom: 10 };
-
-const MyPlacemark = () => (
-  <YMaps>
-    <Map state={mapState}>
-
-      <Placemark
-        geometry={{
-          coordinates: [55.751574, 37.573856]
-        }}
-        properties={{
-          hintContent: 'Собственный значок метки',
-          balloonContent: 'Это красивая метка'
-        }}
-        options={{
-          iconLayout: 'default#image',
-          iconImageHref: 'images/myIcon.gif',
-          iconImageSize: [30, 42],
-          iconImageOffset: [-3, -42]
-        }}
-      />
-
-    </Map>
-  </YMaps>
-);
+```sh
+cd docs && npm install
 ```
 
-## Enterprise
+5. Start docs server locally
 
-`react-yandex-maps` library also supports enterprise version of Yandex.Maps API:
-
-```jsx
-  <YMaps
-    enterprise
-    query={{
-      apikey: '// your api key here',
-    }}
-  />
+```sh
+npm run dev
 ```
 
-## Events
+If everything went well, you now have documentation running on
+`http://localhost:3000`
 
-All Objects events are available, just use camelCase event names instead of
-default ones (for example `geometrychange -> onGeometryChange`):
+You can find special sandbox page on
+[`http://localhost:3000/sandbox`](http://localhost:3000/sandbox)
 
-### With Yandex Maps API
+Now you can make changes to the library and see them applied to the sandbox in
+real time.
 
-```js
-function onGeometryChange() {/* more code */}
+When you commit changes, eslint will make sure that there are no linting errors
+and prettier will format your code based on the repo settings.
 
-const circle = new window.ymaps.GeoObject({
-  geometry: {
-    type: "Circle",
-    coordinates: [55.76, 37.64],
-    radius: 10000
-  }
-})
+When you push changes, jest will run a set of unit tests to make sure that all
+of them are passing.
 
-circle.events.add('geometrychange', handleEventSomehow)
-```
+## License
 
-### With react-yandex-maps
+[MIT](LICENSE)
 
-```js
-import { Circle } from 'react-yandex-maps'
+## Kudos
 
-const CircleWithEvents = ({onGeometryChange}) => (
-  <Circle
-    geometry={{
-      coordinates: [55.76, 37.64],
-      radius: 10000
-    }}
-    onGeometryChange={onGeometryChange}
-  />
-)
-```
-
-## The `instanceRef` Callback Attribute
-
-`react-yandex-maps` supports a special attribute, that [works similar]
-(https://facebook.github.io/react/docs/refs-and-the-dom.html) to React `ref`
-attribute. `react-yandex-maps` will call the `instanceRef` callback with the
-YandexMap Object instance when the component mounts, and call it with `null`
-when it unmounts.
-
-## More Examples
-
-You can go to https://gribnoysup.github.io/react-yandex-maps/ to look at examples,
-or clone this repo, `cd` to repo folder and run `npm start`
-
-```shell
-git clone https://github.com/gribnoysup/react-yandex-maps.git
-cd ./react-yandex-maps
-npm install && npm run examples
-```
-
-## TODO
-
-- [ ] Add tests
-- [ ] Add more propTypes
-- [ ] Add more examples
-
-## Acknowledgements
-
-Thanks to [@effrenus](https://github.com/effrenus/) and his [yandex-map-react](https://github.com/effrenus/yandex-map-react) for inspiration
+Thanks to [@effrenus](https://github.com/effrenus/) and his
+[yandex-map-react](https://github.com/effrenus/yandex-map-react) for inspiring
+this library

@@ -1,89 +1,56 @@
 {
   "name": "react-yandex-maps",
-  "version": "2.3.0",
-  "description": "Yandex Maps API bindings for React",
-  "main": "main/index.js",
-  "module": "es/index.js",
+  "version": "3.0.0",
+  "description": "Yandex.Maps API bindings for React",
+  "main": "dist/react-yandex-maps.js",
+  "umd:main": "dist/react-yandex-maps.umd.js",
+  "module": "dist/react-yandex-maps.mjs",
+  "source": "src/index.js",
   "files": [
-    "es",
-    "main",
-    "umd",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "dist"
   ],
   "scripts": {
-    "prepublish": "npm run build",
-    "postpublish": "npm run publish:examples",
-    "examples": "webpack-dev-server --config ./examples/webpack.config.js",
-    "build:examples": "rm -rf ./examples/build && NODE_ENV=production webpack -p --config ./examples/webpack.config.js",
-    "build": "NODE_ENV=production node ./tools/build.js",
-    "dev": "babel src -w -d main --ignore __tests__",
-    "prettier": "npm run prettier:src && npm run prettier:examples",
-    "prettier:src": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\"",
-    "prettier:examples": "prettier --single-quote --trailing-comma es5 --write \"./examples/src/**/*.js\"",
-    "prettier:staged": "prettier --single-quote --trailing-comma es5 --write",
-    "publish:examples": "npm run build:examples && gh-pages -d ./examples/build"
-  },
-  "lint-staged": {
-    "*.js": [
-      "npm run prettier:staged",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "clear": "rm -rf dist",
+    "prettier": "prettier --write",
+    "lint": "eslint",
+    "microbundle": "microbundle --jsx React.createElement --name ReactYandexMaps --target web --strict true --external react",
+    "build": "npm run clear && npm run microbundle && npm run umd:globals && npm run umd:prod",
+    "umd:globals": "sed -i'.tmp' 's/\\.react/\\.React/g' \"dist/react-yandex-maps.umd.js\"",
+    "umd:prod": "terser --source-map --compress --define process.env.NODE_ENV='\"production\"' --output dist/react-yandex-maps.umd.js -- dist/react-yandex-maps.umd.js ",
+    "dev": "microbundle watch --jsx React.createElement --target web --strict true --compress false",
+    "release": "./scripts/release.sh",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gribnoysup/react-yandex-maps.git"
+    "url": "git+https://github.com/gribnoysup/react-yandex-maps.git"
   },
   "peerDependencies": {
     "react": "^0.14.9 || ^15.x || ^16.x"
   },
   "dependencies": {
-    "prop-types": "^15.6.2"
+    "create-react-context": "^0.2.2",
+    "prop-types": "^15.6.2",
+    "react-display-name": "^0.2.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.4",
-    "babel-plugin-dev-expression": "^0.2.1",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.18",
-    "brace": "^0.11.1",
-    "eslint": "^5.6.1",
-    "eslint-config-react-app": "^2.1.0",
-    "eslint-plugin-flowtype": "^2.50.3",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-jest": "^21.22.0",
     "eslint-plugin-react": "^7.11.1",
-    "file-loader": "^2.0.0",
-    "fs-extra": "^7.0.0",
-    "gh-pages": "^2.0.0",
-    "gzip-size": "^5.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "husky": "^1.0.1",
-    "in-publish": "^2.0.0",
-    "invariant": "^2.2.4",
-    "lint-staged": "^7.3.0",
-    "prettier": "^1.14.3",
-    "pretty-bytes": "^5.1.0",
-    "raw-loader": "^0.5.1",
-    "react": "^16.5.2",
-    "react-ace": "^6.2.0",
-    "react-dom": "^16.5.2",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "source-map-loader": "^0.2.4",
-    "styled-components": "^3.4.9",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "husky": "^1.0.0-rc.13",
+    "jest": "^23.5.0",
+    "lint-staged": "^7.2.2",
+    "microbundle": "^0.6.0",
+    "prettier": "github:prettier/prettier",
+    "react": "^16.4.2",
+    "terser": "^3.9.2"
   },
   "keywords": [
     "react",
@@ -93,5 +60,41 @@
     "yandex-maps"
   ],
   "author": "Sergey Petushkov <petushkov.sergey@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "sideEffects": false,
+  "bugs": {
+    "url": "https://github.com/gribnoysup/react-yandex-maps/issues"
+  },
+  "homepage": "https://react-yandex-maps.now.sh",
+  "directories": {
+    "doc": "docs"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test -- --coverage"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "npm run prettier",
+      "git add"
+    ],
+    "*.{json,yml,css,md}": [
+      "npm run prettier",
+      "git add"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost",
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.js",
+      "!**/*.test.js"
+    ],
+    "transform": {
+      "^.+\\.js$": "./jest.transform.js"
+    }
+  }
 }

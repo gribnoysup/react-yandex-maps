@@ -1,13 +1,17 @@
-es
-main
 node_modules
-umd
-examples/build
+dist
 
-npm-shrinkwrap.json
-package-lock.json
+*.tmp
 
 .*
 !.gitignore
+!.npmignore
 !.babelrc
+!.eslintrc.js
 !.eslintrc
+!.npmrc
+!.travis.yml
+
+package-lock.json
+npm-shrinkwrap.json
+coverage

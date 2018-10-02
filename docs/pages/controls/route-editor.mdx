@@ -1,0 +1,78 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# RouteEditor
+
+Renders Yandex.Maps API [RouteEditor][control] control
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 9,
+};
+
+const RouteEditorExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <RouteEditor
+        data={{ title: 'Click this to create a route' }}
+        options={{ float: 'right' }}
+      />
+    </Map>
+  </YMaps>
+);
+
+render(<RouteEditorExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultData"
+    secondaryName="data"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.data">
+        RouteEditor data
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.options">
+        RouteEditor options
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultState"
+    secondaryName="state"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__param-parameters.state">
+        Object describing the state of the RouteEditor
+      </Link>
+    }
+  />
+  <CommonProps componentName="RouteEditor" />
+</Props>
+
+<Events
+  componentName="RouteEditor"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/#control.RouteEditor__events-summary"
+/>
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/

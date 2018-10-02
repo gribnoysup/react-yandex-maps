@@ -1,0 +1,74 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Placemark
+
+Renders Yandex.Maps API [Placemark][]
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 5,
+};
+
+const PlacemarkExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <Placemark geometry={[55.684758, 37.738521]} />
+    </Map>
+  </YMaps>
+);
+
+render(<PlacemarkExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultGeometry"
+    secondaryName="geometry"
+    type="number[]"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-geometry">
+        Placemark geometry
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultProperties"
+    secondaryName="properties"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties">
+        Placemark properties
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__param-options">
+        Placemark options
+      </Link>
+    }
+  />
+</Props>
+
+<Events
+  componentName="Placemark"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/#Placemark__events-summary"
+/>
+
+[placemark]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/

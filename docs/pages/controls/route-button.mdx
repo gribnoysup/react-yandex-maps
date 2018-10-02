@@ -1,0 +1,75 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# RouteButton
+
+Renders Yandex.Maps API [RouteButton][control] control
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 9,
+};
+
+const RouteButtonExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <RouteButton options={{ float: 'right' }} />
+    </Map>
+  </YMaps>
+);
+
+render(<RouteButtonExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultData"
+    secondaryName="data"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteButton-docpage/#control.RouteButton__param-parameters.data">
+        RouteButton data
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteButton-docpage/#control.RouteButton__param-parameters.options">
+        RouteButton options
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultState"
+    secondaryName="state"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteButton-docpage/#control.RouteButton__param-parameters.state">
+        Object describing the state of the RouteButton
+      </Link>
+    }
+  />
+  <CommonProps componentName="RouteButton" />
+</Props>
+
+<Events
+  componentName="RouteButton"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteButton-docpage/#control.RouteButton__events-summary"
+/>
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteButton-docpage/

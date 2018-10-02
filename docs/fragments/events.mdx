@@ -1,0 +1,38 @@
+import { Paragraph } from '../components/markdown/Text'
+import { Link } from '../components/markdown/Link'
+
+export default ({ children, componentName, url }) => (
+  <React.Fragment>
+    {children}
+    <Paragraph>
+      All supported {componentName} object events could be
+      found in the <Link href={url}>Yandex.Maps documentation</Link>
+    </Paragraph>
+  </React.Fragment>
+)
+
+## Events
+
+All Yandex.Maps object [events][] are supported on the components in this library. 
+To pass an event handler to Yandex.Maps object add `on` to the even name and pass it as a prop.
+
+Here are a few examples comparing Yandex.Maps API way to attaching events with `react-yandex-maps`:
+
+```jsx
+const handleClick = (event) => console.log('Clicked', event);
+
+// With Yandex.Maps API you would do
+// something like this:
+map.events.add('click', handleClick);
+
+// With react-yandex-maps just pass
+// a handler how you would usually
+// do it in React:
+<Map onClick={handleClick} />
+
+// This works for all components
+// provided by this library:
+<GeoObject onClick={handleClick} />
+```
+
+[events]: https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/events-docpage/
