@@ -5,6 +5,7 @@ dist
 
 .*
 !.gitignore
+!.npmignore
 !.babelrc
 !.eslintrc.js
 !.eslintrc
