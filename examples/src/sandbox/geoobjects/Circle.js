@@ -3,7 +3,7 @@ import { YMaps, Map, Circle } from 'react-yandex-maps';
 
 const mapState = { center: [55.76, 37.64], zoom: 10 };
 
-const CircleDemo = () =>
+const CircleDemo = () => (
   <YMaps>
     <Map state={mapState}>
       <Circle
@@ -37,6 +37,7 @@ const CircleDemo = () =>
         }}
       />
     </Map>
-  </YMaps>;
+  </YMaps>
+);
 
 export default CircleDemo;

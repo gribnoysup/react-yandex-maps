@@ -3,7 +3,7 @@ import { YMaps, Map, GeoObject, Polyline } from 'react-yandex-maps';
 
 const mapState = { center: [55.72, 37.44], zoom: 10 };
 
-const PolylineDemo = () =>
+const PolylineDemo = () => (
   <YMaps>
     {/* Creating the map. */}
     <Map state={mapState}>
@@ -58,6 +58,7 @@ const PolylineDemo = () =>
         }}
       />
     </Map>
-  </YMaps>;
+  </YMaps>
+);
 
 export default PolylineDemo;

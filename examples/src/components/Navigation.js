@@ -13,7 +13,7 @@ const List = styled.ul`
 
 const NavHeader = styled.li`
   padding: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer;
 
   &:hover {
@@ -27,7 +27,7 @@ const NavItem = styled.li`
   cursor: pointer;
 
   &:last-child {
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   &:hover {
@@ -35,20 +35,21 @@ const NavItem = styled.li`
   }
 `;
 
-const Navigation = ({ path, name, id, onClick, routes, active, history }) =>
+const Navigation = ({ path, name, id, onClick, routes, active, history }) => (
   <List>
     <NavHeader id={id} onClick={onClick}>
       {name}
     </NavHeader>
 
     {active &&
-      routes.map(route =>
+      routes.map(route => (
         <NavItem key={route.name} onClick={() => history.push(path + route.to)}>
           <Link to={path + route.to} onClick={event => event.preventDefault()}>
             {route.name}
           </Link>
         </NavItem>
-      )}
-  </List>;
+      ))}
+  </List>
+);
 
 export default withRouter(Navigation);

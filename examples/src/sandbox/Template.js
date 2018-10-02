@@ -3,9 +3,10 @@ import { YMaps, Map } from 'react-yandex-maps';
 
 const mapState = { center: [55.76, 37.64], zoom: 10 };
 
-const Template = () =>
+const Template = () => (
   <YMaps>
     <Map state={mapState} />
-  </YMaps>;
+  </YMaps>
+);
 
 export default Template;

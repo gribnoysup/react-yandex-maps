@@ -127,10 +127,6 @@ export class Control extends React.Component {
     const { children } = this.props;
     const { instance } = this.state;
 
-    return instance && children
-      ? <Fragment>
-          {children}
-        </Fragment>
-      : null;
+    return instance && children ? <Fragment>{children}</Fragment> : null;
   }
 }

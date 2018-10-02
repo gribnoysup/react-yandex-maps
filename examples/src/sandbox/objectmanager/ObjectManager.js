@@ -5,7 +5,7 @@ import data from './data.json';
 
 const mapState = { center: [55.76, 37.64], zoom: 10 };
 
-const ObjectManagerDemo = () =>
+const ObjectManagerDemo = () => (
   <YMaps>
     <Map state={mapState}>
       <ObjectManager
@@ -22,6 +22,7 @@ const ObjectManagerDemo = () =>
         features={data.features}
       />
     </Map>
-  </YMaps>;
+  </YMaps>
+);
 
 export default ObjectManagerDemo;
