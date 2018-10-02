@@ -76,4 +76,4 @@ Thanks to [@effrenus](https://github.com/effrenus/) and his
 [yandex-map-react](https://github.com/effrenus/yandex-map-react) for inspiring
 this library
 
-[contributors][/graphs/contributors]
+[contributors]: graphs/contributors
