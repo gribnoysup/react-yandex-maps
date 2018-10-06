@@ -2,10 +2,9 @@
   "name": "react-yandex-maps",
   "version": "3.0.1",
   "description": "Yandex.Maps API bindings for React",
-  "main": "dist/react-yandex-maps.js",
-  "umd:main": "dist/react-yandex-maps.umd.js",
-  "module": "dist/react-yandex-maps.m.js",
-  "source": "src/index.js",
+  "main": "dist/react-yandex-maps.cjs.js",
+  "module": "dist/react-yandex-maps.esm.js",
+  "browser": "dist/react-yandex-maps.umd.production.min.js",
   "files": [
     "README.md",
     "LICENSE",
@@ -15,10 +14,7 @@
     "clear": "rm -rf dist",
     "prettier": "prettier --write",
     "lint": "eslint",
-    "microbundle": "microbundle --jsx React.createElement --name ReactYandexMaps --target web --strict true --external react",
-    "build": "npm run clear && npm run microbundle && npm run umd:globals && npm run umd:prod",
-    "umd:globals": "sed -i'.tmp' 's/\\.react/\\.React/g' \"dist/react-yandex-maps.umd.js\"",
-    "umd:prod": "terser --source-map --compress --define process.env.NODE_ENV='\"production\"' --output dist/react-yandex-maps.umd.js -- dist/react-yandex-maps.umd.js ",
+    "build": "npm run clear && NODE_ENV=development rollup -c && NODE_ENV=production rollup -c",
     "dev": "microbundle watch --jsx React.createElement --target web --strict true --compress false",
     "release": "./scripts/release.sh",
     "test": "jest"
@@ -36,6 +32,9 @@
     "react-display-name": "^0.2.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
@@ -47,9 +46,14 @@
     "husky": "^1.0.0-rc.13",
     "jest": "^23.5.0",
     "lint-staged": "^7.2.2",
-    "microbundle": "^0.6.0",
     "prettier": "github:prettier/prettier",
     "react": "^16.4.2",
+    "rollup": "^0.66.4",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-terser": "^3.0.0",
     "terser": "^3.9.2"
   },
   "keywords": [
