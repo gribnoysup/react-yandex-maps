@@ -6,7 +6,7 @@ import styled from 'react-emotion';
 import { Flex, Box, Switch, Label } from 'rebass/emotion';
 import * as ReactLive from 'react-live';
 
-import * as scope from '../../dist/react-yandex-maps';
+import * as scope from '../../dist/react-yandex-maps.esm';
 import features from '../app-data/features';
 import points from '../app-data/points';
 
