@@ -1,6 +1,6 @@
-# react-yandex-maps v3.0.0
+# react-yandex-maps v3
 
-> For the previous stable version see [`v2.2.0`][previous]
+> For the previous stable release see [`v2.2.0`][previous]
 
 [Yandex.Maps JS API][ymaps-api] bindings for React
 
