@@ -14,14 +14,13 @@ const formats = ['cjs', 'esm', 'umd'];
 
 const outputs = formats.map(format => ({
   file: [
-    name,
+    path.join(__dirname, 'dist', name),
     format,
     NODE_ENV === 'production' ? 'production.min' : false,
     'js',
   ]
     .filter(Boolean)
     .join('.'),
-  dir: path.resolve(__dirname, 'dist'),
   format: format,
   sourcemap: NODE_ENV === 'production',
   globals: {
