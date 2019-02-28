@@ -56,6 +56,10 @@ export default [
             uid: 'clusterer',
           },
           {
+            title: 'Panorama',
+            uid: 'panorama',
+          },
+          {
             title: 'Placemark',
             uid: 'placemark',
           },
