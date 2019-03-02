@@ -1,164 +1,230 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { separateEvents, addEvent, removeEvent } from './util/events';
-
-const { object, oneOfType, number, string, func } = PropTypes;
+import * as events from './util/events';
+import { omit } from './util/omit';
+import { getProp, isControlledProp } from './util/props';
+import withYMaps from './withYMaps';
+import { ParentContext } from './Context';
 
 export class Map extends React.Component {
-  static propTypes = {
-    state: object,
-    options: object,
-    width: oneOfType([number, string]),
-    height: oneOfType([number, string]),
-    instanceRef: func,
-  };
-
-  static defaultProps = {
-    state: {
-      center: [0, 0],
-      zoom: 1,
-    },
-    width: 400,
-    height: 315,
-    instanceRef: Function.prototype,
-  };
-
-  static contextTypes = {
-    ymaps: object,
-  };
-
-  static childContextTypes = {
-    parent: object,
-  };
-
-  state = { instance: null };
-
-  mapNode = null;
-
-  getChildContext() {
-    return { parent: this.state.instance };
-  }
-
-  getMapNode = ref => (this.mapNode = ref);
-
-  mount(ymaps = this.context.ymaps) {
-    const { state, options, events, instanceRef } = separateEvents(this.props);
-
-    const instance = new ymaps.Map(this.mapNode, state, options);
-
-    Object.keys(events).forEach(key => addEvent(events[key], key, instance));
-    this.setState({ instance });
-
-    if (typeof instanceRef === 'function') {
-      instanceRef(instance);
-    }
-  }
-
-  unmount() {
-    const { instance } = this.state;
-    const { events, instanceRef } = separateEvents(this.props);
-
-    if (instance !== null) {
-      Object.keys(events).forEach(key =>
-        removeEvent(events[key], key, instance)
-      );
-      instance.destroy();
-    }
-
-    if (typeof instanceRef === 'function') {
-      instanceRef(null);
-    }
-  }
-
-  update(instance, prevProps = {}, newProps = {}) {
-    const {
-      options: prevOptions,
-      state: prevState,
-      events: prevEvents,
-    } = separateEvents(prevProps);
-
-    const { options, state, events } = separateEvents(newProps);
-
-    // if (prevWidth !== width || prevHeight !== height) {
-    //   instance.container.fitToViewport();
-    // }
-
-    if (prevState.type !== state.type) {
-      instance.setType(state.type);
-    }
-
-    if (prevState.behaviors !== state.behaviors) {
-      instance.behaviors.disable(prevState.behaviors || []);
-      instance.behaviors.enable(state.behaviors || []);
-    }
-
-    if (prevState.zoom !== state.zoom) {
-      instance.setZoom(state.zoom);
-    }
-
-    if (prevState.center !== state.center) {
-      instance.setCenter(state.center);
-    }
-
-    if (state.bounds && prevState.bounds !== state.bounds) {
-      instance.setBounds(state.bounds);
-    }
-
-    if (prevOptions !== options) {
-      instance.options.set(options);
-    }
-
-    this.updateEvents(instance, prevEvents, events);
-  }
-
-  updateEvents(instance, prevEvents, newEvents) {
-    const mergedEvents = Object.assign({}, prevEvents, newEvents);
-
-    Object.keys(mergedEvents).forEach(key => {
-      if (prevEvents[key] !== newEvents[key]) {
-        removeEvent(prevEvents[key], key, instance);
-        addEvent(newEvents[key], key, instance);
-      }
-    });
+  constructor() {
+    super();
+    this.state = { instance: null };
+    this._parentElement = null;
+    this._getRef = ref => {
+      this._parentElement = ref;
+    };
   }
 
   componentDidMount() {
-    if (this.context.ymaps) this.mount();
-  }
+    const instance = Map.mountObject(
+      this._parentElement,
+      this.props.ymaps.Map,
+      this.props
+    );
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextContext.ymaps !== null && this.state.instance === null) {
-      this.mount(nextContext.ymaps);
-    } else if (this.state.instance !== null) {
-      this.update(this.state.instance, this.props, nextProps);
-    }
+    this.setState({ instance });
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      this.state.instance !== null &&
-      (prevProps.width !== this.props.width ||
-        prevProps.height !== this.props.height)
-    ) {
-      // fitToViewport on with/height update should happen after
-      // component width/height update happened
-      this.state.instance.container.fitToViewport();
+    if (this.state.instance !== null) {
+      Map.updateObject(this.state.instance, prevProps, this.props);
     }
   }
 
   componentWillUnmount() {
-    this.unmount();
+    Map.unmountObject(this.state.instance, this.props);
   }
 
   render() {
-    const { width, height, children } = this.props;
-    const { instance } = this.state;
+    const parentElementStyle = Map.getParentElementSize(this.props);
+    const separatedProps = events.separateEvents(this.props);
+
+    const parentElementProps = omit(separatedProps, [
+      '_events',
+      'state',
+      'defaultState',
+      'options',
+      'defaultOptions',
+      'instanceRef',
+      'ymaps',
+      'children',
+      'width',
+      'height',
+      'style',
+      'className',
+    ]);
 
     return (
-      <div style={{ width, height }} ref={this.getMapNode}>
-        {instance && children}
-      </div>
+      <ParentContext.Provider value={this.state.instance}>
+        <div ref={this._getRef} {...parentElementStyle} {...parentElementProps}>
+          {this.props.children}
+        </div>
+      </ParentContext.Provider>
     );
   }
+
+  static getParentElementSize(props) {
+    const { width, height, style, className } = props;
+
+    if (typeof style !== 'undefined' || typeof className !== 'undefined') {
+      return Object.assign({}, style && { style }, className && { className });
+    }
+
+    return { style: { width, height } };
+  }
+
+  static mountObject(parentElement, Map, props) {
+    const { instanceRef, _events } = events.separateEvents(props);
+
+    const state = getProp(props, 'state');
+    const options = getProp(props, 'options');
+
+    const instance = new Map(parentElement, state, options);
+
+    Object.keys(_events).forEach(key =>
+      events.addEvent(instance, key, _events[key])
+    );
+
+    if (typeof instanceRef === 'function') {
+      instanceRef(instance);
+    }
+
+    return instance;
+  }
+
+  static updateObject(instance, oldProps, newProps) {
+    const { _events: newEvents, instanceRef } = events.separateEvents(newProps);
+    const { _events: oldEvents, instanceRef: oldRef } = events.separateEvents(
+      oldProps
+    );
+
+    if (isControlledProp(newProps, 'state')) {
+      const oldState = getProp(oldProps, 'state', {});
+      const newState = getProp(newProps, 'state', {});
+
+      if (oldState.type !== newState.type) {
+        instance.setType(newState.type);
+      }
+
+      if (oldState.behaviors !== newState.behaviors) {
+        if (oldState.behaviors) instance.behaviors.disable(oldState.behaviors);
+        if (newState.behaviors) instance.behaviors.enable(newState.behaviors);
+      }
+
+      if (oldState.zoom !== newState.zoom) {
+        instance.setZoom(newState.zoom);
+      }
+
+      if (oldState.center !== newState.center) {
+        instance.setCenter(newState.center);
+      }
+
+      if (newState.bounds && oldState.bounds !== newState.bounds) {
+        instance.setBounds(newState.bounds);
+      }
+    }
+
+    if (isControlledProp(newProps, 'options')) {
+      const oldOptions = getProp(oldProps, 'options');
+      const newOptions = getProp(newProps, 'options', {});
+
+      if (oldOptions !== newOptions) {
+        instance.options.set(newOptions);
+      }
+    }
+
+    if (
+      getProp(oldProps, 'width') !== getProp(newProps, 'width') ||
+      getProp(oldProps, 'height') !== getProp(newProps, 'height')
+    ) {
+      instance.container.fitToViewport();
+    }
+
+    events.updateEvents(instance, oldEvents, newEvents);
+
+    // Mimic React callback ref behavior:
+    // https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
+    if (oldRef !== instanceRef) {
+      if (typeof oldRef === 'function') oldRef(null);
+      if (typeof instanceRef === 'function') instanceRef(instance);
+    }
+  }
+
+  static unmountObject(instance, props) {
+    const { instanceRef, _events } = events.separateEvents(props);
+
+    if (instance !== null) {
+      Object.keys(_events).forEach(key =>
+        events.removeEvent(instance, key, _events[key])
+      );
+
+      instance.destroy();
+
+      if (typeof instanceRef === 'function') {
+        instanceRef(null);
+      }
+    }
+  }
 }
+
+if (process.env.NODE_ENV !== 'production') {
+  const MapStatePropTypes = {
+    bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    center: PropTypes.arrayOf(PropTypes.number),
+    controls: PropTypes.arrayOf(PropTypes.string),
+    behaviors: PropTypes.arrayOf(PropTypes.string),
+    margin: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.number),
+      PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    ]),
+    type: PropTypes.oneOf(['yandex#map', 'yandex#satellite', 'yandex#hybrid']),
+    zoom: PropTypes.number,
+  };
+
+  // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
+  const MapOptionsPropTypes = {};
+
+  Map.propTypes = {
+    // Map state parameters
+    // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state
+    state: PropTypes.shape(MapStatePropTypes),
+    defaultState: PropTypes.shape(MapStatePropTypes),
+
+    // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
+    options: PropTypes.shape(MapOptionsPropTypes),
+    defaultOptions: PropTypes.shape(MapOptionsPropTypes),
+
+    // ref prop but for YMaps object instances
+    instanceRef: PropTypes.func,
+
+    // Yandex.Maps API object
+    ymaps: PropTypes.object,
+
+    children: PropTypes.node,
+
+    /**
+     * Yandex.Maps Map parent element should have at least
+     * some size set to it, otherwise the map is rendered
+     * into the container with size 0
+     *
+     * To avoid this we will use `width` and `height` props as default
+     * way of sizing the map element, but then if we see that
+     * the library user also provides `style` or `className` prop,
+     * we will assume that the Map is sized by those and will
+     * not use these
+     */
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    style: PropTypes.object,
+    className: PropTypes.string,
+  };
+}
+
+Map.defaultProps = {
+  width: 320,
+  height: 240,
+};
+
+export default withYMaps(Map, true, ['Map']);

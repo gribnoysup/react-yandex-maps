@@ -1,0 +1,105 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# ObjectManager
+
+Renders Yandex.Maps API [ObjectManager][] object
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 10,
+};
+
+const ObjectManagerExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <ObjectManager
+        options={{
+          clusterize: true,
+          gridSize: 32,
+        }}
+        objects={{
+          openBalloonOnClick: true,
+          preset: 'islands#greenDotIcon',
+        }}
+        clusters={{
+          preset: 'islands#redClusterIcons',
+        }}
+        filter={object => object.id % 2 === 0}
+        defaultFeatures={features}
+        modules={[
+          'objectManager.addon.objectsBalloon',
+          'objectManager.addon.objectsHint',
+        ]}
+      />
+    </Map>
+  </YMaps>
+);
+
+render(<ObjectManagerExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultFeatures"
+    secondaryName="features"
+    type="Feature | FeatureCollection | Array<Feature | FeatureCollection>"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__add-param-objects">
+        ObjectManager features (object collections)
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultFilter"
+    secondaryName="filter"
+    type="string | (f: Feature) => boolean"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__setFilter-param-filterFunction">
+        Filter function or string for objects
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__param-options">
+        ObjectManager options
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultObjects"
+    secondaryName="objects"
+    type="Object"
+    description={'ObjectManager objects options'}
+  />
+  <PropItem
+    name="defaultClusters"
+    secondaryName="clusters"
+    type="Object"
+    description={'ObjectManager clusters options'}
+  />
+  <CommonProps componentName="ObjectManager" />
+</Props>
+
+<Events
+  componentName="ObjectManager"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__events-summary"
+/>
+
+[objectmanager]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/

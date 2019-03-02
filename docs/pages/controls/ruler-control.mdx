@@ -1,0 +1,75 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# RulerControl
+
+Renders Yandex.Maps API [RulerControl][control] control
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 3,
+};
+
+const RulerControlExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <RulerControl options={{ scaleLine: false }} />
+    </Map>
+  </YMaps>
+);
+
+render(<RulerControlExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultData"
+    secondaryName="data"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.data">
+        RulerControl data
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.options">
+        RulerControl options
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultState"
+    secondaryName="state"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__param-parameters.state">
+        Object describing the state of the RulerControl
+      </Link>
+    }
+  />
+  <CommonProps componentName="RulerControl" />
+</Props>
+
+<Events
+  componentName="RulerControl"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/#control.RulerControl__events-summary"
+/>
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/

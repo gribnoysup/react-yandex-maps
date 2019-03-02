@@ -1,0 +1,64 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# Clusterer
+
+Renders Yandex.Maps API [GeoObject][]
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 5,
+};
+
+const ClustererExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <Clusterer
+        options={{
+          preset: 'islands#invertedVioletClusterIcons',
+          groupByCoordinates: false,
+        }}
+      >
+        {points.map((coordinates, index) => (
+          <Placemark key={index} geometry={coordinates} />
+        ))}
+      </Clusterer>
+    </Map>
+  </YMaps>
+);
+
+render(<ClustererExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__param-options">
+        Clusterer options
+      </Link>
+    }
+  />
+  <CommonProps componentName="Clusterer" />
+</Props>
+
+<Events
+  componentName="Clusterer"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/#Clusterer__events-summary"
+/>
+
+[clusterer]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/

@@ -1,0 +1,70 @@
+import { Page } from '../../components/layout/Page'
+import { Props, PropItem } from '../../components/Props'
+import { Link } from '../../components/markdown/Link'
+
+import Events from '../../fragments/events.mdx'
+import { CommonProps } from '../../fragments/CommonProps'
+
+export default ({ children }) => <Page>{children}</Page>
+
+# TrafficControl
+
+Renders Yandex.Maps API [TrafficControl][control] control
+
+```jsx
+// @live
+
+const mapState = {
+  center: [55.751574, 37.573856],
+  zoom: 9,
+};
+
+const TrafficControlExample = () => (
+  <YMaps>
+    <Map defaultState={mapState}>
+      <TrafficControl
+        defaultState={{
+          trafficShown: true,
+          providerKey: 'traffic#archive',
+        }}
+      />
+    </Map>
+  </YMaps>
+);
+
+render(<TrafficControlExample />);
+```
+
+## Props
+
+<Props>
+  <PropItem
+    name="defaultOptions"
+    secondaryName="options"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/#control.TrafficControl__param-parameters.options">
+        TrafficControl options
+      </Link>
+    }
+  />
+  <PropItem
+    name="defaultState"
+    secondaryName="state"
+    type="Object"
+    description={
+      <Link href="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/#control.TrafficControl__param-parameters.state">
+        Object describing the state of the TrafficControl
+      </Link>
+    }
+  />
+  <CommonProps componentName="TrafficControl" />
+</Props>
+
+<Events
+  componentName="TrafficControl"
+  url="https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/#control.TrafficControl__events-summary"
+/>
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/

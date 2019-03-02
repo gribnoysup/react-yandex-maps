@@ -1,0 +1,12 @@
+dist: trusty
+language: node_js
+node_js:
+  - 10
+cache:
+  directories:
+    # Instead of saving node_modules to the cache,
+    # we will save local npm cache, as npm will use
+    # ci command to install dependencies
+    #
+    # https://docs.npmjs.com/cli/ci#example
+    - '$HOME/.npm'
