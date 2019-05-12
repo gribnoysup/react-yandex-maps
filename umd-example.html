@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ReactYandexMaps with UMD module example</title>
 
-  <title>ReactYandexMaps with UMD module example</title>
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/htm@2.1.1/dist/htm.js"></script>
 
-  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="./dist/production/react-yandex-maps.umd.js"></script>
+  </head>
 
-  <script src="./dist/react-yandex-maps.umd.production.min.js"></script>
-</head>
+  <body>
+    <div id="root"></div>
 
-<body>
-  <div id="root"></div>
+    <script>
+      const { YMaps, Map } = ReactYandexMaps;
 
-  <script>
-    const { YMaps, Map: MapObject } = ReactYandexMaps;
-    const h = React.createElement;
+      const html = htm.bind(React.createElement);
 
-    const App = () =>
-      h(
-        YMaps,
-        {},
-        h(
-          "div",
-          {},
-          "My awesome application with maps!",
-          h(MapObject, { defaultState: { center: [55.75, 37.57], zoom: 9 } })
-        )
+      const App = () => html`
+        <${YMaps}>
+          <div>
+            My awesome application with maps!
+            <${Map} defaultState=${{ center: [55.75, 37.57], zoom: 9 }} />
+          </div>
+        <//>
+      `;
+
+      ReactDOM.render(
+        html`
+          <${App} />
+        `,
+        document.getElementById('root')
       );
-
-    ReactDOM.render(h(App), document.getElementById("root"));
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
