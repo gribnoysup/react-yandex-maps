@@ -8,6 +8,8 @@ export { default as Clusterer } from './geo-objects/Clusterer';
 
 export { default as ObjectManager } from './geo-objects/ObjectManager';
 
+export { default as Panorama } from './Panorama';
+
 export {
   GeoObject,
   Placemark,
