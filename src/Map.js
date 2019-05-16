@@ -6,6 +6,7 @@ import { omit } from './util/omit';
 import { getProp, isControlledProp } from './util/props';
 import withYMaps from './withYMaps';
 import { ParentContext } from './Context';
+import applyRef from './util/ref';
 
 export class Map extends React.Component {
   constructor() {
@@ -87,9 +88,7 @@ export class Map extends React.Component {
       events.addEvent(instance, key, _events[key])
     );
 
-    if (typeof instanceRef === 'function') {
-      instanceRef(instance);
-    }
+    applyRef(null, instanceRef, instance);
 
     return instance;
   }
@@ -146,10 +145,7 @@ export class Map extends React.Component {
 
     // Mimic React callback ref behavior:
     // https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
-    if (oldRef !== instanceRef) {
-      if (typeof oldRef === 'function') oldRef(null);
-      if (typeof instanceRef === 'function') instanceRef(instance);
-    }
+    applyRef(oldRef, instanceRef, instance);
   }
 
   static unmountObject(instance, props) {
@@ -162,9 +158,8 @@ export class Map extends React.Component {
 
       instance.destroy();
 
-      if (typeof instanceRef === 'function') {
-        instanceRef(null);
-      }
+      // Clean used ref
+      applyRef(instanceRef);
     }
   }
 }
@@ -187,19 +182,29 @@ if (process.env.NODE_ENV !== 'production') {
   const MapOptionsPropTypes = {};
 
   Map.propTypes = {
-    // Map state parameters
-    // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state
+    /**
+     * [Map state parameters](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state)
+     */
     state: PropTypes.shape(MapStatePropTypes),
+    /**
+     * Uncontrolled [Map state parameters](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#param-state)
+     */
     defaultState: PropTypes.shape(MapStatePropTypes),
 
-    // TODO: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/
+    /**
+     * [Map options](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#Map__param-options)
+     */
     options: PropTypes.shape(MapOptionsPropTypes),
+    /**
+     * Uncontrolled [Map options](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#Map__param-options)
+     */
     defaultOptions: PropTypes.shape(MapOptionsPropTypes),
 
-    // ref prop but for YMaps object instances
+    /**
+     * YMaps object ref
+     */
     instanceRef: PropTypes.func,
 
-    // Yandex.Maps API object
     ymaps: PropTypes.object,
 
     children: PropTypes.node,
@@ -215,9 +220,25 @@ if (process.env.NODE_ENV !== 'production') {
      * we will assume that the Map is sized by those and will
      * not use these
      */
+
+    /**
+     * Map container width
+     */
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
+    /**
+     * Map container height
+     */
     height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
+    /**
+     * Map container style
+     */
     style: PropTypes.object,
+
+    /**
+     * Map container className
+     */
     className: PropTypes.string,
   };
 }

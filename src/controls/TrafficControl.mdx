@@ -1,0 +1,36 @@
+---
+name: TrafficControl
+route: /controls/traffic-control
+menu: Controls
+---
+
+import { Playground, Props } from 'docz';
+import { YMaps, Map, TrafficControl } from '../';
+import { TrafficControl as _TrafficControl } from './TrafficControl';
+
+# TrafficControl
+
+Renders Yandex.Maps API [TrafficControl][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <TrafficControl options={{ float: 'right' }} />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_TrafficControl} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TrafficControl-docpage/

@@ -1,0 +1,36 @@
+---
+name: RouteButton
+route: /controls/route-button
+menu: Controls
+---
+
+import { Playground, Props } from 'docz';
+import { YMaps, Map, RouteButton } from '../';
+import { RouteButton as _RouteButton } from './RouteButton';
+
+# RouteButton
+
+Renders Yandex.Maps API [RouteButton][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <RouteButton options={{ float: 'right' }} />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_RouteButton} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteButton-docpage/

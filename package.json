@@ -19,7 +19,9 @@
     "microbundle": "microbundle --jsx React.createElement --name ReactYandexMaps --external react --globals react=React --define process.env.NODE_ENV=\"${NODE_ENV}\"",
     "microbundle:production": "NODE_ENV=production npm run microbundle -- --output ./dist/production",
     "microbundle:development": "NODE_ENV=development npm run microbundle -- --output ./dist/development",
-    "microbundle:watch": "NODE_ENV=development npm run microbundle -- --compress false --watch",
+    "microbundle:watch": "NODE_ENV=development npm run microbundle -- --output ./dist/development --compress false --watch",
+    "docs:dev": "docz dev",
+    "docs:build": "docz build",
     "release": "./scripts/release.sh",
     "test": "jest"
   },
@@ -39,6 +41,8 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
+    "docz": "^1.2.0",
+    "docz-theme-default": "^1.2.0",
     "eslint": "^5.16.0",
     "eslint-plugin-jest": "^22.5.1",
     "eslint-plugin-react": "^7.13.0",
@@ -47,7 +51,8 @@
     "lint-staged": "^8.1.0",
     "microbundle": "^0.11.0",
     "prettier": "^1.17.0",
-    "react": "^16.7.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "keywords": [
     "react",
@@ -93,5 +98,8 @@
     "transform": {
       "^.+\\.js$": "./jest.transform.js"
     }
+  },
+  "resolutions": {
+    "docz/**/webpack": "4.28.4"
   }
 }

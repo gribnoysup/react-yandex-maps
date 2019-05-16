@@ -1,0 +1,36 @@
+---
+name: GeolocationControl
+route: /controls/geolocation-control
+menu: Controls
+---
+
+import { Playground, Props } from 'docz';
+import { YMaps, Map, GeolocationControl } from '../';
+import { GeolocationControl as _GeolocationControl } from './GeolocationControl';
+
+# GeolocationControl
+
+Renders Yandex.Maps API [GeolocationControl][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <GeolocationControl options={{ float: 'left' }} />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_GeolocationControl} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.GeolocationControl-docpage/

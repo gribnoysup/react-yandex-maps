@@ -1,0 +1,36 @@
+---
+name: TypeSelector
+route: /controls/type-selector
+menu: Controls
+---
+
+import { Playground, Props } from 'docz';
+import { YMaps, Map, TypeSelector } from '../';
+import { TypeSelector as _TypeSelector } from './TypeSelector';
+
+# TypeSelector
+
+Renders Yandex.Maps API [TypeSelector][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <TypeSelector options={{ float: 'right' }} />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_TypeSelector} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.TypeSelector-docpage/
