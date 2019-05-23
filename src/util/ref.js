@@ -3,8 +3,8 @@
  * https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
  *
  * @param {Object<{current: T}> | Function} oldRef
- * @param {Object<{current: T}> | Function} newRef
- * @param {T} value
+ * @param {Object<{current: T}> | Function?} newRef
+ * @param {T?} value
  */
 export default function applyRef(oldRef, newRef, value = null) {
   if (oldRef && oldRef !== newRef) {
