@@ -122,8 +122,6 @@ export class BaseGeoObject extends React.Component {
 
     events.updateEvents(instance, oldEvents, newEvents);
 
-    // Mimic React callback ref behavior:
-    // https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
     applyRef(oldRef, instanceRef, instance);
   }
 
