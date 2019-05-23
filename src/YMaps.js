@@ -1,14 +1,5 @@
 import set from './util/set';
 
-const defaultQuery = {
-  lang: 'ru_RU',
-  load: '',
-  ns: '',
-  mode: process.env.NODE_ENV !== 'production' ? 'debug' : 'release',
-};
-
-const YMapsPromiseMap = {};
-
 export class YMaps {
   constructor(options) {
     const hash = Date.now().toString(32);
@@ -34,12 +25,12 @@ export class YMaps {
   }
 
   getPromise() {
-    return this.namespace ? YMapsPromiseMap[this.namespace] : this.promise;
+    return this.namespace ? YMaps.promiseMap[this.namespace] : this.promise;
   }
 
   setPromise(promise) {
     return this.namespace
-      ? (YMapsPromiseMap[this.namespace] = this.promise = promise)
+      ? (YMaps.promiseMap[this.namespace] = this.promise = promise)
       : (this.promise = promise);
   }
 
@@ -52,7 +43,7 @@ export class YMaps {
         onload: this.onload,
         onerror: this.onerror,
       },
-      defaultQuery,
+      YMaps.defaultQuery,
       this.options.query
     );
 
@@ -120,3 +111,12 @@ YMaps.onerrorCallback = '__yandex-maps-api-onerror__';
 YMaps.getBaseUrl = function getBaseUrl(isEnterprise) {
   return `https://${isEnterprise ? 'enterprise.' : ''}api-maps.yandex.ru`;
 };
+
+YMaps.defaultQuery = {
+  lang: 'ru_RU',
+  load: '',
+  ns: '',
+  mode: process.env.NODE_ENV !== 'production' ? 'debug' : 'release',
+};
+
+YMaps.promiseMap = {};

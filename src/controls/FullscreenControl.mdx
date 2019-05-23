@@ -1,0 +1,36 @@
+---
+name: FullscreenControl
+route: /controls/fullscreen-control
+menu: Controls
+---
+
+import { Playground, Props } from 'docz';
+import { YMaps, Map, FullscreenControl } from '../';
+import { FullscreenControl as _FullscreenControl } from './FullscreenControl';
+
+# FullscreenControl
+
+Renders Yandex.Maps API [FullscreenControl][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <FullscreenControl />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_FullscreenControl} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.FullscreenControl-docpage/

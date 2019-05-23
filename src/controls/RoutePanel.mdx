@@ -1,0 +1,36 @@
+---
+name: RoutePanel
+route: /controls/route-panel
+menu: Controls
+---
+
+import { Playground, Props } from 'docz';
+import { YMaps, Map, RoutePanel } from '../';
+import { RoutePanel as _RoutePanel } from './RoutePanel';
+
+# RoutePanel
+
+Renders Yandex.Maps API [RoutePanel][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <RoutePanel options={{ float: 'right' }} />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_RoutePanel} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RoutePanel-docpage/

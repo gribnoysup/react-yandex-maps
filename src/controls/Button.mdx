@@ -1,0 +1,40 @@
+---
+name: Button
+route: /controls/button
+menu: Controls
+---
+
+import { Playground, Props } from 'docz';
+import { YMaps, Map, Button } from '../';
+import { Button as _Button } from './Button';
+
+# Button
+
+Renders Yandex.Maps API [Button][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <Button
+        options={{ maxWidth: 128 }}
+        data={{ content: 'Unpress me!' }}
+        defaultState={{ selected: true }}
+      />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_Button} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.Button-docpage/
