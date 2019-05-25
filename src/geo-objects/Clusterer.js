@@ -5,6 +5,7 @@ import * as events from '../util/events';
 import { getProp, isControlledProp } from '../util/props';
 import { withParentContext, ParentContext } from '../Context';
 import withYMaps from '../withYMaps';
+import applyRef from '../util/ref';
 
 export class Clusterer extends React.Component {
   constructor() {
@@ -58,9 +59,7 @@ export class Clusterer extends React.Component {
       throw new Error('No parent found to mount Clusterer');
     }
 
-    if (typeof instanceRef === 'function') {
-      instanceRef(instance);
-    }
+    applyRef(null, instanceRef, instance);
 
     return instance;
   }
@@ -82,12 +81,7 @@ export class Clusterer extends React.Component {
 
     events.updateEvents(instance, oldEvents, newEvents);
 
-    // Mimic React callback ref behavior:
-    // https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs
-    if (oldRef !== instanceRef) {
-      if (typeof oldRef === 'function') oldRef(null);
-      if (typeof instanceRef === 'function') instanceRef(instance);
-    }
+    applyRef(oldRef, instanceRef, instance);
   }
 
   static unmountObject(instance, props) {
@@ -104,9 +98,7 @@ export class Clusterer extends React.Component {
         parent.remove(instance);
       }
 
-      if (typeof instanceRef === 'function') {
-        instanceRef(null);
-      }
+      applyRef(instanceRef);
     }
   }
 }
