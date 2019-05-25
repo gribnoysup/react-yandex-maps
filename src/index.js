@@ -38,11 +38,13 @@ export { default as TypeSelector } from './controls/TypeSelector';
 
 export { default as ZoomControl } from './controls/ZoomControl';
 
+/** Clusterization components */
+
+export { default as Clusterer } from './clusterization/Clusterer';
+
+export { default as ObjectManager } from './clusterization/ObjectManager';
+
 /** GeoObjects */
-
-export { default as Clusterer } from './geo-objects/Clusterer';
-
-export { default as ObjectManager } from './geo-objects/ObjectManager';
 
 export { default as GeoObject } from './geo-objects/GeoObject';
 

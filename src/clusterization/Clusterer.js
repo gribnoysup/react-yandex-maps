@@ -104,21 +104,16 @@ export class Clusterer extends React.Component {
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  const ClustererOptionsPropTypes = PropTypes.shape({});
-
   Clusterer.propTypes = {
-    // Clusterer options
-    // https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/
-    options: ClustererOptionsPropTypes,
-    defaultOptions: ClustererOptionsPropTypes,
+    /** Clusterer [options](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/) */
+    options: PropTypes.shape({}),
+    /** Uncontrolled Clusterer [options](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/) */
+    defaultOptions: PropTypes.shape({}),
 
-    // ref prop but for YMaps object instances
     instanceRef: PropTypes.func,
 
-    // Yandex.Maps API object
     ymaps: PropTypes.object,
 
-    // Clusterer parent object (e.g, ymaps.Map or ymaps.Clusterer)
     parent: PropTypes.object,
 
     children: PropTypes.node,
