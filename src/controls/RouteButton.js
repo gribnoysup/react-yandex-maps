@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withParentContext } from '../Context';
@@ -5,20 +6,9 @@ import withYMaps from '../withYMaps';
 
 import { BaseControl } from './BaseControl';
 
-export class RouteButton extends BaseControl {
-  render() {
-    /**
-     * Tricking `react-docgen` into thinking that this
-     * is a React component (it is, but it's hard to
-     * convince `react-docgen` when you have hocs 🙄)
-     */
-    return super.render();
-  }
+export function RouteButton(props) {
+  return <BaseControl {...props} name="RouteButton" />;
 }
-
-RouteButton.defaultProps = {
-  name: 'RouteButton',
-};
 
 if (process.env.NODE_ENV !== 'production') {
   RouteButton.propTypes = {

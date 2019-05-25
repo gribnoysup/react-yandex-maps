@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withParentContext } from '../Context';
@@ -5,17 +6,8 @@ import withYMaps from '../withYMaps';
 
 import { BaseGeoObject } from './BaseGeoObject';
 
-export class GeoObject extends BaseGeoObject {
-  render() {
-    /**
-     * Tricking `react-docgen` into thinking that this
-     * is a React component (it is, but it's hard to
-     * convince `react-docgen` when you have hocs 🙄)
-     */
-    return super.render();
-  }
-
-  _modifyConstructor(Constructor) {
+const geoObjectDangerZoneProps = {
+  modifyConstructor(Constructor) {
     /**
      * The only difference between GeoObject and all the other,
      * more specific GeoObject constructors (like Placemark, Circle,
@@ -34,7 +26,17 @@ export class GeoObject extends BaseGeoObject {
     GeoObjectConstructor.prototype = Constructor.prototype;
 
     return GeoObjectConstructor;
-  }
+  },
+};
+
+export function GeoObject(props) {
+  return (
+    <BaseGeoObject
+      {...props}
+      name="GeoObject"
+      dangerZone={geoObjectDangerZoneProps}
+    />
+  );
 }
 
 if (process.env.NODE_ENV !== 'production') {
@@ -59,18 +61,27 @@ if (process.env.NODE_ENV !== 'production') {
      * GeoObject [feature.geometry](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.geometry)
      */
     geometry: GeoObjectGeometryPropTypes,
+    /**
+     * Uncontrolled GeoObject [feature.geometry](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.geometry)
+     */
     defaultGeometry: GeoObjectGeometryPropTypes,
 
     /**
      * GeoObject [feature.properties](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.properties)
      */
     properties: PropTypes.shape({}),
+    /**
+     * Uncontrolled GeoObject [feature.properties](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-feature.properties)
+     */
     defaultProperties: PropTypes.shape({}),
 
     /**
      * GeoObject [options](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-options)
      */
     options: PropTypes.shape({}),
+    /**
+     * Uncontrolled GeoObject [options](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/#param-options)
+     */
     defaultOptions: PropTypes.shape({}),
   };
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withParentContext } from '../Context';
@@ -5,20 +6,9 @@ import withYMaps from '../withYMaps';
 
 import { BaseControl } from './BaseControl';
 
-export class SearchControl extends BaseControl {
-  render() {
-    /**
-     * Tricking `react-docgen` into thinking that this
-     * is a React component (it is, but it's hard to
-     * convince `react-docgen` when you have hocs 🙄)
-     */
-    return super.render();
-  }
+export function SearchControl(props) {
+  return <BaseControl {...props} name="SearchControl" />;
 }
-
-SearchControl.defaultProps = {
-  name: 'SearchControl',
-};
 
 if (process.env.NODE_ENV !== 'production') {
   SearchControl.propTypes = {

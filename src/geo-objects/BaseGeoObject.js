@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import * as events from '../util/events';
 import { getProp, isControlledProp } from '../util/props';
 import applyRef from '../util/ref';
-// import { withParentContext } from '../Context';
-// import withYMaps from '../withYMaps';
 
 export class BaseGeoObject extends React.Component {
   constructor() {
@@ -14,11 +12,11 @@ export class BaseGeoObject extends React.Component {
   }
 
   componentDidMount() {
-    const { name, ymaps } = this.props;
+    const { name, ymaps, dangerZone } = this.props;
 
     const instance = BaseGeoObject.mountObject(
-      typeof this._modifyConstructor === 'function'
-        ? this._modifyConstructor(ymaps[name])
+      dangerZone && typeof dangerZone.modifyConstructor === 'function'
+        ? dangerZone.modifyConstructor(ymaps[name])
         : ymaps[name],
       this.props
     );
@@ -164,22 +162,13 @@ if (process.env.NODE_ENV !== 'production') {
       'Polygon',
       'Circle',
     ]).isRequired,
+
+    /**
+     * Used in a special case where constructor needs to be
+     * modified before passing it to the mount method
+     */
+    dangerZone: PropTypes.shape({
+      modifyConstructor: PropTypes.func,
+    }),
   };
 }
-
-// export function createGeoObject(name, propTypes, modifyConstructor) {
-//   const GeoObject = props => (
-//     <BaseGeoObject
-//       name={name}
-//       dangerZone={modifyConstructor ? { modifyConstructor } : void 0}
-//       {...props}
-//     />
-//   );
-
-//   if (process.env.NODE_ENV !== 'production') {
-//     GeoObject.displayName = name;
-//     GeoObject.propTypes = propTypes;
-//   }
-
-//   return withParentContext(withYMaps(GeoObject, true, [name]));
-// }

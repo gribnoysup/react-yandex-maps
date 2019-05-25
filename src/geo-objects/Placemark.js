@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withParentContext } from '../Context';
@@ -5,15 +6,8 @@ import withYMaps from '../withYMaps';
 
 import { BaseGeoObject } from './BaseGeoObject';
 
-export class Placemark extends BaseGeoObject {
-  render() {
-    /**
-     * Tricking `react-docgen` into thinking that this
-     * is a React component (it is, but it's hard to
-     * convince `react-docgen` when you have hocs 🙄)
-     */
-    return super.render();
-  }
+export function Placemark(props) {
+  return <BaseGeoObject {...props} name="Placemark" />;
 }
 
 if (process.env.NODE_ENV !== 'production') {

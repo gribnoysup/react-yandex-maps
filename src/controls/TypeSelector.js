@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withParentContext } from '../Context';
@@ -5,20 +6,9 @@ import withYMaps from '../withYMaps';
 
 import { BaseControl } from './BaseControl';
 
-export class TypeSelector extends BaseControl {
-  render() {
-    /**
-     * Tricking `react-docgen` into thinking that this
-     * is a React component (it is, but it's hard to
-     * convince `react-docgen` when you have hocs 🙄)
-     */
-    return super.render();
-  }
+export function TypeSelector(props) {
+  return <BaseControl {...props} name="TypeSelector" />;
 }
-
-TypeSelector.defaultProps = {
-  name: 'TypeSelector',
-};
 
 if (process.env.NODE_ENV !== 'production') {
   TypeSelector.propTypes = {
