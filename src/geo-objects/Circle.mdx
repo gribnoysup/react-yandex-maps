@@ -1,0 +1,38 @@
+---
+name: Circle
+route: /geo-objects/circle
+menu: GeoObjects
+---
+
+import { Playground, Props } from 'docz';
+import { Circle as _Circle } from './Circle';
+import { YMaps, Map, Circle } from '../';
+
+# Map
+
+Renders Yandex.Maps API [Circle][docs] object
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map defaultState={{ center: [55.76, 37.64], zoom: 10 }}>
+      <Circle
+        geometry={[[55.76, 37.6], 10000]}
+        options={{
+          draggable: true,
+          fillColor: '#DB709377',
+          strokeColor: '#990066',
+          strokeOpacity: 0.8,
+          strokeWidth: 5,
+        }}
+      />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_Circle} />
+
+[docs]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Circle-docpage/

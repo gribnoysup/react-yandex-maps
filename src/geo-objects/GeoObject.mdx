@@ -1,0 +1,45 @@
+---
+name: GeoObject
+route: /geo-objects/geoobject
+menu: GeoObjects
+---
+
+import { Playground, Props } from 'docz';
+import { GeoObject as _GeoObject } from './GeoObject';
+import { YMaps, Map, GeoObject } from '../';
+
+# Map
+
+Renders Yandex.Maps API [GeoObject][docs] object
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 3,
+      }}
+    >
+      <GeoObject
+        geometry={{
+          type: 'LineString',
+          coordinates: [[55.76, 37.64], [52.51, 13.38]],
+        }}
+        options={{
+          geodesic: true,
+          strokeWidth: 5,
+          strokeColor: '#F008',
+        }}
+      />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_GeoObject} />
+
+[docs]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/GeoObject-docpage/
