@@ -168,10 +168,14 @@ export interface GeoObjectProps<G, P = AnyObject, O = AnyObject>
   defaultOptions?: O;
 }
 
-export interface GeoObjectGeometry {
-  type: 'Point' | 'LineString' | 'Rectangle' | 'Polygon' | 'Circle';
-  coordinates: number[] | number[][] | number[][][];
-  radius: number;
+export interface ControlProps<D = AnyObject, O = AnyObject, S = AnyObject>
+  extends CommonProps {
+  data?: D;
+  defaultData?: D;
+  options?: O;
+  defaultOptions?: O;
+  state?: S;
+  defaultState?: S;
 }
 
 export interface WithYMapsProps {
@@ -184,6 +188,13 @@ export function withYMaps<P>(
   modules?: string
 ): React.ComponentType<P & WithYMapsProps>;
 
+// export interface GeoObjectGeometry {
+//   type: 'Point' | 'LineString' | 'Rectangle' | 'Polygon' | 'Circle';
+//   coordinates: number[] | number[][] | number[][][];
+//   radius: number;
+// }
+
+export type GeoObjectGeometry = AnyObject;
 export type PlacemarkGeometry = number[];
 export type PolylineGeometry = number[][];
 export type RectangleGeometry = number[][];
@@ -204,18 +215,18 @@ export const Polygon: React.ComponentType<GeoObjectProps<PolygonGeometry>>;
 export const Circle: React.ComponentType<GeoObjectProps<CircleGeometry>>;
 
 /**
- * TODO: need more information about prop types
+ * TODO: data, options, state types for controls
  */
-export const Button: React.ComponentType<AnyObject>;
-export const FullscreenControl: React.ComponentType<AnyObject>;
-export const GeolocationControl: React.ComponentType<AnyObject>;
-export const ListBox: React.ComponentType<AnyObject>;
-export const ListBoxItem: React.ComponentType<AnyObject>;
-export const RouteButton: React.ComponentType<AnyObject>;
-export const RouteEditor: React.ComponentType<AnyObject>;
+export const Button: React.ComponentType<ControlProps>;
+export const FullscreenControl: React.ComponentType<ControlProps>;
+export const GeolocationControl: React.ComponentType<ControlProps>;
+export const ListBox: React.ComponentType<ControlProps>;
+export const ListBoxItem: React.ComponentType<ControlProps>;
+export const RouteButton: React.ComponentType<ControlProps>;
+export const RouteEditor: React.ComponentType<ControlProps>;
 export const RoutePanel: React.ComponentType<AnyObject>;
-export const RulerControl: React.ComponentType<AnyObject>;
-export const SearchControl: React.ComponentType<AnyObject>;
+export const RulerControl: React.ComponentType<ControlProps>;
+export const SearchControl: React.ComponentType<ControlProps>;
 export const TrafficControl: React.ComponentType<AnyObject>;
 export const TypeSelector: React.ComponentType<AnyObject>;
-export const ZoomControl: React.ComponentType<AnyObject>;
+export const ZoomControl: React.ComponentType<ControlProps>;
