@@ -2,7 +2,7 @@ interface AnyObject {
   [key: string]: any;
 }
 
-export type YMapsApi = AnyObject;
+export interface YMapsApi extends AnyObject {}
 
 export interface YMapsProps extends AnyObject {
   version?: string;
@@ -53,6 +53,7 @@ export interface MapProps extends AnyObject {
   defaultState?: MapState;
   options?: MapOptions;
   defaultOptions?: MapOptions;
+  modules?: string[];
   children?: React.ReactNode;
   width?: number | string;
   height?: number | string;
@@ -78,7 +79,9 @@ export type ObjectManagerFeatures =
   | (ObjectManagerFeatureCollection | ObjectManagerFeature)[]
   | ObjectManagerFeatureCollection;
 
-export type ObjectManagerFilter = string | ((...args: any[]) => any);
+export type ObjectManagerFilter =
+  | string
+  | ((feature: ObjectManagerFeature) => void);
 
 export interface ObjectManagerOptions extends AnyObject {
   clusterize?: boolean;
@@ -130,6 +133,30 @@ export interface ClustererProps extends AnyObject {
   instanceRef?: (instance: any) => void;
 }
 
+export interface PanoramaOptions extends AnyObject {
+  autoFitToViewport?: 'none' | 'ifNull' | 'always';
+  controls?: string[];
+  direction?: number[] | string;
+  hotkeysEnabled?: boolean;
+  scrollZoomBehavior?: boolean;
+  span?: string | number[];
+  suppressMapOpenBlock?: boolean;
+}
+
+export interface PanoramaProps extends AnyObject {
+  coordinates?: number[];
+  defaultCoordinates?: number[];
+  options?: PanoramaOptions;
+  defaultOptions?: PanoramaOptions;
+  modules?: string[];
+  children?: React.ReactNode;
+  width?: number | string;
+  height?: number | string;
+  style?: React.CSSProperties;
+  className?: string;
+  instanceRef?: (instance: any) => void;
+}
+
 export interface GeoObjectProps<G, P = AnyObject, O = AnyObject>
   extends AnyObject {
   geometry?: G;
@@ -140,11 +167,11 @@ export interface GeoObjectProps<G, P = AnyObject, O = AnyObject>
   defaultOptions?: O;
 }
 
-export type GeoObjectGeometry = {
+export interface GeoObjectGeometry {
   type: 'Point' | 'LineString' | 'Rectangle' | 'Polygon' | 'Circle';
   coordinates: number[] | number[][] | number[][][];
   radius: number;
-};
+}
 
 export type PlacemarkGeometry = number[];
 export type PolylineGeometry = number[][];
@@ -156,6 +183,7 @@ export const YMaps: React.ComponentType<YMapsProps>;
 export const Map: React.ComponentType<MapProps>;
 export const ObjectManager: React.ComponentType<ObjectManagerProps>;
 export const Clusterer: React.ComponentType<ClustererProps>;
+export const Panorama: React.ComponentType<PanoramaProps>;
 
 export const GeoObject: React.ComponentType<GeoObjectProps<GeoObjectGeometry>>;
 export const Placemark: React.ComponentType<GeoObjectProps<PlacemarkGeometry>>;
