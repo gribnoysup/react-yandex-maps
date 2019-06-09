@@ -1,5 +1,14 @@
+import * as React from 'react';
+
 interface AnyObject {
   [key: string]: any;
+}
+
+interface CommonProps<T = any> {
+  instanceRef?: (ref: React.Ref<T>) => void;
+  onLoad?: (ymaps: YMapsApi) => void;
+  onError?: (error: Error) => void;
+  modules?: string[];
 }
 
 export interface YMapsApi extends AnyObject {}
@@ -48,18 +57,16 @@ export interface MapOptions extends AnyObject {
   yandexMapDisablePoiInteractivity?: boolean;
 }
 
-export interface MapProps extends AnyObject {
+export interface MapProps extends CommonProps {
   state?: MapState;
   defaultState?: MapState;
   options?: MapOptions;
   defaultOptions?: MapOptions;
-  modules?: string[];
   children?: React.ReactNode;
   width?: number | string;
   height?: number | string;
   style?: React.CSSProperties;
   className?: string;
-  instanceRef?: (instance: any) => void;
 }
 
 export interface ObjectManagerFeature {
@@ -95,7 +102,7 @@ export interface ObjectManagerOptions extends AnyObject {
 export type ObjectManagerObjectsOptions = AnyObject;
 export type ObjectManagerClustersOptions = AnyObject;
 
-export interface ObjectManagerProps {
+export interface ObjectManagerProps extends CommonProps {
   features?: ObjectManagerFeatures;
   defaultFeatures?: ObjectManagerFeatures;
   filter?: ObjectManagerFilter;
@@ -106,8 +113,6 @@ export interface ObjectManagerProps {
   defaultObjects?: ObjectManagerObjectsOptions;
   clusters?: ObjectManagerClustersOptions;
   defaultClusters?: ObjectManagerClustersOptions;
-  parent?: any;
-  instanceRef?: (instance: any) => void;
 }
 
 export interface ClustererOptions extends AnyObject {
@@ -125,12 +130,10 @@ export interface ClustererOptions extends AnyObject {
   zoomMargin?: number | number[] | number[][];
 }
 
-export interface ClustererProps extends AnyObject {
+export interface ClustererProps extends CommonProps {
   options?: ClustererOptions;
   defaultOptions?: ClustererOptions;
   children?: React.ReactNode;
-  parent?: any;
-  instanceRef?: (instance: any) => void;
 }
 
 export interface PanoramaOptions extends AnyObject {
@@ -143,18 +146,16 @@ export interface PanoramaOptions extends AnyObject {
   suppressMapOpenBlock?: boolean;
 }
 
-export interface PanoramaProps extends AnyObject {
+export interface PanoramaProps extends CommonProps {
   coordinates?: number[];
   defaultCoordinates?: number[];
   options?: PanoramaOptions;
   defaultOptions?: PanoramaOptions;
-  modules?: string[];
   children?: React.ReactNode;
   width?: number | string;
   height?: number | string;
   style?: React.CSSProperties;
   className?: string;
-  instanceRef?: (instance: any) => void;
 }
 
 export interface GeoObjectProps<G, P = AnyObject, O = AnyObject>
