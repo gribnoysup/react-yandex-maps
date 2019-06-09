@@ -174,6 +174,16 @@ export interface GeoObjectGeometry {
   radius: number;
 }
 
+export interface WithYMapsProps {
+  ymaps: YMapsApi;
+}
+
+export function withYMaps<P>(
+  component: React.ComponentType<P>,
+  waitForApi?: boolean,
+  modules?: string
+): React.ComponentType<P & WithYMapsProps>;
+
 export type PlacemarkGeometry = number[];
 export type PolylineGeometry = number[][];
 export type RectangleGeometry = number[][];
