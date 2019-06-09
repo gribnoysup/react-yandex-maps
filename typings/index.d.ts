@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 interface AnyObject {
   [key: string]: any;
 }
@@ -55,7 +53,7 @@ export interface MapProps extends AnyObject {
   defaultState?: MapState;
   options?: MapOptions;
   defaultOptions?: MapOptions;
-  children?: ReactNode;
+  children?: React.ReactNode;
   width?: number | string;
   height?: number | string;
   style?: React.CSSProperties;
@@ -141,6 +139,12 @@ export interface GeoObjectProps<G, P = AnyObject, O = AnyObject>
   options?: O;
   defaultOptions?: O;
 }
+
+export type GeoObjectGeometry = {
+  type: 'Point' | 'LineString' | 'Rectangle' | 'Polygon' | 'Circle';
+  coordinates: number[] | number[][] | number[][][];
+  radius: number;
+};
 
 export type PlacemarkGeometry = number[];
 export type PolylineGeometry = number[][];
