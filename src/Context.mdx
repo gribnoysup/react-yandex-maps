@@ -1,0 +1,23 @@
+---
+name: React Context.Provider and Consumer Components
+route: basic-principles/react-context-provider-consumer
+menu: Basic Principles
+---
+
+# React Context. Provider and Consumer Components
+
+This library uses React Context API to provide Yandex.Maps API to every
+component, that needs it.
+
+This library also uses React Context API so parent Yandex.Maps objects (e.g.,
+Map, Clusterer, ObjectManager) could provide children Yandex.Maps objects with a
+parent instance.
+
+If you want to know more about React Context and Provider/Consumer components,
+you can check out [React documentation section on the topic][4.1.1].
+
+> `WARN` Make sure that you used YMaps provider component and all Yandex.Maps
+> objects are inside this component tree. This library will throw an error, if
+> the Yandex.Maps context is missing.
+
+[4.1.1]: https://reactjs.org/docs/context.html

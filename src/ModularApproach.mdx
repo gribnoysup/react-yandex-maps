@@ -1,0 +1,144 @@
+---
+name: Modular Approach
+route: basic-principles/modular-approach
+menu: Basic Principles
+---
+
+import { Playground, Props } from 'docz';
+import { Map as _Map } from './Map';
+import { YMaps, Map, Placemark } from './';
+
+# Modular Approach
+
+This library heavily utilizes Yandex.Maps API module system to make amount of
+downloaded and executed code from Yandex.Maps as minimal as possible. There are
+some pros and cons to this system and there are also a way to opt out of this
+completely.
+
+By default this library will download only the modules that are actually
+rendered on the page. If `<Placemark />` or `<ObjectManager />` is not mounted
+in the page, corresponding would not be downloaded.
+
+That means that the amount of code your clients will download and execute will
+be as minimal as possible. On the other hand that means that instead of getting
+a lot of familiar Yandex.Maps API modules by default, now you need to really
+think about what you are using on the page.
+
+In the example below, we are mounting Map with a Placemark on the page:
+
+<Playground>
+  <YMaps>
+    <Map defaultState={{ center: [55.751574, 37.573856], zoom: 9 }}>
+      <Placemark defaultGeometry={[55.751574, 37.573856]} />
+    </Map>
+  </YMaps>
+</Playground>
+
+You can notice that all map controls that are usually provided on the map by
+default are missing here. This is happening because they are not part of the
+"core" Yandex.Maps module, not they are part of the Map or Placemark module.
+
+## Loading Modules with `modules` Prop
+
+Let's fix this by specifying which controls we want exactly in the map `state`
+and then let's use the `modules` prop to load the ones we need:
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.75, 37.57],
+        zoom: 9,
+        controls: ['zoomControl', 'fullscreenControl'],
+      }}
+      modules={['control.ZoomControl', 'control.FullscreenControl']}
+    >
+      <Placemark defaultGeometry={[55.75, 37.57]} />
+    </Map>
+  </YMaps>
+</Playground>
+
+Nice! Now we have controls on the map and we also avoided downloading the full
+package of Yandex.Maps API.
+
+All components in this library support `modules` prop, that will allow you to
+download additional modules when they are needed.
+
+Let's add another one to the example above. This time we will add balloon to the
+placemark. Balloon module is not downloaded with the base minimum bundle of
+Yandex.Maps API, so to actually see ballon we need to specify balloon addon as a
+module on the Placemark component.
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.75, 37.57],
+        zoom: 9,
+        controls: ['zoomControl', 'fullscreenControl'],
+      }}
+      modules={['control.ZoomControl', 'control.FullscreenControl']}
+    >
+      <Placemark
+        modules={['geoObject.addon.balloon']}
+        defaultGeometry={[55.75, 37.57]}
+        properties={{
+          balloonContentBody:
+            'This is balloon loaded by the Yandex.Maps API module system',
+        }}
+      />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Loading Modules With YMaps Provider `query` Prop
+
+Manually specifying required modules is not the only way to load them. You can
+also take advantage of `load` option when you are specifying `query` on your
+Provider component.
+
+This option is part of Yandex.Maps API request and can be used to define what
+modules you want to load right away with the Yandex.Maps API.
+
+Lets see how the previous example could be changed to use this option:
+
+<Playground>
+  <YMaps
+    query={{
+      ns: 'use-load-option',
+      load:
+        'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon',
+    }}
+  >
+    <Map
+      defaultState={{
+        center: [55.75, 37.57],
+        zoom: 9,
+        controls: ['zoomControl', 'fullscreenControl'],
+      }}
+    >
+      <Placemark
+        defaultGeometry={[55.75, 37.57]}
+        properties={{
+          balloonContentBody:
+            'This is balloon loaded by the Yandex.Maps API module system',
+        }}
+      />
+    </Map>
+  </YMaps>
+</Playground>
+
+Notice how we removed all `modules` props from all components and used
+`query.load` prop instead to specify all modules that are required.
+
+> `INFO` Yandex.Maps API default value for this option is `package.full`.
+> Setting `query.load` to `'package.full'` will set this library to the mode
+> that is completely matching the default Yandex.Maps API behavior
+
+You can learn more about [Yandex.Maps API on-demand module system][5.3.1] and
+[API loading parameters][5.3.2] in Yandex.Maps documentation.
+
+[5.3.1]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/modules-docpage/#require
+[5.3.2]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/dg/concepts/load-docpage/#param
