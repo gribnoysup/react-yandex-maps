@@ -195,24 +195,30 @@ if (process.env.NODE_ENV !== 'production') {
 
   ObjectManager.propTypes = {
     /**
-     * ObjectManager features
-     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__add-param-objects
+     * ObjectManager [features](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__add-param-objects)
      */
     features: FeaturesPropType,
+    /**
+     * Uncontrolled ObjectManager [features](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__add-param-objects)
+     */
     defaultFeatures: FeaturesPropType,
 
     /**
-     * ObjectManager features filter
-     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__setFilter-param-filterFunction
+     * ObjectManager [features filter](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__setFilter-param-filterFunction)
      */
     filter: FilterPropType,
+    /**
+     * Uncontrolled ObjectManager [features filter](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#method_detail__setFilter-param-filterFunction)
+     */
     defaultFilter: FilterPropType,
 
     /**
-     * ObjectManager options
-     * https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__param-options
+     * ObjectManager [options](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__param-options)
      */
     options: ObjectManagerOptionsPropType,
+    /**
+     * Uncontrolled ObjectManager [options](https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/ObjectManager-docpage/#ObjectManager__param-options)
+     */
     defaultOptions: ObjectManagerOptionsPropType,
 
     /** ObjectManager object options */
@@ -226,10 +232,16 @@ if (process.env.NODE_ENV !== 'production') {
     /** ref prop but for Yandex.Maps object instances */
     instanceRef: PropTypes.func,
 
-    /** Yandex.Maps API object */
+    /**
+     * @ignore
+     * Yandex.Maps API object
+     */
     ymaps: PropTypes.object,
 
-    /** Parent object (e.g, ymaps.Map or ymaps.Clusterer) */
+    /**
+     * @ignore
+     * Parent object (e.g, ymaps.Map or ymaps.Clusterer)
+     */
     parent: PropTypes.object,
   };
 }
