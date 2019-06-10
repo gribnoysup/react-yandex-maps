@@ -1,3 +1,4 @@
+/* global __DOCZ__ */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -65,7 +66,7 @@ Provider.defaultProps = {
   query: {
     lang: 'ru_RU',
     load: '',
-    ns: '',
+    ns: __DOCZ__ === true ? '__docz_default_ymaps_namespace__' : '',
   },
   preload: false,
 };

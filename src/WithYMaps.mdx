@@ -1,14 +1,13 @@
 ---
-name: Higher-Order Component Creator Function
+name: withYMaps Helper
 route: /provider-consumer/with-ymaps-hoc
 menu: YMaps Context
 ---
 
 import { Playground, Props } from 'docz';
 import { YMaps, withYMaps } from './';
-import { withYMaps as _withYMaps } from './withYMaps';
 
-# Higher-Order Component Creator Function
+# `withYMaps` Helper
 
 This library comes with a HOC creator function that can give any component in
 your application an access to Yandex.Maps API.
@@ -16,59 +15,62 @@ your application an access to Yandex.Maps API.
 Creating HOC with this function will give your components access to Yandex.Maps
 API object. You can use this API in your components in various ways.
 
-> `INFO` Keep in mind that by default `react-yandex-maps` loads only the small
-> core of Yandex.Maps API, so if you need access to something that is not
-> included in the core of Yandex.Maps, you need to explicitly specify this.
-> There are several ways to do this: with the third argument of the `withYMaps`
-> HOC (as shown in the example above), with the `modules` prop of connected
-> component, or by providing required module in `query.load` prop of `<YMaps />`
-> component
+Keep in mind that by default `react-yandex-maps` loads only the small core of
+Yandex.Maps API, so if you need access to something that is not included in the
+core of Yandex.Maps, you need to explicitly specify this. There are several ways
+to do this: with the third argument of the `withYMaps` HOC (as shown in the
+example above), with the `modules` prop of connected component, or by providing
+required module in `query.load` prop of `<YMaps />` component.
 
 In the example below we are creating a HOC that will load Yandex.Maps Route API,
 and them we are using this API inside our `LengthPrinter` component to display
-route length on the screen
+route length on the screen.
 
 <Playground>
-{() => {
-    class LengthPrinter extends React.Component {
-      constructor() {
-        this.state = { routeLength: null };
-      }
+  {() => {
+    const LengthPrinter = React.useMemo(() => {
+      return ({ ymaps, route }) => {
+        const [routeLength, setRouteLength] = React.useState(null);
 
-      componentDidMount() {
-        this._isMounted = true;
+        React.useEffect(() => {
+          let canceled = false;
 
-        this.props.ymaps.route(this.props.route).then(route => {
-          if (this._isMounted === true) {
-            this.setState({
-              routeLength: route.getHumanLength().replace('&#160;', ' '),
+          if (ymaps && ymaps.route) {
+            ymaps.route(route).then(route => {
+              if (!canceled) {
+                setRouteLength(route.getHumanLength().replace('&#160;', ' '));
+              }
             });
           }
-        });
-      }
 
-      componentWillUnmount() {
-        this._isMounted = false;
-      }
+          return () => (canceled = true);
+        }, [ymaps, ...route]);
 
-      render() {
-        return this.state.routeLength == null ? (
-          <p>Loading route...</p>
+        return routeLength ? (
+          <p>
+            The route from <strong>{route[0]}</strong> to{' '}
+            <strong>{route[1]}</strong> is <strong>{routeLength}</strong> long
+          </p>
         ) : (
-          <p>This route is {this.state.routeLength} long</p>
+          <p>Loading route...</p>
         );
-      }
-    }
+      };
 
-    const ConnectedLengthPrinter = withYMaps(LengthPrinter, true, ['route']);
-    return <YMaps query={{ lang: 'en_RU' }}>
-               <ConnectedLengthPrinter route={['Moscow, Russia', 'Berlin, Germany']} />
-             </YMaps>
+}, []);
 
-} }
+    const ConnectedLengthPrinter = React.useMemo(() => {
+      return withYMaps(LengthPrinter, true, ['route'])
+    }, [LengthPrinter]);
+
+    return (
+      <YMaps query={{ lang: 'en_RU' }}>
+        <ConnectedLengthPrinter route={['Moscow, Russia', 'Berlin, Germany']} />
+      </YMaps>
+    );
+
+}}
 
 </Playground>
 
-> `WARN` Don't forget that any component from this library (even those created
-> with the HOC creator function) need to be wrapped in `YMaps` provider
-> component
+Don't forget that any component from this library (even those created with the
+HOC creator function) need to be wrapped in `YMaps` provider component.

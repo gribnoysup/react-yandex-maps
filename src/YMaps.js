@@ -5,7 +5,7 @@ export class YMaps {
     const hash = Date.now().toString(32);
 
     this.options = options;
-    this.namespace = options.query.ns;
+    this.namespace = options.query.ns || YMaps.defaultQuery.ns;
 
     this.onload = YMaps.onloadCallback + '$$' + hash;
     this.onerror = YMaps.onerrorCallback + '$$' + hash;

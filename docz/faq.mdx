@@ -1,5 +1,5 @@
 ---
-name: Frequently Asked Questions
+name: FAQ
 route: /faq
 ---
 
@@ -7,14 +7,18 @@ route: /faq
 
 ## Is X Supported?
 
-[Here][] you can find list of all supported objects from Yandex.Maps API. We
-always welcome PRs with the missing objects from Yandex.Maps API.
-
-[here]: /#what-is-supported
+All basic Yandex.Maps API objects and controls are supported. All configuration
+options of those objects and all events are supported. For the list of supported
+items see ["What Is Supported?" section](/#what-is-supported)
 
 ## Can I Render React DOM Components Into Yandex.Maps Balloons or Placemark Icons?
 
-No at the moment. This behavior is not supported yet.
+This behavior is not supported out of the box by the library. You can try
+rendering them on your own accessing Yandex.Maps API directly, see
+[#23](https://github.com/gribnoysup/react-yandex-maps/issues/23),
+[#27](https://github.com/gribnoysup/react-yandex-maps/issues/27), and
+[#150](https://github.com/gribnoysup/react-yandex-maps/issues/150) for some
+examples.
 
 ## How To Style Map Container? Why Width and Height Props?
 

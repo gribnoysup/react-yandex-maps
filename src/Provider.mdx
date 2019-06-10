@@ -1,5 +1,5 @@
 ---
-name: Yandex.Maps API Provider Component
+name: Yandex.Maps API Provider
 route: /provider-consumer/ymaps-provider-component
 menu: YMaps Context
 ---
@@ -24,14 +24,16 @@ render(<Application />);
 Now you can add map components anywhere in your component tree below `<YMaps />`
 and they will have access to anything needed to get Yandex.Maps API.
 
+## Where To Put Provider?
+
 Don't be afraid to add provider higher in your application tree, Yandex.Maps API
 wouldn't be fetched until some map component will request it. If this behavior
 is undesirable, you can use `preload` prop to tell provider to fetch Yandex Maps
 API as soon as it mounts in the tree.
 
-> `INFO` Keep in mind that by default provider will fetch only the **critical
-> part** of Yandex.Maps API. After that every map component will handle fetching
-> corresponding part of Yandex Maps API automatically.
+Keep in mind that by default provider will fetch only the **critical part** of
+Yandex.Maps API. After that every map component will handle fetching
+corresponding part of Yandex Maps API automatically.
 
 If you want to load more parts of the Yandex.Maps right away you can use `load`
 parameter in component `query` prop to define what exactly you want to fetch.
