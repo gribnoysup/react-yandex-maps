@@ -5,8 +5,6 @@ set -e
 TMP_PACKAGE_JSON="package.json.tmp"
 PACKAGE_JSON="package.json"
 
-DOCS_FOLDER="docs"
-
 DEFAULT_RELEASE_TAG="latest"
 CANARY_RELEASE_TAG="canary"
 
@@ -90,26 +88,20 @@ if [ "$PROCEED" == "y" ] || [ "$PROCEED" == "Y" ]; then
   echo "Releasing new documentation"
   echo
 
-  cd $DOCS_FOLDER
-
-  # Install npm deps
-  echo "Installing documentation dependencies"
-  npm install
-
   # Build the docs
-  echo "Building the assets"
-  npm run build
+  echo "Building the docs assets"
+  npm run docs:build
 
   # Deploy to now
   echo "Deploying docs to now"
-  npm run deploy
+  npm run docs:deploy
   echo
 
   if [ "$RELEASE_TAG" == "$CANARY_RELEASE_TAG" ]; then
     echo "Canary release: skipping now aliasing"
     echo
   else
-    now alias
+    npm run docs:alias
     echo
   fi
   

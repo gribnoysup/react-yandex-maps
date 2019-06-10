@@ -22,6 +22,7 @@
     "microbundle:watch": "NODE_ENV=development npm run microbundle -- --output ./dist/development --compress false --watch",
     "docs:dev": "docz dev",
     "docs:build": "docz build",
+    "docs:deploy": "npx now ./.docz/dist --public",
     "release": "./scripts/release.sh",
     "test": "jest"
   },

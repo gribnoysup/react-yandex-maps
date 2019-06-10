@@ -1,16 +1,16 @@
 ---
-name: RouteButton
+name: RouteEditor
 route: /controls/route-editor
 menu: Controls
 ---
 
 import { Playground, Props } from 'docz';
-import { YMaps, Map, RouteButton } from '../';
-import { RouteButton as _RouteButton } from './RouteButton';
+import { YMaps, Map, RouteEditor } from '../';
+import { RouteEditor as _RouteEditor } from './RouteEditor';
 
-# RouteButton
+# RouteEditor
 
-Renders Yandex.Maps API [RouteButton][control] control
+Renders Yandex.Maps API [RouteEditor][control] control
 
 ## Basic Usage
 
@@ -23,14 +23,14 @@ Renders Yandex.Maps API [RouteButton][control] control
         controls: [],
       }}
     >
-      <RouteButton options={{ float: 'right' }} />
+      <RouteEditor />
     </Map>
   </YMaps>
 </Playground>
 
 ## Props
 
-<Props of={_RouteButton} />
+<Props of={_RouteEditor} />
 
 [control]:
-  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteButton-docpage/
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RouteEditor-docpage/
