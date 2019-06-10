@@ -29,14 +29,39 @@ export interface YMapsProps extends AnyObject {
   preload?: boolean;
 }
 
-export interface MapState extends AnyObject {
-  bounds?: number[][];
-  center?: number[];
+interface MapStateBase extends AnyObject {
   controls?: string[];
   behaviors?: string[];
   margin?: number[] | number[][];
   type?: 'yandex#map' | 'yandex#satellite' | 'yandex#hybrid';
+}
+
+/**
+ * REVIEW: disccuss if this behavior is necessary
+ */
+
+// interface MapStateBounds {
+//   bounds: number[][];
+//   zoom?: never;
+//   center?: never;
+// }
+
+// interface MapStateCenter {
+//   center: number[];
+//   zoom: number;
+//   bounds?: never;
+// }
+
+// export type MapState = MapStateBase & (MapStateBounds | MapStateCenter);
+
+interface MapState extends MapStateBase {
+  center?: number[];
   zoom?: number;
+  bounds?: number[][];
+  controls?: string[];
+  behaviors?: string[];
+  margin?: number[] | number[][];
+  type?: 'yandex#map' | 'yandex#satellite' | 'yandex#hybrid';
 }
 
 export interface MapOptions extends AnyObject {
