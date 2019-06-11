@@ -1,17 +1,26 @@
 import * as React from 'react';
 
+type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
 interface AnyObject {
   [key: string]: any;
 }
 
-interface CommonProps<T = any> {
-  instanceRef?: (ref: React.Ref<T>) => void;
+interface CommonProps<T = any> extends AnyObject {
+  instanceRef?: (instance: React.Ref<T>) => void;
   onLoad?: (ymaps: YMapsApi) => void;
   onError?: (error: Error) => void;
   modules?: string[];
+  children?: React.ReactNode;
 }
 
+export type MapType = 'yandex#map' | 'yandex#satellite' | 'yandex#hybrid';
+
 export interface YMapsApi extends AnyObject {}
+
+//
+// Main components
+// ----------------------------------------------------------------------
 
 export interface YMapsProps extends AnyObject {
   version?: string;
@@ -33,36 +42,25 @@ interface MapStateBase extends AnyObject {
   controls?: string[];
   behaviors?: string[];
   margin?: number[] | number[][];
-  type?: 'yandex#map' | 'yandex#satellite' | 'yandex#hybrid';
+  type?: MapType;
+}
+
+interface MapStateBounds {
+  bounds: number[][];
+  zoom?: never;
+  center?: never;
+}
+
+interface MapStateCenter {
+  center: number[];
+  zoom: number;
+  bounds?: never;
 }
 
 /**
- * REVIEW: disccuss if this behavior is necessary
+ * REVIEW: discuss if this behavior is necessary
  */
-
-// interface MapStateBounds {
-//   bounds: number[][];
-//   zoom?: never;
-//   center?: never;
-// }
-
-// interface MapStateCenter {
-//   center: number[];
-//   zoom: number;
-//   bounds?: never;
-// }
-
-// export type MapState = MapStateBase & (MapStateBounds | MapStateCenter);
-
-interface MapState extends MapStateBase {
-  center?: number[];
-  zoom?: number;
-  bounds?: number[][];
-  controls?: string[];
-  behaviors?: string[];
-  margin?: number[] | number[][];
-  type?: 'yandex#map' | 'yandex#satellite' | 'yandex#hybrid';
-}
+export type MapState = MapStateBase & (MapStateBounds | MapStateCenter);
 
 export interface MapOptions extends AnyObject {
   autoFitToViewport?: 'none' | 'ifNull' | 'always';
@@ -108,8 +106,9 @@ export interface ObjectManagerFeatureCollection {
 }
 
 export type ObjectManagerFeatures =
-  | (ObjectManagerFeatureCollection | ObjectManagerFeature)[]
-  | ObjectManagerFeatureCollection;
+  | ObjectManagerFeature
+  | ObjectManagerFeatureCollection
+  | (ObjectManagerFeatureCollection | ObjectManagerFeature)[];
 
 export type ObjectManagerFilter =
   | string
@@ -122,10 +121,10 @@ export interface ObjectManagerOptions extends AnyObject {
 }
 
 /**
- * FIXME:
+ * TODO: replace `AnyObject` with definitions
  */
-export type ObjectManagerObjectsOptions = AnyObject;
-export type ObjectManagerClustersOptions = AnyObject;
+export interface ObjectManagerObjectsOptions extends AnyObject {}
+export interface ObjectManagerClustersOptions extends AnyObject {}
 
 export interface ObjectManagerProps extends CommonProps {
   features?: ObjectManagerFeatures;
@@ -158,13 +157,12 @@ export interface ClustererOptions extends AnyObject {
 export interface ClustererProps extends CommonProps {
   options?: ClustererOptions;
   defaultOptions?: ClustererOptions;
-  children?: React.ReactNode;
 }
 
 export interface PanoramaOptions extends AnyObject {
   autoFitToViewport?: 'none' | 'ifNull' | 'always';
   controls?: string[];
-  direction?: number[] | string;
+  direction?: string | number[];
   hotkeysEnabled?: boolean;
   scrollZoomBehavior?: boolean;
   span?: string | number[];
@@ -183,26 +181,6 @@ export interface PanoramaProps extends CommonProps {
   className?: string;
 }
 
-export interface GeoObjectProps<G, P = AnyObject, O = AnyObject>
-  extends AnyObject {
-  geometry?: G;
-  defaultGeometry?: G;
-  properties?: P;
-  defaultProperties?: P;
-  options?: O;
-  defaultOptions?: O;
-}
-
-export interface ControlProps<D = AnyObject, O = AnyObject, S = AnyObject>
-  extends CommonProps {
-  data?: D;
-  defaultData?: D;
-  options?: O;
-  defaultOptions?: O;
-  state?: S;
-  defaultState?: S;
-}
-
 export interface WithYMapsProps {
   ymaps: YMapsApi;
 }
@@ -213,24 +191,37 @@ export function withYMaps<P>(
   modules?: string
 ): React.ComponentType<P & WithYMapsProps>;
 
-// export interface GeoObjectGeometry {
-//   type: 'Point' | 'LineString' | 'Rectangle' | 'Polygon' | 'Circle';
-//   coordinates: number[] | number[][] | number[][][];
-//   radius: number;
-// }
-
-export type GeoObjectGeometry = AnyObject;
-export type PlacemarkGeometry = number[];
-export type PolylineGeometry = number[][];
-export type RectangleGeometry = number[][];
-export type PolygonGeometry = number[][][];
-export type CircleGeometry = (number | number[])[];
-
 export const YMaps: React.ComponentType<YMapsProps>;
 export const Map: React.ComponentType<MapProps>;
 export const ObjectManager: React.ComponentType<ObjectManagerProps>;
 export const Clusterer: React.ComponentType<ClustererProps>;
 export const Panorama: React.ComponentType<PanoramaProps>;
+
+//
+// Geo Objects components
+// ----------------------------------------------------------------------
+
+export interface GeoObjectProps<G, P = AnyObject, O = AnyObject>
+  extends AnyObject {
+  geometry?: G;
+  defaultGeometry?: G;
+  properties?: P;
+  defaultProperties?: P;
+  options?: O;
+  defaultOptions?: O;
+}
+
+export interface GeoObjectGeometry extends AnyObject {
+  type: 'Point' | 'LineString' | 'Rectangle' | 'Polygon' | 'Circle';
+  coordinates: number[] | number[][] | number[][][];
+  radius?: number;
+}
+
+export type PlacemarkGeometry = number[];
+export type PolylineGeometry = number[][];
+export type RectangleGeometry = number[][];
+export type PolygonGeometry = number[][][];
+export type CircleGeometry = (number | number[])[];
 
 export const GeoObject: React.ComponentType<GeoObjectProps<GeoObjectGeometry>>;
 export const Placemark: React.ComponentType<GeoObjectProps<PlacemarkGeometry>>;
@@ -239,9 +230,38 @@ export const Rectangle: React.ComponentType<GeoObjectProps<RectangleGeometry>>;
 export const Polygon: React.ComponentType<GeoObjectProps<PolygonGeometry>>;
 export const Circle: React.ComponentType<GeoObjectProps<CircleGeometry>>;
 
+//
+// Controls components
+// ----------------------------------------------------------------------
+
 /**
- * TODO: data, options, state types for controls
+ * REVIEW: discuss about detailed props for `data`, `options`, `state`
  */
+export interface ControlProps<D = AnyObject, O = AnyObject, S = AnyObject>
+  extends CommonProps {
+  data?: D;
+  defaultData?: D;
+  options?: O;
+  defaultOptions?: O;
+  state?: S;
+  defaultState?: S;
+}
+
+export type ControlPropsWithoutData<
+  D = AnyObject,
+  O = AnyObject,
+  S = AnyObject
+> = Omit<ControlProps<D, O, S>, 'data' | 'defaultData'>;
+
+export type TypeSelectorProps<
+  D = AnyObject,
+  O = AnyObject,
+  S = AnyObject
+> = ControlProps<D, O, S> & {
+  mapTypes?: MapType;
+  defaultMapTypes?: MapType;
+};
+
 export const Button: React.ComponentType<ControlProps>;
 export const FullscreenControl: React.ComponentType<ControlProps>;
 export const GeolocationControl: React.ComponentType<ControlProps>;
@@ -249,9 +269,9 @@ export const ListBox: React.ComponentType<ControlProps>;
 export const ListBoxItem: React.ComponentType<ControlProps>;
 export const RouteButton: React.ComponentType<ControlProps>;
 export const RouteEditor: React.ComponentType<ControlProps>;
-export const RoutePanel: React.ComponentType<AnyObject>;
+export const RoutePanel: React.ComponentType<ControlPropsWithoutData>;
 export const RulerControl: React.ComponentType<ControlProps>;
 export const SearchControl: React.ComponentType<ControlProps>;
-export const TrafficControl: React.ComponentType<AnyObject>;
-export const TypeSelector: React.ComponentType<AnyObject>;
+export const TrafficControl: React.ComponentType<ControlPropsWithoutData>;
+export const TypeSelector: React.ComponentType<TypeSelectorProps>;
 export const ZoomControl: React.ComponentType<ControlProps>;
