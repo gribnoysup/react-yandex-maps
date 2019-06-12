@@ -188,7 +188,7 @@ export interface WithYMapsProps {
 export function withYMaps<P>(
   component: React.ComponentType<P>,
   waitForApi?: boolean,
-  modules?: string
+  modules?: string[]
 ): React.ComponentType<P & WithYMapsProps>;
 
 export const YMaps: React.ComponentType<YMapsProps>;
@@ -258,8 +258,8 @@ export type TypeSelectorProps<
   O = AnyObject,
   S = AnyObject
 > = ControlProps<D, O, S> & {
-  mapTypes?: MapType;
-  defaultMapTypes?: MapType;
+  mapTypes?: MapType[];
+  defaultMapTypes?: MapType[];
 };
 
 export const Button: React.ComponentType<ControlProps>;
