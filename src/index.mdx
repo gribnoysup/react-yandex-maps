@@ -15,7 +15,7 @@ render Yandex Maps in your React application with minimum amount of hassle 🎉
 To add the library to your project you can either use one of the CDN services
 
 ```html
-<script src="https://unpkg.com/react-yandex-maps/dist/react-yandex-maps.umd.js"></script>
+<script src="https://unpkg.com/react-yandex-maps/dist/production/react-yandex-maps.umd.js"></script>
 ```
 
 Or npm/yarn to install the library from npm registry:
@@ -78,11 +78,11 @@ Here is a list of supported features and objects:
 
 ### Supported Features
 
-- [x] Modifying Yandex.Maps API request via `YMaps` provider component
-- [x] Getting acces to Yandex.Maps API in your components via `withYMaps` HOC
-- [x] Granular load of the required API modules with Yandex.Maps modules API
-- [x] Controlled and uncontrolled components for every supported object
-- [x] Enterprise API via `YMaps` `query` prop
+- Modifying Yandex.Maps API request via `YMaps` provider component
+- Getting acces to Yandex.Maps API in your components via `withYMaps` HOC
+- Granular load of the required API modules with Yandex.Maps modules API
+- Controlled and uncontrolled components for every supported object
+- Enterprise API via `YMaps` `query` prop
 
 Controlled props that are mentioned above are not 100% controlled as there is no
 way to stop Yandex.Maps objects from updating completely with the library API.
@@ -94,12 +94,12 @@ go out of sync.
 
 Map, Panorama
 
-#### Supported GeoObjects
+### Supported GeoObjects
 
 GeoObject, Placemark, Polyline, Rectangle, Polygon, Circle, Clusterer,
 ObjectManager
 
-#### Supported Controls
+### Supported Controls
 
 Button, FullscreenControl, GeolocationControl, ListBox, ListBoxItem,
 RouteButton, RouteEditor, RoutePanel, RulerControl, SearchControl,
