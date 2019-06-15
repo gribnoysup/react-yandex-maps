@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>ReactYandexMaps kitchensink</title>
+
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/htm@2.1.1/dist/htm.js"></script>
+
+    <!-- <script src="./dist/development/react-yandex-maps.umd.js"></script> -->
+    <script src="./dist/production/react-yandex-maps.umd.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .map {
+        width: 100vw;
+        height: 50vh;
+      }
+
+      .panorama {
+        width: 100vw;
+        height: 50vh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script>
+      const {
+        YMaps,
+        Map,
+        Panorama,
+        Button,
+        FullscreenControl,
+        GeolocationControl,
+        ListBox,
+        ListBoxItem,
+        RouteButton,
+        RouteEditor,
+        RoutePanel,
+        RulerControl,
+        SearchControl,
+        TrafficControl,
+        TypeSelector,
+        ZoomControl,
+        Circle,
+        GeoObject,
+        Placemark,
+        Polygon,
+        Polyline,
+        Rectangle,
+        Clusterer,
+        ObjectManager,
+      } = ReactYandexMaps;
+
+      const html = htm.bind(React.createElement);
+
+      const points = [
+        [55.831903, 37.411961],
+        [55.763338, 37.565466],
+        [55.763338, 37.565466],
+        [55.744522, 37.616378],
+        [55.780898, 37.642889],
+        [55.793559, 37.435983],
+        [55.800584, 37.675638],
+        [55.716733, 37.589988],
+        [55.775724, 37.560841],
+        [55.822144, 37.433781],
+        [55.874171, 37.669838],
+        [55.716771, 37.482338],
+        [55.780851, 37.750211],
+        [55.810906, 37.654142],
+        [55.865386, 37.713329],
+      ];
+
+      const pointsToFeatures = points => ({
+        type: 'FeatureCollection',
+        features: points.map((coordinates, index) => ({
+          type: 'Feature',
+          id: index,
+          geometry: { type: 'Point', coordinates },
+          properties: {
+            balloonContent: `Placemark #${index}`,
+            clusterCaption: `Placemark #${index}`,
+            hintContent: `Placemark #${index}`,
+          },
+        })),
+      });
+
+      const App = () => html`
+        <${YMaps}>
+          <div>
+            <${Map}
+              className="map"
+              defaultState=${{ center: [55.75222, 37.61556], zoom: 11 }}
+            >
+              ${'' /** --- Controls */}
+              <${Button} data=${{ content: 'Button' }} />
+              <${FullscreenControl} />
+              <${GeolocationControl} />
+              <${ListBox} data=${{ content: 'ListBox' }}>
+                <${ListBoxItem} data=${{ content: 'ListBoxItem' }} />
+              <//>
+              <${RouteButton} />
+              <${RouteEditor} />
+              <${RoutePanel} />
+              <${SearchControl} />
+              <${TrafficControl} />
+              <${TypeSelector} />
+              <${ZoomControl} />
+              ${'' /** --- GeoObjects */}
+              <${Circle}
+                defaultGeometry=${[[55.75222, 37.61556], 2000]}
+                defaultOptions=${{
+                  strokeColor: '#f00',
+                  fillColor: '#f00',
+                  strokeWidth: 4,
+                }}
+              />
+              <${GeoObject}
+                defaultGeometry=${{
+                  type: 'Circle',
+                  coordinates: [55.733685, 37.588264],
+                  radius: 3000,
+                }}
+              />
+              <${Placemark}
+                defaultGeometry=${[55.75222, 37.61556]}
+                properties=${{
+                  balloonContentBody: 'Ballon',
+                }}
+                modules=${['geoObject.addon.balloon']}
+              />
+              <${Polygon}
+                defaultGeometry=${[
+                  [
+                    [55.75, 37.8],
+                    [55.8, 37.9],
+                    [55.75, 38.0],
+                    [55.7, 38.0],
+                    [55.7, 37.8],
+                  ],
+                  [[55.75, 37.82], [55.75, 37.98], [55.65, 37.9]],
+                ]}
+                defaultOptions=${{
+                  strokeColor: '#0f0',
+                  fillColor: '#0f0',
+                  strokeWidth: 4,
+                }}
+              />
+              <${Polyline}
+                defaultGeometry=${[
+                  [55.8, 37.5],
+                  [55.8, 37.4],
+                  [55.7, 37.5],
+                  [55.7, 37.4],
+                ]}
+                defaultOptions=${{
+                  strokeColor: '#00f',
+                  fillColor: '#00f',
+                  strokeWidth: 4,
+                }}
+              />
+              ${'' /** --- Clusterization */}
+              <${Clusterer}
+                options=${{
+                  preset: 'islands#redClusterIcons',
+                  groupByCoordinates: false,
+                }}
+              >
+                ${points.slice(0, 5).map(
+                  (coordinates, index) =>
+                    html`
+                      <${Placemark}
+                        key=${index}
+                        defaultGeometry=${coordinates}
+                        defaultOptions=${{
+                          preset: 'islands#redDotIcon',
+                        }}
+                      />
+                    `
+                )}
+              <//>
+              <${ObjectManager}
+                options=${{
+                  clusterize: true,
+                  gridSize: 1000,
+                }}
+                objects=${{
+                  openBalloonOnClick: true,
+                  preset: 'islands#greenDotIcon',
+                }}
+                clusters=${{
+                  preset: 'islands#greenClusterIcons',
+                }}
+                filter=${object => object.id >= 5}
+                defaultFeatures=${pointsToFeatures(points)}
+                modules=${[
+                  'objectManager.addon.objectsBalloon',
+                  'objectManager.addon.objectsHint',
+                ]}
+              />
+            <//>
+            <${Panorama}
+              className="panorama"
+              defaultPoint=${[55.733685, 37.588264]}
+            />
+          </div>
+        <//>
+      `;
+
+      ReactDOM.render(
+        html`
+          <${App} />
+        `,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>

@@ -91,7 +91,7 @@
       "npm run prettier",
       "git add"
     ],
-    "*.{json,yml,css,md,mdx}": [
+    "*.{json,yml,css,md,mdx,html}": [
       "npm run prettier",
       "git add"
     ]
