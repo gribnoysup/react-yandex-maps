@@ -1,0 +1,44 @@
+---
+name: ListBox
+route: /controls/list-box
+menu: Controls
+---
+
+import { Playground } from 'docz';
+import { Props } from '../../docz/components/Props';
+import { YMaps, Map, ListBox, ListBoxItem } from '../';
+import { ListBox as _ListBox } from './ListBox';
+
+# ListBox
+
+Renders Yandex.Maps API [ListBox][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <ListBox data={{ content: 'Select city' }}>
+        <ListBoxItem data={{ content: 'Moscow' }} />
+        <ListBoxItem
+          data={{
+            content: 'Saint Petersburg',
+          }}
+        />
+      </ListBox>
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_ListBox} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.ListBox-docpage/

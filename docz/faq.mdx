@@ -1,0 +1,53 @@
+---
+name: FAQ
+route: /faq
+---
+
+# Frequently Asked Questions
+
+## Is X Supported?
+
+All basic Yandex.Maps API objects and controls are supported. All configuration
+options of those objects and all events are supported. For the list of supported
+items see ["What Is Supported?" section](/#what-is-supported)
+
+## Can I Render React DOM Components Into Yandex.Maps Balloons or Placemark Icons?
+
+This behavior is not supported out of the box by the library. You can try
+rendering them on your own accessing Yandex.Maps API directly, see
+[#23](https://github.com/gribnoysup/react-yandex-maps/issues/23),
+[#27](https://github.com/gribnoysup/react-yandex-maps/issues/27), and
+[#150](https://github.com/gribnoysup/react-yandex-maps/issues/150) for some
+examples.
+
+## How To Style Map Container? Why Width and Height Props?
+
+By default you can only control Map container with width and height props. This
+is done so that `react-yandex-maps` library can keep track of size changes and
+call special Map method to fit the Map UI into available view.
+
+You can opt-out of this behavior by providing your own `style` or `className`
+prop to the Map component. Your props will be passed to the Map container node
+and the library will ignore the width and height props.
+
+## How To Get Access to Yandex.Maps API Instance?
+
+There are two ways to achieve this:
+
+- Use `onLoad` callback prop on any map component from this library, when
+  Yandex.Maps API will finish loading, this callback will be called with API
+  instance as the first argument.
+
+- Use [`withYMaps` HOC][withymaps] and create your own custom component with
+  full access to Yandex.Maps API as a prop.
+
+[withymaps]: /provider-consumer/with-ymaps-hoc
+
+## How To Get Object Instance?
+
+To get instance of any Yandex.Maps object that rendered by this library, use can
+use `instanceRef` prop. Keep in mind that this will behave as React [callback
+refs][]: it will call the ref callback with the Yandex.Maps API object instance
+when the component mounts, and call it with `null` when it unmounts.
+
+[callback refs]: https://reactjs.org/docs/refs-and-the-dom.html#callback-refs

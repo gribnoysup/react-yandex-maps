@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "react-yandex-maps",
+  "alias": "react-yandex-maps.now.sh",
+  "builds": [{ "src": ".docz/dist/**/*.*", "use": "@now/static" }],
+  "routes": [
+    {
+      "src": "/static/(.+)",
+      "dest": "/.docz/dist/static/$1"
+    },
+    {
+      "src": "/assets.json",
+      "headers": { "cache-control": "no-cache, must-revalidate" },
+      "dest": "/.docz/dist/assets.json"
+    },
+    {
+      "src": "/(.*)",
+      "headers": { "cache-control": "no-cache, must-revalidate" },
+      "dest": "/.docz/dist/index.html"
+    }
+  ]
+}

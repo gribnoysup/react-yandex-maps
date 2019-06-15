@@ -1,0 +1,130 @@
+---
+name: Getting Started
+route: /
+---
+
+import Version from '../docz/components/Version';
+
+# `react-yandex-maps` <Version />
+
+`react-yandex-maps` is a wrapper around Yandex.Maps API that allows you to
+render Yandex Maps in your React application with minimum amount of hassle 🎉
+
+## Getting Started
+
+### Installation
+
+To add the library to your project you can either use one of the CDN services
+
+```html
+<script src="https://unpkg.com/react-yandex-maps/dist/production/react-yandex-maps.umd.js"></script>
+```
+
+Or npm/yarn to install the library from npm registry:
+
+```bash
+# With npm:
+npm install --save react-yandex-maps
+# With yarn:
+yarn add react-yandex-maps
+```
+
+### Adding Maps to Your Application
+
+Adding maps to your application can be splitted in two steps.
+
+First, we will add provider component, that will handle loading the Yandex.Maps
+API and providing it to any interested component on the page. Usually you don't
+want to have several providers on one page. A good place to put your provider
+could the at the top of your application:
+
+```jsx
+import { YMaps } from 'react-yandex-maps';
+
+const App = () => (
+  <YMaps>
+    <div>My awesome application with maps!</div>
+  </YMaps>
+);
+```
+
+Then add the Map component with desired state somewhere on the page:
+
+```jsx
+import { YMaps, Map } from 'react-yandex-maps';
+
+const App = () => (
+  <YMaps>
+    <div>
+      My awesome application with maps!
+      <Map defaultState={{ center: [55.75, 37.57], zoom: 9 }} />
+    </div>
+  </YMaps>
+);
+```
+
+That's it! Now, as soon as Yandex.Maps API is loaded by `YMaps` provider
+component, `Map` component will render `ymaps.Map` object on the page.
+
+Before you start playing around with the library I higly recommend taking a
+quick look at the "What is supported?" section and a more thorough look at
+"Basic Principles" section
+
+## What Is Supported?
+
+This library is a thin wrapper over Yandex.Maps API, a lot of Yandex.Maps API
+objects and features are supported with React components but not all of them and
+not all of their features.
+
+Here is a list of supported features and objects:
+
+### Supported Features
+
+- Modifying Yandex.Maps API request via `YMaps` provider component
+- Getting acces to Yandex.Maps API in your components via `withYMaps` HOC
+- Granular load of the required API modules with Yandex.Maps modules API
+- Controlled and uncontrolled components for every supported object
+- Enterprise API via `YMaps` `query` prop
+
+Controlled props that are mentioned above are not 100% controlled as there is no
+way to stop Yandex.Maps objects from updating completely with the library API.
+When using controlled props, you should keep in mind that your
+state/properties/options and Yandex.Maps object state/properties/options could
+go out of sync.
+
+### Supported Yandex.Maps Objects
+
+Map, Panorama
+
+### Supported GeoObjects
+
+GeoObject, Placemark, Polyline, Rectangle, Polygon, Circle, Clusterer,
+ObjectManager
+
+### Supported Controls
+
+Button, FullscreenControl, GeolocationControl, ListBox, ListBoxItem,
+RouteButton, RouteEditor, RoutePanel, RulerControl, SearchControl,
+TrafficControl, TypeSelector, ZoomControl
+
+## What Is Not Supported?
+
+Rendering React DOM nodes to the Yandex.Maps template factories is not supported
+(i.e., you can't render balloon content with React with this library out of the
+box),
+[see FAQ](/faq#can-i-render-react-dom-components-into-yandexmaps-balloons-or-placemark-icons)
+for more info.
+
+## Core Principles
+
+There are a few [core principles](/core-principles) that are forming the base of
+this library. It will be very helpful to keep those in mind, when you are using
+it.
+
+- [Modular Approach][4.1]
+- [Controlled and Uncontrolled Components][4.2]
+- [React Context. Provider and Consumer Components][4.3]
+
+[4.1]: /core-principles#modular-approach
+[4.2]: /core-principles#controlled-and-uncontrolled-components
+[4.3]: /core-principles#react-context-provider-and-consumer-components

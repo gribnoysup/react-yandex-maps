@@ -1,0 +1,37 @@
+---
+name: Map
+route: /map
+---
+
+import { Playground } from 'docz';
+import { Props } from '../docz/components/Props';
+import { Map as _Map } from './Map';
+import { YMaps, Map } from './';
+
+# Map
+
+Renders Yandex.Maps API [Map][map] object
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map defaultState={{ center: [55.751574, 37.573856], zoom: 9 }} />
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_Map} />
+
+### Width And Height Props
+
+Yandex.Maps Map parent element should have at least some size set to it,
+otherwise the Map instance is rendered into the container with zero size.
+
+To avoid that, this library uses `width` and `height` props as default way of
+sizing the map element, but if the library user provides `style` or `className`
+prop, Map component will assume that the Map instance is sized by those props
+and will not use `width` and `height` props
+
+[map]: https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Map-docpage/

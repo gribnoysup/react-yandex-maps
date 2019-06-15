@@ -6,5 +6,5 @@
  * and inline babel config here
  */
 module.exports = require('babel-jest').createTransformer({
-  presets: ['env', 'react'],
+  presets: ['@babel/preset-env', '@babel/preset-react'],
 });

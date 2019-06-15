@@ -1,0 +1,46 @@
+---
+name: Clusterer
+route: /clusterization/Clusterer
+menu: Clusterization
+---
+
+import { Playground } from 'docz';
+import { Props } from '../../docz/components/Props';
+import { YMaps, Map, Clusterer, Placemark } from '../';
+import { Clusterer as _Clusterer } from './Clusterer';
+import points from './__fixtures__/points';
+
+# Clusterer
+
+Renders Yandex.Maps API [Clusterer][docs]
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 5,
+      }}
+    >
+      <Clusterer
+        options={{
+          preset: 'islands#invertedVioletClusterIcons',
+          groupByCoordinates: false,
+        }}
+      >
+        {points.map((coordinates, index) => (
+          <Placemark key={index} geometry={coordinates} />
+        ))}
+      </Clusterer>
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_Clusterer} />
+
+[docs]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Clusterer-docpage/

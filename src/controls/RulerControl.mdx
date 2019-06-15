@@ -1,0 +1,37 @@
+---
+name: RulerControl
+route: /controls/ruler-control
+menu: Controls
+---
+
+import { Playground } from 'docz';
+import { Props } from '../../docz/components/Props';
+import { YMaps, Map, RulerControl } from '../';
+import { RulerControl as _RulerControl } from './RulerControl';
+
+# RulerControl
+
+Renders Yandex.Maps API [RulerControl][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <RulerControl options={{ float: 'right' }} />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_RulerControl} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.RulerControl-docpage/

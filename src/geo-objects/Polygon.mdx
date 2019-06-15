@@ -1,0 +1,54 @@
+---
+name: Polygon
+route: /geo-objects/polygon
+menu: GeoObjects
+---
+
+import { Playground } from 'docz';
+import { Props } from '../../docz/components/Props';
+import { Polygon as _Polygon } from './Polygon';
+import { YMaps, Map, Polygon } from '../';
+
+# Map
+
+Renders Yandex.Maps API [Polygon][docs] object
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.73, 37.9],
+        zoom: 10,
+      }}
+    >
+      <Polygon
+        geometry={[
+          [
+            [55.75, 37.8],
+            [55.8, 37.9],
+            [55.75, 38.0],
+            [55.7, 38.0],
+            [55.7, 37.8],
+          ],
+          [[55.75, 37.82], [55.75, 37.98], [55.65, 37.9]],
+        ]}
+        options={{
+          fillColor: '#00FF00',
+          strokeColor: '#0000FF',
+          opacity: 0.5,
+          strokeWidth: 5,
+          strokeStyle: 'shortdash',
+        }}
+      />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_Polygon} />
+
+[docs]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Polygon-docpage/

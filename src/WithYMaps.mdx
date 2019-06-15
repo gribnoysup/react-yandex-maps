@@ -1,0 +1,77 @@
+---
+name: withYMaps Helper
+route: /provider-consumer/with-ymaps-hoc
+menu: YMaps Context
+---
+
+import { Playground } from 'docz';
+import { Props } from '../docz/components/Props';
+import { YMaps, withYMaps } from './';
+
+# `withYMaps` Helper
+
+This library comes with a HOC creator function that can give any component in
+your application an access to Yandex.Maps API.
+
+Creating HOC with this function will give your components access to Yandex.Maps
+API object. You can use this API in your components in various ways.
+
+Keep in mind that by default `react-yandex-maps` loads only the small core of
+Yandex.Maps API, so if you need access to something that is not included in the
+core of Yandex.Maps, you need to explicitly specify this. There are several ways
+to do this: with the third argument of the `withYMaps` HOC (as shown in the
+example above), with the `modules` prop of connected component, or by providing
+required module in `query.load` prop of `<YMaps />` component.
+
+In the example below we are creating a HOC that will load Yandex.Maps Route API,
+and them we are using this API inside our `LengthPrinter` component to display
+route length on the screen.
+
+<Playground>
+  {() => {
+    const LengthPrinter = React.useMemo(() => {
+      return ({ ymaps, route }) => {
+        const [routeLength, setRouteLength] = React.useState(null);
+
+        React.useEffect(() => {
+          let canceled = false;
+
+          if (ymaps && ymaps.route) {
+            ymaps.route(route).then(route => {
+              if (!canceled) {
+                setRouteLength(route.getHumanLength().replace('&#160;', ' '));
+              }
+            });
+          }
+
+          return () => (canceled = true);
+        }, [ymaps, ...route]);
+
+        return routeLength ? (
+          <p>
+            The route from <strong>{route[0]}</strong> to{' '}
+            <strong>{route[1]}</strong> is <strong>{routeLength}</strong> long
+          </p>
+        ) : (
+          <p>Loading route...</p>
+        );
+      };
+
+}, []);
+
+    const ConnectedLengthPrinter = React.useMemo(() => {
+      return withYMaps(LengthPrinter, true, ['route'])
+    }, [LengthPrinter]);
+
+    return (
+      <YMaps query={{ lang: 'en_RU' }}>
+        <ConnectedLengthPrinter route={['Moscow, Russia', 'Berlin, Germany']} />
+      </YMaps>
+    );
+
+}}
+
+</Playground>
+
+Don't forget that any component from this library (even those created with the
+HOC creator function) need to be wrapped in `YMaps` provider component.

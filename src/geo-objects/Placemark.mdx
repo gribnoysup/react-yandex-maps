@@ -1,0 +1,36 @@
+---
+name: Placemark
+route: /geo-objects/placemark
+menu: GeoObjects
+---
+
+import { Playground } from 'docz';
+import { Props } from '../../docz/components/Props';
+import { Placemark as _Placemark } from './Placemark';
+import { YMaps, Map, Placemark } from '../';
+
+# Map
+
+Renders Yandex.Maps API [Placemark][docs] object
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 5,
+      }}
+    >
+      <Placemark geometry={[55.684758, 37.738521]} />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_Placemark} />
+
+[docs]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/

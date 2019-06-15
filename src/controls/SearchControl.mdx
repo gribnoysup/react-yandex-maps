@@ -1,0 +1,37 @@
+---
+name: SearchControl
+route: /controls/search-control
+menu: Controls
+---
+
+import { Playground } from 'docz';
+import { Props } from '../../docz/components/Props';
+import { YMaps, Map, SearchControl } from '../';
+import { SearchControl as _SearchControl } from './SearchControl';
+
+# SearchControl
+
+Renders Yandex.Maps API [SearchControl][control] control
+
+## Basic Usage
+
+<Playground>
+  <YMaps>
+    <Map
+      defaultState={{
+        center: [55.751574, 37.573856],
+        zoom: 9,
+        controls: [],
+      }}
+    >
+      <SearchControl options={{ float: 'right' }} />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_SearchControl} />
+
+[control]:
+  https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/control.SearchControl-docpage/
