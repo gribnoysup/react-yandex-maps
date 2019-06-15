@@ -1,7 +1,8 @@
 {
   "name": "react-yandex-maps",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Yandex.Maps API bindings for React",
+  "typings": "typings/index.d.ts",
   "main": "index.js",
   "module": "dist/production/react-yandex-maps.esm.js",
   "umd:main": "dist/production/react-yandex-maps.umd.js",
@@ -9,7 +10,8 @@
   "files": [
     "README.md",
     "LICENSE",
-    "dist"
+    "dist",
+    "typings"
   ],
   "scripts": {
     "clear": "rm -rf dist",
