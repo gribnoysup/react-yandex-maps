@@ -41,6 +41,7 @@ function setEnv() {
 }
 
 function abortRelease() {
+  echo
   echo "⚠️ Publishing aborted"
   echo
 
@@ -180,5 +181,9 @@ function main() {
   # Remove temp package.json file
   rm -rf $TMP_PACKAGE_JSON
 }
+
+trap 'abortRelease' QUIT
+
+trap 'abortRelease' INT
 
 main
