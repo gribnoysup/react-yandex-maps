@@ -55,11 +55,26 @@ export const Props = ({ title, isToggle, isRaw, of: component }) => {
     const props = { ...get('props', definition || firstDefinition) };
 
     for (const key of Object.keys(props)) {
-      if (props[key].description) {
+      if (
+        props[key].description &&
+        typeof props[key].description === 'string'
+      ) {
         if (props[key].description.includes('@ignore')) {
           delete props[key];
         } else {
-          props[key].description = compileMarkdown(props[key].description).tree;
+          try {
+            props[key].description = compileMarkdown(
+              props[key].description
+            ).tree;
+          } catch (e) {
+            /* eslint-disable no-console */
+            console.warn("Couldn't compile mardown to React tree");
+            console.warn('Input:');
+            console.warn(props[key].description);
+            console.warn('Error:');
+            console.warn(e);
+            /* eslint-enable no-console */
+          }
         }
       }
     }
