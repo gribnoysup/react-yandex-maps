@@ -1,14 +1,31 @@
 import set from './util/set';
 
+const YMAPS_ONLOAD = '__yandex-maps-api-onload__';
+
+const YMAPS_ONERROR = '__yandex-maps-api-onerror__';
+
+function getBaseUrl(isEnterprise) {
+  return `https://${isEnterprise ? 'enterprise.' : ''}api-maps.yandex.ru`;
+}
+
+const YMAPS_DEFAULT_QUERY = {
+  lang: 'ru_RU',
+  load: '',
+  ns: '',
+  mode: process.env.NODE_ENV !== 'production' ? 'debug' : 'release',
+};
+
+const PROMISES = {};
+
 export class YMaps {
   constructor(options) {
     const hash = Date.now().toString(32);
 
     this.options = options;
-    this.namespace = options.query.ns || YMaps.defaultQuery.ns;
+    this.namespace = options.query.ns || YMAPS_DEFAULT_QUERY.ns;
 
-    this.onload = YMaps.onloadCallback + '$$' + hash;
-    this.onerror = YMaps.onerrorCallback + '$$' + hash;
+    this.onload = YMAPS_ONLOAD + '$$' + hash;
+    this.onerror = YMAPS_ONERROR + '$$' + hash;
 
     this.api;
     this.promise;
@@ -25,12 +42,12 @@ export class YMaps {
   }
 
   getPromise() {
-    return this.namespace ? YMaps.promiseMap[this.namespace] : this.promise;
+    return this.namespace ? PROMISES[this.namespace] : this.promise;
   }
 
   setPromise(promise) {
     return this.namespace
-      ? (YMaps.promiseMap[this.namespace] = this.promise = promise)
+      ? (PROMISES[this.namespace] = this.promise = promise)
       : (this.promise = promise);
   }
 
@@ -43,7 +60,7 @@ export class YMaps {
         onload: this.onload,
         onerror: this.onerror,
       },
-      YMaps.defaultQuery,
+      YMAPS_DEFAULT_QUERY,
       this.options.query
     );
 
@@ -51,7 +68,7 @@ export class YMaps {
       .map(key => `${key}=${query[key]}`)
       .join('&');
 
-    const baseUrl = YMaps.getBaseUrl(this.options.enterprise);
+    const baseUrl = getBaseUrl(this.options.enterprise);
 
     const url = [baseUrl, this.options.version, '?' + queryString].join('/');
 
@@ -103,20 +120,3 @@ export class YMaps {
 }
 
 YMaps._name = '__react-yandex-maps__';
-
-YMaps.onloadCallback = '__yandex-maps-api-onload__';
-
-YMaps.onerrorCallback = '__yandex-maps-api-onerror__';
-
-YMaps.getBaseUrl = function getBaseUrl(isEnterprise) {
-  return `https://${isEnterprise ? 'enterprise.' : ''}api-maps.yandex.ru`;
-};
-
-YMaps.defaultQuery = {
-  lang: 'ru_RU',
-  load: '',
-  ns: '',
-  mode: process.env.NODE_ENV !== 'production' ? 'debug' : 'release',
-};
-
-YMaps.promiseMap = {};
