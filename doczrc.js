@@ -23,6 +23,7 @@ module.exports = {
     'GeoObjects',
     'Clusterization',
     'Controls',
+    'Routes',
     'YMaps Context',
     'Migration Guide',
   ],

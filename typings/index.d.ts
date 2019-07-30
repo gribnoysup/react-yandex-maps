@@ -197,6 +197,8 @@ export const ObjectManager: React.ComponentType<ObjectManagerProps>;
 export const Clusterer: React.ComponentType<ClustererProps>;
 export const Panorama: React.ComponentType<PanoramaProps>;
 
+// TODO Add typing for Routes
+
 //
 // Geo Objects components
 // ----------------------------------------------------------------------
