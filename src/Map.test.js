@@ -15,51 +15,6 @@ describe('Map', () => {
     baseProps.instanceRef.mockClear();
   });
 
-  describe('getParentElementSize', () => {
-    it('should return style with width and height if no style or className present in props', () => {
-      expect(Map.getParentElementSize({ width: 320, height: 240 }))
-        .toMatchInlineSnapshot(`
-Object {
-  "style": Object {
-    "height": 240,
-    "width": 320,
-  },
-}
-`);
-    });
-
-    it('should return `style` prop if provided and omit width, height', () => {
-      expect(
-        Map.getParentElementSize({
-          width: '100%',
-          height: '100%',
-          style: { width: 320, height: 240 },
-        })
-      ).toMatchInlineSnapshot(`
-Object {
-  "style": Object {
-    "height": 240,
-    "width": 320,
-  },
-}
-`);
-    });
-
-    it('should return `className` prop if provided and omit width, height', () => {
-      expect(
-        Map.getParentElementSize({
-          width: '100%',
-          height: '100%',
-          className: 'my-awesome-map-container',
-        })
-      ).toMatchInlineSnapshot(`
-Object {
-  "className": "my-awesome-map-container",
-}
-`);
-    });
-  });
-
   describe('mountObject', () => {
     it('should create an instance', () => {
       const instance = Map.mountObject(parentElement, MockMapObject, baseProps);
