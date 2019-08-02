@@ -13,8 +13,10 @@ export class Route extends React.Component {
   }
 
   componentDidMount() {
-    Route.mountObject(this.props.ymaps.route, this.props).then(instance =>
-      this.setState({ instance })
+    this._mounted = true;
+
+    Route.mountObject(this.props.ymaps.route, this.props).then(
+      instance => this._mounted && this.setState({ instance })
     );
   }
 
@@ -25,6 +27,7 @@ export class Route extends React.Component {
   }
 
   componentWillUnmount() {
+    this._mounted = false;
     Route.unmountObject(this.state.instance, this.props);
   }
 
@@ -50,11 +53,11 @@ export class Route extends React.Component {
           throw new Error(`No parent found to mount ${props.name}`);
         }
 
-        applyRef(null, instanceRef, instance);
-
         Object.keys(_events).forEach(key =>
           events.addEvent(instance, key, _events[key])
         );
+
+        applyRef(null, instanceRef, instance);
 
         resolve(instance);
       }, reject);
