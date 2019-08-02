@@ -4,6 +4,7 @@ import { getProp, isControlledProp } from './util/props';
 import withYMaps from './withYMaps';
 import * as events from './util/events';
 import applyRef from './util/ref';
+import getParentElementSize from './util/getParentElementSize';
 
 export class Panorama extends React.Component {
   constructor() {
@@ -41,19 +42,9 @@ export class Panorama extends React.Component {
   }
 
   render() {
-    const parentElementStyle = Panorama.getParentElementSize(this.props);
+    const parentElementStyle = getParentElementSize(this.props);
 
     return <div ref={this._getRef} {...parentElementStyle} />;
-  }
-
-  static getParentElementSize(props) {
-    const { width, height, style, className } = props;
-
-    if (typeof style !== 'undefined' || typeof className !== 'undefined') {
-      return Object.assign({}, style && { style }, className && { className });
-    }
-
-    return { style: { width, height } };
   }
 
   static mountObject(parentElement, panorama, props) {

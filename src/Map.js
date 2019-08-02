@@ -7,6 +7,7 @@ import { getProp, isControlledProp } from './util/props';
 import withYMaps from './withYMaps';
 import { ParentContext } from './Context';
 import applyRef from './util/ref';
+import getParentElementSize from './util/getParentElementSize';
 
 export class Map extends React.Component {
   constructor() {
@@ -39,7 +40,7 @@ export class Map extends React.Component {
   }
 
   render() {
-    const parentElementStyle = Map.getParentElementSize(this.props);
+    const parentElementStyle = getParentElementSize(this.props);
     const separatedProps = events.separateEvents(this.props);
 
     const parentElementProps = omit(separatedProps, [
@@ -64,16 +65,6 @@ export class Map extends React.Component {
         </div>
       </ParentContext.Provider>
     );
-  }
-
-  static getParentElementSize(props) {
-    const { width, height, style, className } = props;
-
-    if (typeof style !== 'undefined' || typeof className !== 'undefined') {
-      return Object.assign({}, style && { style }, className && { className });
-    }
-
-    return { style: { width, height } };
   }
 
   static mountObject(parentElement, Map, props) {

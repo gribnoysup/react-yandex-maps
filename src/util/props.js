@@ -18,6 +18,7 @@ export function isControlledProp(props, key) {
  *
  * @param {Object} props Component props
  * @param {string} key Prop key
+ * @param {any} defaultValue
  * @return {any} Prop value
  */
 export function getProp(props, key, defaultValue) {
