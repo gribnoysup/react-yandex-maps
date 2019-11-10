@@ -189,7 +189,7 @@ export function withYMaps<P>(
   component: React.ComponentType<P>,
   waitForApi?: boolean,
   modules?: string[]
-): React.ComponentType<P & WithYMapsProps>;
+): React.ComponentType<P>;
 
 export const YMaps: React.ComponentType<YMapsProps>;
 export const Map: React.ComponentType<MapProps>;
