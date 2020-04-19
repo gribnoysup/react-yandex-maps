@@ -103,11 +103,11 @@ export class Map extends React.Component {
         if (newState.behaviors) instance.behaviors.enable(newState.behaviors);
       }
 
-      if (oldState.zoom !== newState.zoom) {
+      if (newState.zoom && oldState.zoom !== newState.zoom) {
         instance.setZoom(newState.zoom);
       }
 
-      if (oldState.center !== newState.center) {
+      if (newState.center && oldState.center !== newState.center) {
         instance.setCenter(newState.center);
       }
 
