@@ -109,7 +109,7 @@ export class ObjectManager extends React.Component {
       const newFilter = getProp(newProps, 'filter');
 
       if (oldFilter !== newFilter) {
-        instance.options.set(newFilter);
+        instance.setFilter(newFilter);
       }
     }
 
