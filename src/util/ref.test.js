@@ -28,4 +28,24 @@ describe('ref', () => {
     const expected = { current: value };
     expect(newRef).toMatchObject(expected);
   });
+
+  it("calls new ref with a value only when it's different with an old ref", () => {
+    const oldRef = jest.fn();
+    const newRef = jest.fn();
+
+    applyRef(oldRef, newRef, 'test');
+
+    expect(oldRef).toHaveBeenCalledWith(null);
+    expect(newRef).toHaveBeenCalledWith('test');
+  });
+
+  it('does not call old and new ref if they are strictly equal', () => {
+    const oldRef = jest.fn();
+    const newRef = oldRef;
+
+    applyRef(oldRef, newRef, 'test');
+
+    expect(oldRef).toHaveBeenCalledTimes(0);
+    expect(newRef).toHaveBeenCalledTimes(0);
+  });
 });
