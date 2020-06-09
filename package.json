@@ -36,9 +36,9 @@
     "react": "^0.14.9 || ^15.x || ^16.x"
   },
   "dependencies": {
-    "create-react-context": "^0.2.3",
+    "create-react-context": "^0.3.0",
     "prop-types": "^15.7.2",
-    "react-display-name": "^0.2.4"
+    "react-display-name": "^0.2.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.7.1",
