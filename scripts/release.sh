@@ -69,7 +69,8 @@ function prepare() {
   echo "  > Installing dependencies from scratch"
   echo
 
-  npm ci
+  rm -rf node_modules
+  npm install --production=false
 }
 
 function test() {
