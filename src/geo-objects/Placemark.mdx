@@ -32,5 +32,52 @@ Renders Yandex.Maps API [Placemark][docs] object
 
 <Props of={_Placemark} />
 
+## Plant Placemark
+```
+export default class DisplayMap extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+        // * Set longitude & latitude to null so that the marker is not automatically generated
+            location: {
+                long: null,
+                lat: null,
+            }  
+        };
+        this.clickOnMap = this.clickOnMap.bind(this);
+      }
+    
+    // * A function that handles pressing a button at a specific location on the map and passes coordinates to state
+    clickOnMap(event) {
+        this.setState({
+            location:{
+            // * We take coordinates from the received data (JSON). They are stored as an array
+                long: event.get('coords')[0],
+                lat: event.get('coords')[1]
+            }})}
+
+    render() { 
+    // * Pass coordinates to array
+        const coordinates = [
+        [this.state.location.long, this.state.location.lat],
+        ];
+        return [
+            <React.Fragment>
+                <YMaps>
+                    {/ * transfer of function when the card is pressed * /}
+                    <Map defaultState={{ center: [55.751574, 37.573856], zoom: 10,}} onClick={this.clickOnMap}>
+                    {/ * Passing coordinates via map to Placemark * /}
+                    {coordinates.map(coordinate => <Placemark geometry={coordinate} />)}
+                    {/*
+                    * Can be used differently:
+                    *    <Placemark geometry = {[this.state.long, this.state.lat]}
+                    */}
+                </Map>
+                </YMaps>
+            </React.Fragment>
+        ];
+    }
+}
+```
 [docs]:
   https://tech.yandex.com/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/
