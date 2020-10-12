@@ -186,7 +186,7 @@ export interface WithYMapsProps {
 }
 
 export function withYMaps<P>(
-  component: React.ComponentType<P>,
+  component: React.ComponentType<P & WithYMapsProps>,
   waitForApi?: boolean,
   modules?: string[]
 ): React.ComponentType<P>;
