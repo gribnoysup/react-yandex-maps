@@ -7,19 +7,21 @@
  * @param {T?} value
  */
 export default function applyRef(oldRef, newRef, value = null) {
-  if (oldRef && oldRef !== newRef) {
-    if (oldRef.hasOwnProperty('current')) {
-      oldRef.current = null;
-    } else if (typeof oldRef === 'function') {
-      oldRef(null);
+  if (oldRef !== newRef) {
+    if (oldRef) {
+      if (oldRef.hasOwnProperty('current')) {
+        oldRef.current = null;
+      } else if (typeof oldRef === 'function') {
+        oldRef(null);
+      }
     }
-  }
 
-  if (!newRef) return;
+    if (!newRef) return;
 
-  if (newRef.hasOwnProperty('current')) {
-    newRef.current = value;
-  } else if (typeof newRef === 'function') {
-    newRef(value);
+    if (newRef.hasOwnProperty('current')) {
+      newRef.current = value;
+    } else if (typeof newRef === 'function') {
+      newRef(value);
+    }
   }
 }

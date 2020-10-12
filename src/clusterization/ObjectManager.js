@@ -39,11 +39,11 @@ export class ObjectManager extends React.Component {
   static mountObject(ObjectManager, props) {
     const { instanceRef, parent, _events } = events.separateEvents(props);
 
-    const options = getProp(props, 'options');
-    const features = getProp(props, 'features');
-    const filter = getProp(props, 'filter');
-    const objects = getProp(props, 'objects');
-    const clusters = getProp(props, 'clusters');
+    const options = getProp(props, 'options', {});
+    const features = getProp(props, 'features', {});
+    const filter = getProp(props, 'filter', null);
+    const objects = getProp(props, 'objects', {});
+    const clusters = getProp(props, 'clusters', {});
 
     const instance = new ObjectManager(options);
 
@@ -109,7 +109,7 @@ export class ObjectManager extends React.Component {
       const newFilter = getProp(newProps, 'filter');
 
       if (oldFilter !== newFilter) {
-        instance.options.set(newFilter);
+        instance.setFilter(newFilter);
       }
     }
 

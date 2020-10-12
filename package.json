@@ -1,6 +1,6 @@
 {
   "name": "react-yandex-maps",
-  "version": "4.2.0",
+  "version": "4.5.0",
   "description": "Yandex.Maps API bindings for React",
   "typings": "typings/index.d.ts",
   "main": "index.js",
@@ -19,9 +19,9 @@
     "lint": "eslint",
     "build": "npm run clear && npm run microbundle:production && npm run microbundle:development",
     "microbundle": "microbundle --jsx React.createElement --name ReactYandexMaps --external react --globals react=React --define process.env.NODE_ENV=\"${NODE_ENV}\",__DOCZ__=false",
-    "microbundle:production": "NODE_ENV=production npm run microbundle -- --output ./dist/production",
-    "microbundle:development": "NODE_ENV=development npm run microbundle -- --output ./dist/development",
-    "microbundle:watch": "NODE_ENV=development npm run microbundle -- --output ./dist/development --no-compress --watch",
+    "microbundle:production": "cross-env NODE_ENV=production npm run microbundle -- --output ./dist/production",
+    "microbundle:development": "cross-env NODE_ENV=development npm run microbundle -- --output ./dist/development",
+    "microbundle:watch": "cross-env NODE_ENV=development npm run microbundle -- --output ./dist/development --no-compress --watch",
     "docs:dev": "docz dev",
     "docs:build": "docz build",
     "docs:deploy": "now",
@@ -36,15 +36,17 @@
     "react": "^0.14.9 || ^15.x || ^16.x"
   },
   "dependencies": {
-    "create-react-context": "^0.2.3",
+    "create-react-context": "^0.3.0",
     "prop-types": "^15.7.2",
-    "react-display-name": "^0.2.4"
+    "react-display-name": "^0.2.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
     "capitalize": "^2.0.0",
+    "cross-env": "^7.0.2",
     "docz": "^1.3.2",
     "docz-theme-default": "^1.2.0",
     "eslint": "^5.16.0",

@@ -19,15 +19,22 @@
     <div id="root"></div>
 
     <script>
-      const { YMaps, Map } = ReactYandexMaps;
+      const { YMaps, Map, Placemark } = ReactYandexMaps;
 
       const html = htm.bind(React.createElement);
+
+      const center = [55.75, 37.57];
 
       const App = () => html`
         <${YMaps}>
           <div>
             My awesome application with maps!
-            <${Map} defaultState=${{ center: [55.75, 37.57], zoom: 9 }} />
+            <${Map} defaultState=${{ center, zoom: 9 }}>
+              <${Placemark}
+                defaultGeometry=${center}
+                instanceRef=${console.log}
+              />
+            <//>
           </div>
         <//>
       `;
