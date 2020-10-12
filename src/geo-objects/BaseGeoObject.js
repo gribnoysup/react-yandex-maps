@@ -41,7 +41,7 @@ export class BaseGeoObject extends React.Component {
   static mountObject(GeoObject, props) {
     const { instanceRef, parent, _events } = events.separateEvents(props);
 
-    const geometry = getProp(props, 'geometry');
+    const geometry = getProp(props, 'geometry', []);
     const properties = getProp(props, 'properties');
     const options = getProp(props, 'options');
 
