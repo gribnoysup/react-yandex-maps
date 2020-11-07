@@ -33,7 +33,7 @@
     "url": "git+https://github.com/gribnoysup/react-yandex-maps.git"
   },
   "peerDependencies": {
-    "react": "^0.14.9 || ^15.x || ^16.x"
+    "react": "^0.14.9 || ^15.x || ^16.x || ^17.x"
   },
   "dependencies": {
     "create-react-context": "^0.3.0",
