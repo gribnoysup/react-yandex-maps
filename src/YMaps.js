@@ -4,6 +4,8 @@ const YMAPS_ONLOAD = '__yandex-maps-api-onload__';
 
 const YMAPS_ONERROR = '__yandex-maps-api-onerror__';
 
+const VECTOR_NS = 'ymaps'; // vector map mode need ymaps namespace
+
 function getBaseUrl(isEnterprise) {
   return `https://${isEnterprise ? 'enterprise.' : ''}api-maps.yandex.ru`;
 }
@@ -23,6 +25,10 @@ export class YMaps {
 
     this.options = options;
     this.namespace = options.query.ns || YMAPS_DEFAULT_QUERY.ns;
+
+    if (this.options.vector) {
+      this.namespace = VECTOR_NS;
+    }
 
     this.onload = YMAPS_ONLOAD + '$$' + hash;
     this.onerror = YMAPS_ONERROR + '$$' + hash;
