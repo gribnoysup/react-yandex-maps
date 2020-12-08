@@ -10,6 +10,8 @@ export { default as Map } from './Map';
 
 export { default as Panorama } from './Panorama';
 
+export { default as Route } from './Route';
+
 /** Controls */
 
 export { default as Button } from './controls/Button';
