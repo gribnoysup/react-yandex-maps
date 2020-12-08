@@ -1,0 +1,35 @@
+---
+name: MultiRoute
+route: /routes/multiroute
+menu: Route
+---
+
+import { Playground } from 'docz';
+import { Props } from '../docz/components/Props';
+import { MultiRoute as _MultiRoute } from './MultiRoute';
+import { YMaps, Map, MultiRoute } from './';
+
+# MultiRoute
+
+Renders Yandex.Maps API [MultiRoute][multiroute] object
+
+## Basic Usage
+
+<Playground>
+  <YMaps query={{ apikey: '52512926-86c8-42a8-b561-e1fb75733b4a' }}>
+    <Map defaultState={{ center: [55.739625, 37.5412], zoom: 12 }}>
+      <MultiRoute
+        referencePoints={[[55.749, 37.524], 'Москва, Успенский пер. 7']}
+        params={{ routingMode: 'masstransit' }}
+        options={{ boundsAutoApply: true }}
+      />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_MultiRoute} />
+
+[multiroute]:
+  https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/
