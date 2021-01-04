@@ -1,6 +1,6 @@
 {
   "name": "react-yandex-maps",
-  "version": "4.5.0",
+  "version": "4.6.0",
   "description": "Yandex.Maps API bindings for React",
   "typings": "typings/index.d.ts",
   "main": "index.js",
@@ -33,7 +33,7 @@
     "url": "git+https://github.com/gribnoysup/react-yandex-maps.git"
   },
   "peerDependencies": {
-    "react": "^0.14.9 || ^15.x || ^16.x"
+    "react": "^0.14.9 || ^15.x || ^16.x || ^17.x"
   },
   "dependencies": {
     "create-react-context": "^0.3.0",
