@@ -73,7 +73,7 @@ export interface MapOptions extends AnyObject {
   minZoom?: number;
   nativeFullscreen?: boolean;
   projection?: any;
-  restrictMapArea?: boolean;
+  restrictMapArea?: boolean | number[][];
   suppressMapOpenBlock?: boolean;
   suppressObsoleteBrowserNotifier?: boolean;
   yandexMapAutoSwitch?: boolean;
