@@ -36,7 +36,7 @@
     "react": "^0.14.9 || ^15.x || ^16.x || ^17.x"
   },
   "dependencies": {
-    "create-react-context": "^0.3.0",
+    "mini-create-react-context": "^0.4.1",
     "prop-types": "^15.7.2",
     "react-display-name": "^0.2.5"
   },
