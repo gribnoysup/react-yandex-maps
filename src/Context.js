@@ -1,5 +1,5 @@
 import React from 'react';
-import createReactContext from 'create-react-context';
+import createReactContext from 'mini-create-react-context';
 import name from 'react-display-name';
 
 export const YMapsContext = createReactContext(null);
