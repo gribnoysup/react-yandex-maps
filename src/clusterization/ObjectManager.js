@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import differenceWith from 'lodash/differenceWith';
 
 import * as events from '../util/events';
 import { getProp, isControlledProp } from '../util/props';
@@ -118,8 +119,18 @@ export class ObjectManager extends React.Component {
       const newFeatures = getProp(newProps, 'features');
 
       if (oldFeatures !== newFeatures) {
-        instance.remove(oldFeatures);
-        instance.add(newFeatures);
+        let featuresToRemove = differenceWith(
+          oldFeatures,
+          newFeatures,
+          (a, b) => a.id === b.id
+        );
+        let featuresToAdd = differenceWith(
+          newFeatures,
+          oldFeatures,
+          (a, b) => a.id === b.id
+        );
+        instance.remove(featuresToRemove);
+        instance.add(featuresToAdd);
       }
     }
 
