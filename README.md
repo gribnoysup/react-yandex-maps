@@ -1,3 +1,9 @@
+# ⚠️ This project is archived
+
+I am not interested in doing any free work for a company that is [helping Russia](https://www.proekt.media/narrative/yandex-i-kreml/) [to wage war on Ukraine](https://www.theguardian.com/world/2022/mar/30/western-owned-russian-firm-helps-sites-pushing-false-news-profit-from-ads-yandex) [by spreading state propaganda](https://www.protocol.com/policy/yandex-gershenzon-qa). This project is archived and will not get any updates
+
+---
+
 # react-yandex-maps
 
 [Yandex.Maps JS API][ymaps-api] bindings for React
