@@ -13,7 +13,7 @@ I am not interested in doing any free work for a company that is [helping Russia
 
 ## Documentation
 
-You can find the documentation at https://react-yandex-maps.now.sh
+~You can find the documentation at https://react-yandex-maps.now.sh~ This domain was claimed by another person and is not maintained by authors of this package anymore
 
 ## Contributing
 
