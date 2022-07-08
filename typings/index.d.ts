@@ -78,6 +78,7 @@ export interface MapOptions extends AnyObject {
   suppressObsoleteBrowserNotifier?: boolean;
   yandexMapAutoSwitch?: boolean;
   yandexMapDisablePoiInteractivity?: boolean;
+  vector?: boolean;
 }
 
 export interface MapProps extends CommonProps {
