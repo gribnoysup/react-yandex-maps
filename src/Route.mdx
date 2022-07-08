@@ -1,0 +1,42 @@
+---
+name: Route
+route: /routes/route
+menu: Routes
+---
+
+import { Playground } from 'docz';
+import { Props } from '../docz/components/Props';
+import { Route as _Route } from './Route';
+import { YMaps, Map, Route } from './';
+
+# Route
+
+Renders Yandex.Maps API [Route][route] object
+
+## Basic Usage
+
+<Playground>
+  <YMaps query={{ apikey: '52512926-86c8-42a8-b561-e1fb75733b4a' }}>
+    <Map defaultState={{ center: [55.745508, 37.435225], zoom: 13 }}>
+      <Route
+        points={[
+          'Москва, улица Крылатские холмы',
+          {
+            point: 'Москва, метро Молодежная',
+            type: 'viaPoint',
+          },
+          [55.731272, 37.447198],
+          'Москва, метро Пионерская',
+        ]}
+        params={{ mapStateAutoApply: true }}
+      />
+    </Map>
+  </YMaps>
+</Playground>
+
+## Props
+
+<Props of={_Route} />
+
+[route]:
+  https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/router.Route-docpage/
