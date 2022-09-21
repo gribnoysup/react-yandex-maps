@@ -1,5 +1,7 @@
 /** Yandex.Maps context-related stuff */
 
+export { YMapsContext } from './Context';
+
 export { default as withYMaps } from './withYMaps';
 
 export { default as YMaps } from './Provider';
